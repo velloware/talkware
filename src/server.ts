@@ -1,4 +1,3 @@
-import { output } from './modules/fileTwo';
+import { Server } from './modules/server';
 
-
-output(`Projeto com NODE e Typescript configurado - Version: 1.0.1`);
+new Server(1337).build();
