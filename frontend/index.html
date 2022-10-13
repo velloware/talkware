@@ -7,25 +7,20 @@
   <title>Talkware</title>
 </head>
 <body>
-  <script type="module">
-    import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-
-    const socket = io('ws://127.0.0.1:1337/', {});
-
-    socket.on('connect', () => {
-      console.log(`connect ${socket.id}`);
-    });
-
-    socket.emit('voice', "Ola");
-
-    socket.on('voicePush', (data) => {
-      console.log(`voicePush ${data}`);
-    });
-
-    socket.on('disconnect', () => {
-      console.log(`Disconnect For SocketServer`);
-    });
-
-  </script>
+  <h1>Your User-session: <span id="userId"></span></h1>
+  <h1>Chat</h1>
+  <textarea id="chat" cols="30" rows="10"></textarea>  
+  <br>
+  <br>
+  <input type="text" id="message"/>
+  <button id="sender" type="button">Send</button> 
+  <br>
+  <br>
+  <br>
+  <br>
+  <button id="setName" type="button">Set your name</button> 
+  <input type="text" id="name"/>
 </body>
+  <script type="module" src="./js/index.js"></script>
+  <script type="module" src="./js/user.js"></script>
 </html>

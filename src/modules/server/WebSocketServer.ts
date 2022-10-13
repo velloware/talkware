@@ -1,5 +1,6 @@
 import { Server, Socket } from "socket.io";
 export { Server as IServer } from "socket.io";
+import { log } from '../Utils';
 
 export class WebSocketServer {
   private PORT: number;
@@ -17,10 +18,10 @@ export class WebSocketServer {
     });
 
     socket.on("connect", (socket) => {
-      console.log(`> Server >> User connect using SocketId = ${socket.id}`);
+      log(`> Server >> User connect using SocketId = ${socket.id}`);
 
       socket.on("disconnect", () => {
-        console.log(`> Server >> User disconnect using SocketId = ${socket.id}`);
+        log(`> Server >> User disconnect using SocketId = ${socket.id}`);
       });
 
     });

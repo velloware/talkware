@@ -20,9 +20,18 @@ export class Client extends Entity<IClient>{
     return this.id;
   }
 
+  get name(): string {
+    return this.name;
+  }
+
   set SocketId(socketId: string) {
     this.socketId = socketId;
     this.equals()
+  }
+
+  set name(name: string) {
+    this.props.name = name;
+    this.equals();
   }
 
 }
