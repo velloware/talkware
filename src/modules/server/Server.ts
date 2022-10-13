@@ -1,7 +1,6 @@
-import * as readline from 'node:readline';
-import { stdin as input, stdout as output } from 'node:process';
 import { WebSocketServer, IServer } from "./WebSocketServer";
 import { Client } from './Client';
+import { log } from '../Utils';
 
 export class Server {
 
@@ -11,7 +10,7 @@ export class Server {
   protected Clients: Client[] = [];
 
   constructor(Port: number) {
-    console.log(`> Server linsting in ${Port}`);
+    log(`> Server linsting in ${Port}`);
     this.Port = Port;
     this.webSocketServer = new WebSocketServer(this.Port);
     this.Socket = this.webSocketServer.createWsServer();
@@ -30,23 +29,35 @@ export class Server {
         socketId: socket.id
       }));
 
-      console.log(`Server > new Client connected: ${socket.id}`);
+      log(`Server > new Client connected: ${socket.id}`);
 
       socket.on('voice', (data) => {
-
         socket.broadcast.emit('voicePush', data);
-
-        // this.Clients.forEach(client => {
-
-        //   if (client.socketId != socket.id) {
-        //     this.Socket.to(client.socketId).emit('voicePush', data);
-        //   }
-
-        // });
-
-        console.log(`Server > voice: ${data}`);
+        log(`Server > voice: ${data}`);
       });
 
+      socket.on('userData', (data) => {
+        log(`Server > userData: ${data}`);
+        this.Clients.forEach((client, index) => {
+          if (client.socketId === socket.id) {
+            this.Clients[index].name = data;
+          }
+        })
+      });
+
+
+      socket.on('stream', (data) => {
+        log(`Server > voice: ${data} by ${socket.id}`);
+      });
+
+      socket.on('message', (data) => {
+        log(`Server >> Message by ${socket.id} : ${data}`);
+        const clientSend = this.Clients.find((client) => client.socketId === socket.id) || new Client({ name: 'unknown', socketId: socket.id });
+
+        log(clientSend)
+
+        socket.broadcast.emit('messageSender', `${clientSend.props.name || socket.id}: ${data.toString()}`);
+      });
 
     });
   }
