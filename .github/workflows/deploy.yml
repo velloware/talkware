@@ -1,0 +1,41 @@
+name: Deploy - Production - talkware.velloware.com
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          PORT: ${{ secrets.PORT }}
+          source: '.'
+          target: '/var/www/talkware.velloware.com'
+          overwrite: true
+      - name: Deployng the project branch ${{ github.ref_name }} in /var/www/talkware.velloware.com
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          PORT: ${{ secrets.PORT }}
+          script: |
+            sudo chown -R $USER /var/www/talkware.velloware.com
+            cd /var/www/talkware.velloware.com
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            npm ci i
+            npm run build
+            pm2 link ${{ secrets.PM2A }} ${{ secrets.PM2B }}
+            pm2 delete Talkware - Server
+            pm2 start ecosystem.config.js
+            curl --request POST --url https://dash.velloware.com/api/notification --header 'Content-Type: application/json' --data '{"message": "Deploing Talkware Backend - ⛑${{ github.ref_name }}📢\n on Vello-1-server (acess: talkware.velloware.com)"}'
