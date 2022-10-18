@@ -1,12 +1,7 @@
-import { Entity } from "../../core/domain/Entity";
+import { Entity } from "../../../core/domain/Entity";
+import { ClientClass, IClient } from "./IClient";
 
-interface IClient {
-  id?: string;
-  name: string;
-  socketId?: string;
-}
-
-export class Client extends Entity<IClient>{
+export class Client extends Entity<IClient> implements ClientClass {
 
   public socketId: string = "";
 
@@ -17,21 +12,19 @@ export class Client extends Entity<IClient>{
   }
 
   get id(): string {
-    return this.id;
+    return this.props.id || '';
   }
 
   get name(): string {
-    return this.name;
+    return this.props.name;
   }
 
   set SocketId(socketId: string) {
     this.socketId = socketId;
-    this.equals()
   }
 
   set name(name: string) {
     this.props.name = name;
-    this.equals();
   }
 
 }

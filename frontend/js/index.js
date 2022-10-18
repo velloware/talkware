@@ -1,21 +1,22 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
-
-const socket = io('https://talkware-backend.velloware.com/', {});
+// const socket = io('https://talkware-backend.velloware.com/', {});
+const socket = io('localhost:3333', {});
 
 socket.on('connect', () => setUserName(socket.id));
 socket.on('disconnect', () => console.log(`Disconnect For SocketServer`));
 
 socket.on('messageSender', data => writeMessagesInteTextArea(data));
+socket.on('ChatMessage', data => writeMessagesInteTextArea(data));
 
 const sendMessage = () => {
   const message = document.getElementById('message').value;
   writeMessagesInteTextArea(`You: ${message}`);
-  socket.emit('message', message);
+  socket.emit('ChatMessage', message);
 };
 
 const setUser = () => {
   const name = document.getElementById('name').value;
-  socket.emit('userData', name);
+  socket.emit('ChatConnection', name);
 
   setUserName(`${name} With Session ${socket.id}`);
 };
@@ -30,5 +31,19 @@ const setUserName = name => {
   userIdRef.textContent = name;
 };
 
+const setChatName = name => {
+  const userIdRef = document.getElementById('chatCurrent');
+  userIdRef.textContent = name;
+};
+setChatName('No Chat Selected. GLOBAL CHAT');
+
+const setChat = () => {
+  const chatId = document.getElementById('chatIdJoin').value;
+  socket.emit('ChatConnection', chatId);
+
+  setChatName(`${chatId}`);
+};
+
 document.getElementById('sender').addEventListener('click', sendMessage);
 document.getElementById('setName').addEventListener('click', setUser);
+document.getElementById('setChat').addEventListener('click', setChat);
