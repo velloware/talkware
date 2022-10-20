@@ -1,8 +1,10 @@
 import { Server, Socket } from "socket.io";
-import { RoomEvents, roomGlobal } from './RoomEvents';
+import { RoomEvents } from './RoomEvents';
+import { Chat } from '../../../modules/useCases/Chat/Chat';
 
 export class EventsSocketIo {
   private io: Server;
+
   constructor(io: Server) {
     this.io = io;
   }
@@ -22,7 +24,17 @@ export class EventsSocketIo {
 
       socket.on("disconnect", () => this.onDisconnect(socket));
 
-      new RoomEvents(socket, roomGlobal);
+      new RoomEvents(socket, this.initChat());
     });
+
+  }
+
+  public initChat() {
+    const chat = new Chat();
+    return {
+      Room: chat.getRoomGlobal(),
+      SudoClient: chat.getClientSudo(),
+    }
+
   }
 }

@@ -1,50 +1,21 @@
 import { Socket } from "socket.io";
 import { Room, Client, Message } from '../../../modules/Domain';
 import { wsLogger } from '../Utils/wsLogger';
+import { RoomService } from '../../../modules/useCases/Room/Services/Room';
 
-export const roomGlobal = new Room({
-  id: '1',
-  name: 'Global Romm',
-  messages: [],
-  users: [],
-  password: '',
-  isPrivate: false,
-  ownerId: '',
-});
-
-const client1 = new Client({
-  id: '1',
-  name: 'John Doe',
-  socketId: '1234567890', D
-});
-
-const room1 = new Room({
-  id: '2',
-  name: 'Room 1 - John Doe',
-  messages: [],
-  users: [],
-  password: '',
-  isPrivate: false,
-  ownerId: '1',
-});
-
-const room2 = new Room({
-  id: '2',
-  name: 'Room 2 - Glob',
-  messages: [],
-  users: [],
-  password: '',
-  isPrivate: false,
-  ownerId: '1',
-});
+interface IRoomEvents {
+  Room: Room;
+  SudoClient: Client;
+}
 
 export class RoomEvents {
 
   private socket: Socket;
   private Room: Room = {} as Room;
+  private GlobalRoom: Room = {} as Room;
   private client: Client = {} as Client;
 
-  constructor(socket: Socket, Room: Room) {
+  constructor(socket: Socket, { Room, SudoClient }: IRoomEvents) {
     this.socket = socket;
     this.client = new Client({
       id: socket.id,
@@ -52,6 +23,7 @@ export class RoomEvents {
       socketId: socket.id,
     });
     this.Room = Room;
+    this.GlobalRoom = Room;
     this.Room.addUser(this.client);
     this.socket.join(this.Room.props.id);
 
@@ -80,14 +52,17 @@ export class RoomEvents {
     this.socket.leave(this.Room.props.id);
     this.Room.removeUser(this.client);
 
-    if (RoomId === '1') {
-      this.Room = room1;
-    } else if (RoomId === '2') {
-      this.Room = room2;
-    } else if (RoomId === '3') {
-      this.Room = roomGlobal;
+    const findRoom = new RoomService().findRoomById(RoomId);
+
+    if (!findRoom) {
+      this.socket.join(this.GlobalRoom.props.id);
+      this.Room = this.GlobalRoom;
+      this.Room.addUser(this.client);
+      this.socket.emit("message", `Select ROOM dont find, REDIRED to Global Room`);
+      return;
     }
 
+    this.Room = findRoom;
     this.Room.addUser(this.client);
     this.socket.join(this.Room.props.id);
   }
