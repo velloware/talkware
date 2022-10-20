@@ -6,17 +6,18 @@ socket.on('connect', () => setUserName(socket.id));
 socket.on('disconnect', () => console.log(`Disconnect For SocketServer`));
 
 socket.on('messageSender', data => writeMessagesInteTextArea(data));
+socket.on('message', data => writeMessagesInteTextArea(data));
 socket.on('ChatMessage', data => writeMessagesInteTextArea(data));
 
 const sendMessage = () => {
   const message = document.getElementById('message').value;
   writeMessagesInteTextArea(`You: ${message}`);
-  socket.emit('ChatMessage', message);
+  socket.emit('message', message);
 };
 
 const setUser = () => {
   const name = document.getElementById('name').value;
-  socket.emit('ChatConnection', name);
+  socket.emit('changeName', name);
 
   setUserName(`${name} With Session ${socket.id}`);
 };
@@ -37,13 +38,13 @@ const setChatName = name => {
 };
 setChatName('No Chat Selected. GLOBAL CHAT');
 
-const setChat = () => {
-  const chatId = document.getElementById('chatIdJoin').value;
-  socket.emit('ChatConnection', chatId);
+const setRoom = () => {
+  const roomId = document.getElementById('chatIdJoin').value;
+  socket.emit('changeRoom', roomId);
 
-  setChatName(`${chatId}`);
+  setChatName(`${roomId}`);
 };
 
 document.getElementById('sender').addEventListener('click', sendMessage);
 document.getElementById('setName').addEventListener('click', setUser);
-document.getElementById('setChat').addEventListener('click', setChat);
+document.getElementById('setChat').addEventListener('click', setRoom);
