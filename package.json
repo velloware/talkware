@@ -11,6 +11,10 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watchAll --maxWorkers=1",
     "test:clear": "jest --clearCache",
+    "prisma:dev": "npx prisma migrate dev",
+    "prisma:reset": "npx prisma migrate reset",
+    "prisma:createOnly": "npx prisma migrate dev --create-only",
+    "prisma:deploy": "npx prisma migrate deploy",
     "dependeciesUpdateCheck": "npm outdated",
     "dependeciesUpdate": "npm update"
   },
@@ -18,19 +22,25 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/debug": "^4.1.7",
     "@types/express": "^4.17.14",
     "@types/jest": "^27.5.2",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/uuid": "^8.3.4",
     "jest": "^27.5.1",
+    "prisma": "^4.5.0",
     "supertest": "^6.3.0",
     "ts-jest": "^27.1.5",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@prisma/client": "^4.5.0",
+    "bcrypt": "^5.1.0",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
     "socket.io": "^4.5.2",
     "socket.io-client": "^4.5.2",
     "uuid": "^9.0.0"

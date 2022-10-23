@@ -29,6 +29,58 @@ Template para criação de projetos em nodejs usando typescript e testes automat
 - [x] Configuração para modules
 - [x] Configuração para Testes unitarios
 
+### Tree
+
+```bash
+├───src
+│   ├───infra
+│   │   ├───http
+│   │   │   └───routes
+│   │   ├───prisma
+│   │   ├───process
+│   │   └───ws
+│   │       └───events
+│   ├───shared
+│   │   ├───Error
+│   │   ├───Utils
+│   │   └───Config
+│   │       └───jwt
+│   ├───core
+│   │   ├───domain
+│   │   └───logic
+│   ├───@types
+│   └───modules
+│       ├───Client
+│       │   └───Domain
+│       │       └───Errors
+│       ├───Room
+│       │   └───Services
+│       │       └───Errors
+│       ├───Chat
+│       │   └───Domain
+│       │       ├───Client
+│       │       ├───Room
+│       │       └───Message
+│       └───User
+│           ├───mappers
+│           ├───useCases
+│           │   ├───AuthenticateUser
+│           │   │   ├───infra
+│           │   │   │   └───http
+│           │   │   │       └───Controllers
+│           │   │   └───Errors
+│           │   └───CreateUser
+│           │       ├───infra
+│           │       │   └───http
+│           │       │       └───Controllers
+│           │       └───Errors
+│           ├───Domain
+│           │   └───Errors
+│           └───repositories
+│               ├───prisma
+│               └───InMemory
+```
+
 ## License
 
 <div id="license"></div>
