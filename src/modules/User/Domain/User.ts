@@ -6,7 +6,7 @@ import { InvalidUsernameError } from './Errors/InvalidUsernameError';
 import { IUser, IUserView } from './IUser';
 
 export class User extends Entity<IUser> {
-  get uid(): string {
+  get id(): string {
     return this._id;
   }
 
@@ -24,25 +24,25 @@ export class User extends Entity<IUser> {
 
   get user(): IUserView {
     return {
-      id: this.uid,
+      id: this.id,
       email: this.email,
       username: this.username,
     };
   }
 
-  private constructor(UserProps: IUser, uid?: string) {
-    super(UserProps, uid);
+  private constructor(UserProps: IUser, id?: string) {
+    super(UserProps, id);
   }
 
   static create(
     UserProps: IUser,
-    uid?: string,
+    id?: string,
   ): Either<InvalidEmailError | InvalidPasswordError | InvalidUsernameError, User> {
     if (!UserProps.username) {
       return left(new InvalidUsernameError());
     }
 
-    const user = new User(UserProps, uid);
+    const user = new User(UserProps, id);
 
     return right(user);
   }

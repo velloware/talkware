@@ -31,7 +31,7 @@ describe('Test User (Password, Email)', () => {
     expect(user.value.password).toEqual(password.value.value);
   });
 
-  it('should be a create user with UID set in create isRight', () => {
+  it('should be a create user with ID set in create isRight', () => {
     if (email.isLeft()) {
       throw Error('Email invalid');
     }
@@ -50,7 +50,7 @@ describe('Test User (Password, Email)', () => {
       throw Error('User don`t create');
     }
 
-    expect(user.value.uid).toEqual('uuidHere');
+    expect(user.value.id).toEqual('uuidHere');
     expect(user.value.user).toEqual({
       id: 'uuidHere',
       email: email.value.value,

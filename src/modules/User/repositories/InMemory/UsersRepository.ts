@@ -2,7 +2,7 @@ import { User } from '../../Domain/User';
 import { IUsersRepository } from '../IUsersRepository'
 
 export class InMemoryUsersRepository implements IUsersRepository {
-  constructor(public items: User[] = []) {}
+  constructor(public items: User[] = []) { }
 
   async exists(email: string): Promise<boolean> {
     return this.items.some(user => user.email === email)
@@ -20,7 +20,7 @@ export class InMemoryUsersRepository implements IUsersRepository {
 
   async save(user: User): Promise<void> {
     const userIndex = this.items.findIndex((findUser) => {
-      findUser.uid === user.uid
+      findUser.id === user.id
     })
 
     this.items[userIndex] = user

@@ -1,13 +1,13 @@
-import { ClientClass } from '../../../Chat/Domain';
-import { MessageClass } from '../../../Chat/Domain';
+import { ClientClass } from '../../Chat/Domain';
+import { MessageClass } from '../../Chat/Domain';
 
 export interface IRoom {
   id: string;
-  users: ClientClass[];
-  messages: MessageClass[];
   name: string;
-  password: string;
+  messages: MessageClass[];
+  users: ClientClass[];
   isPrivate: boolean;
+  password: string;
   ownerId: string;
 }
 
@@ -19,4 +19,8 @@ export interface IRoomClass {
   getMessages(): MessageClass[];
   getUsers(): ClientClass[];
   getOwnerId(): string;
+}
+
+export interface Emitter {
+  (event: string, data: any): void;
 }

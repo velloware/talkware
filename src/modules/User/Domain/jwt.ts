@@ -61,11 +61,11 @@ export class JWT {
 
   static signUser(user: User): JWT {
     const token = sign({}, jwtConfig.jwt.secret, {
-      subject: user.uid,
+      subject: user.id,
       expiresIn: jwtConfig.jwt.expiresIn,
     });
 
-    const jwt = new JWT({ userId: user.uid, token });
+    const jwt = new JWT({ userId: user.id, token });
 
     return jwt;
   }

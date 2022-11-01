@@ -1,16 +1,27 @@
-import { IRoomClass, IRoom } from './IRoom';
-import { Entity } from "../../../../core/domain/Entity";
+import { IRoomClass, IRoom, Emitter } from './IRoom';
+import { Entity } from "../../../core/domain/Entity";
 
-import { Message } from '../../../Chat/Domain';
-import { ClientClass } from '../../../Chat/Domain';
-import { MessageClass } from '../../../Chat/Domain';
+import { Message } from '../../Chat/Domain';
+import { ClientClass } from '../../Chat/Domain';
+import { MessageClass } from '../../Chat/Domain';
+import { Either, right } from '../../../core/logic/Either';
+
+
+import { InvalidPropsError } from './Errors/InvalidPropsError';
 
 export class Room extends Entity<IRoom> implements IRoomClass {
-  constructor(room: IRoom) {
+
+
+  private constructor(room: IRoom) {
     super(room, room.id);
   }
 
+  public static create(room: IRoom): Either<InvalidPropsError, Room> {
+    return right(new Room(room));
+  }
+
   addMessage(message: Message): void {
+    // this.Emitter("message", message);
     this.props.messages.push(message);
   }
 

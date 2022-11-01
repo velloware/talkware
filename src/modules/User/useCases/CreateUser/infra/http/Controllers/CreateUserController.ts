@@ -37,8 +37,8 @@ export default class CreateUserController {
       throw new AppError(`User not created ${result.value.message}`);
     }
 
-    request.debug(`User created -> Id = ${result.value.uid}`);
-    request.debug(`Logging in User -> Id = ${result.value.uid}`);
+    request.debug(`User created -> Id = ${result.value.id}`);
+    request.debug(`Logging in User -> Id = ${result.value.id}`);
 
     const userAuth = await new Authenticator(new PrismaUsersRepository()).authUser({
       email,

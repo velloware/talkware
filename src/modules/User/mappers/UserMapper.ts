@@ -23,7 +23,7 @@ export class UserMapper {
         email: emailOrError.value,
         password: passwordOrError.value,
       },
-      raw.uid
+      raw.id
     )
 
     if (userOrError.isRight()) {
@@ -35,7 +35,7 @@ export class UserMapper {
 
   static async toPersistence(user: User) {
     return {
-      uid: user.uid,
+      id: user.id,
       username: user.username,
       email: user.email,
       password: await user.props.password.getHashedValue(),

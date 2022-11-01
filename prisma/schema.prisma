@@ -7,15 +7,30 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db" //env("DATABASE_URL") //file:./dev.db
 }
 
 model User {
-  uid      String @id @unique @default(uuid())
+  id       String @id @unique @default(uuid())
   username String
   email    String @unique
   password String
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
+
+  rooms Room[]
+}
+
+model Room {
+  id        String  @id @unique @default(uuid())
+  name      String
+  password  String
+  isPrivate Boolean @default(false)
+  ownerId   String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  owner User @relation(fields: [ownerId], references: [id])
 }

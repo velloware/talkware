@@ -37,7 +37,7 @@ describe('JWT model', () => {
     const jwt = jwtOrError.value as JWT;
 
     expect(jwtOrError.isRight()).toBe(true);
-    expect(jwt.userId).toBe(user.uid);
+    expect(jwt.userId).toBe(user.id);
   });
 
   it('should not be able to initialize JWT from invalid token', () => {
@@ -61,7 +61,7 @@ describe('JWT model', () => {
     const decoded = decodedOrError.value as JWTTokenPayload;
 
     expect(decodedOrError.isRight()).toBe(true);
-    expect(decoded.sub).toBe(user.uid);
+    expect(decoded.sub).toBe(user.id);
     expect(decoded.exp).toEqual(expect.any(Number));
   });
 

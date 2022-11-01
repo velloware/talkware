@@ -29,7 +29,7 @@ export class PrismaUsersRepository implements IUsersRepository {
 
     await prisma.user.update({
       where: {
-        uid: user.uid,
+        id: user.id,
       },
       data,
     })
