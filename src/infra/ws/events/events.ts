@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { RoomEvents } from '../../../modules/Room/useCases/Room/RoomEvents';
+import { RoomEvents } from '../../../modules/Room/useCases/Room/infra/ws/Events/RoomEvents';
 
 export class EventsSocketIo {
   private io: Server;

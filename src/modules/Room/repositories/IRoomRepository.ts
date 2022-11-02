@@ -1,8 +1,12 @@
 import { Room } from '../Domain/Room';
+import { roomDontExist } from './Errors/RoomsDontExist';
+import { Either, left, right } from '../../../core/logic/Either';
 
-export interface IUsersRepository {
+type RoomServiceReturn = Either<roomDontExist, Room>;
+
+export interface IRoomRepository {
   exists(id: string): Promise<boolean>
-  findById(id: string): Promise<Room | null>
-  save(user: Room): Promise<void>
-  create(user: Room): Promise<void>
+  findRoomById(RoomId: string): Promise<RoomServiceReturn>
+  save(room: Room): Promise<void>
+  create(room: Room): void
 }

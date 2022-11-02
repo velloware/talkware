@@ -6,11 +6,9 @@ import { ClientClass } from '../../Chat/Domain';
 import { MessageClass } from '../../Chat/Domain';
 import { Either, right } from '../../../core/logic/Either';
 
-
 import { InvalidPropsError } from './Errors/InvalidPropsError';
 
 export class Room extends Entity<IRoom> implements IRoomClass {
-
 
   private constructor(room: IRoom) {
     super(room, room.id);
@@ -21,7 +19,6 @@ export class Room extends Entity<IRoom> implements IRoomClass {
   }
 
   addMessage(message: Message): void {
-    // this.Emitter("message", message);
     this.props.messages.push(message);
   }
 

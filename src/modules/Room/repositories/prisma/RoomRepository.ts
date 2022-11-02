@@ -3,12 +3,26 @@ import { Room } from '../../Domain/Room';
 import { roomDontExist } from '../Errors/RoomsDontExist';
 import { prisma } from '../../../../infra/prisma/client'
 import { UserMapper } from '../../mappers/RoomMapper';
+import { IRoomRepository } from '../IRoomRepository';
 
 type RoomServiceReturn = Either<roomDontExist, Room>;
 type RoomsReturn = Either<roomDontExist, Room[] | Room>;
 
-export class RoomService {
-  constructor() { }
+export class RoomRepository implements IRoomRepository {
+
+  async exists(id: string): Promise<boolean> {
+    const room = await prisma.room.findUnique({
+      where: {
+        id
+      }
+    });
+
+    if (!room) {
+      return false;
+    }
+
+    return true;
+  }
 
   create(room: Room): void {
     prisma.room.create({
@@ -20,6 +34,20 @@ export class RoomService {
         ownerId: room.props.ownerId,
       }
     })
+  }
+
+  async save(room: Room): Promise<void> {
+    await prisma.room.update({
+      where: {
+        id: room.props.id
+      },
+      data: {
+        name: room.props.name,
+        isPrivate: room.props.isPrivate,
+        password: room.props.password,
+        ownerId: room.props.ownerId,
+      }
+    });
   }
 
   async findRoomById(RoomId: string): Promise<RoomServiceReturn> {
@@ -63,4 +91,6 @@ export class RoomService {
 
     return right(roomsList);
   }
+
+
 }

@@ -1,52 +1,20 @@
 import { Socket } from "socket.io";
-import { Client, Message } from '../../../Chat/Domain';
-import { wsLogger } from '../../../../shared/Utils/wsLogger';
-import { RoomService } from '../../repositories/prisma/RoomRepository';
-import { Room } from '../../Domain/Room';
+import { Client, Message } from '../../../../../../Chat/Domain';
+import { wsLogger } from '../../../../../../../shared/Utils/wsLogger';
+import { RoomRepository } from '../../../../../repositories/prisma/RoomRepository';
+import { Room } from '../../../../../Domain/Room';
+import { RoomManager } from '../../../Room';
 
-interface TokenUser {
-  token: string;
-}
 
 export class RoomEvents {
 
   private socket: Socket;
-  private Room: Room = {} as Room;
-  private client: Client = {} as Client;
+  private RoomManager: RoomManager;
 
   constructor(socket: Socket, tokenUserProps: any) {
     this.socket = socket;
-
-    const tokenUser = JSON.parse(JSON.stringify(tokenUserProps));
-
-    if (!(tokenUser?.token) || (tokenUser.token === "Anonymous")) {
-      this.client = new Client({
-        userId: "Anonymous",
-        socketId: socket.id,
-        name: `Anonymous-${new Date().getTime()}`,
-      });
-
-    } else {
-
-      tokenUser as TokenUser;
-
-      const findUserByTonken = {
-        token: tokenUser.token,
-        name: "Carlos",
-        userId: "123456789",
-      }
-
-      if (!findUserByTonken) {
-        console.log("USER DONT BY EXIST");
-        return;
-      }
-
-      this.client = new Client({
-        userId: findUserByTonken.userId,
-        name: findUserByTonken.name,
-        socketId: socket.id,
-      });
-    }
+    // Usar o RoomManager tudo que for relacionado a Room, Client, Message
+    this.RoomManager = new RoomManager(new RoomRepository());
 
     this.listPossibleRooms()
 
@@ -56,7 +24,7 @@ export class RoomEvents {
   }
 
   async listPossibleRooms() {
-    const rooms = await new RoomService().list();
+    const rooms = await new RoomRepository().list();
     this.socket.to(this.client.SocketId).emit("listRooms", rooms);
   }
 
@@ -84,7 +52,7 @@ export class RoomEvents {
 
   async onJoinRoom(RoomId: string) {
 
-    const Room = await new RoomService().findRoomById(RoomId);
+    const Room = await new RoomRepository().findRoomById(RoomId);
 
     if (Room.isLeft()) {
       this.socket.emit("message", `Select ROOM dont find, Publics ROOMSID: [1, 2, 3]`);
@@ -132,7 +100,7 @@ export class RoomEvents {
     this.socket.leave(this.Room.props.id);
     this.Room.removeUser(this.client.props.userId);
 
-    const findRoom = await new RoomService().findRoomById(RoomId);
+    const findRoom = await new RoomRepository().findRoomById(RoomId);
 
     if (findRoom.isLeft()) {
       this.socket
