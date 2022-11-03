@@ -1,9 +1,9 @@
-import { IRoomClass, IRoom, Emitter } from './IRoom';
+import { IRoomClass, IRoom } from './IRoom';
 import { Entity } from "../../../core/domain/Entity";
 
-import { Message } from '../../Chat/Domain';
-import { ClientClass } from '../../Chat/Domain';
-import { MessageClass } from '../../Chat/Domain';
+import { ClientClass } from '../../Client/Domain/IClient';
+import { Message } from '../../Message/Domain/Message';
+import { MessageClass } from '../../Message/Domain/IMessage';
 import { Either, right } from '../../../core/logic/Either';
 
 import { InvalidPropsError } from './Errors/InvalidPropsError';

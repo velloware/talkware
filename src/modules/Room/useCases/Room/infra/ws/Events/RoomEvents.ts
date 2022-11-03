@@ -1,5 +1,6 @@
 import { Socket } from "socket.io";
-import { Client, Message } from '../../../../../../Chat/Domain';
+import { Client } from '../../../../../../Client/Domain/Client';
+import { Message } from '../../../../../../Message/Domain/Message';
 import { wsLogger } from '../../../../../../../shared/Utils/wsLogger';
 import { RoomRepository } from '../../../../../repositories/prisma/RoomRepository';
 import { Room } from '../../../../../Domain/Room';
@@ -10,32 +11,31 @@ export class RoomEvents {
 
   private socket: Socket;
   private RoomManager: RoomManager;
+  private Room: Room;
 
-  constructor(socket: Socket, tokenUserProps: any) {
+  constructor(socket: Socket, tokenUserProps: any, IdRoom: string) {
     this.socket = socket;
     // Usar o RoomManager tudo que for relacionado a Room, Client, Message
     this.RoomManager = new RoomManager(new RoomRepository());
 
-    this.listPossibleRooms()
-
     this.socket.on("message", (data: string) => this.onMessage(data));
     this.socket.on("changeName", (name: string) => this.onChangeName(name));
     this.socket.on("changeRoom", async (RoomId: string) => this.onChangeRoom(RoomId));
-  }
 
-  async listPossibleRooms() {
-    const rooms = await new RoomRepository().list();
-    this.socket.to(this.client.SocketId).emit("listRooms", rooms);
+    this.onJoinRoom(IdRoom)
   }
 
   async wealComeMessage() {
+
+    const message = Message.create({
+      id: String(new Date().getTime()),
+      data: `Welcome ${this.client.name} to ${this.Room.props.name}. You are in ${this.Room.props.id}`,
+      roomId: this.Room.props.id,
+      userId: this.client.userId,
+    })
+
     this.Room
-      .addMessage(new Message({
-        id: String(new Date().getTime()),
-        data: `Welcome ${this.client.name} to ${this.Room.props.name}. You are in ${this.Room.props.id}`,
-        roomId: this.Room.props.id,
-        userId: this.client.userId,
-      }));
+      .addMessage(message);
   }
 
   async listParticipants() {

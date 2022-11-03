@@ -1,6 +1,7 @@
 import { Either, left, right } from "../../../../core/logic/Either";
 import { IRoomRepository } from "modules/Room/repositories/IRoomRepository";
-import { Client, Message } from '../../../Chat/Domain';
+import { Client } from '../../../Client/Domain/Client';
+import { Message } from '../../../Message/Domain/Message';
 import { ClientCreateError } from "./Errors/ClientCreateError";
 import { UserDontFind } from "./Errors/UserDontFind";
 import { Room } from '../../Domain/Room';
@@ -24,18 +25,19 @@ export class RoomManager {
     const tokenUser = JSON.parse(JSON.stringify(tokenUserProps));
 
     if (!(tokenUser?.token) || (tokenUser.token === "Anonymous")) {
-      const client = new Client({
+
+      const client = Client.create({
         userId: "Anonymous",
         socketId: idSocketClient,
         name: `Anonymous-${new Date().getTime()}`,
       });
 
-      if (!client) {
+      if (client.isLeft()) {
         return left(new ClientCreateError());
       }
 
-      this.client = client;
-      return right(client);
+      this.client = client.value;
+      return right(this.client);
 
     } else {
 
@@ -51,18 +53,18 @@ export class RoomManager {
         return left(new UserDontFind());
       }
 
-      const client = new Client({
+      const client = Client.create({
         userId: findUserByTonken.userId,
         name: findUserByTonken.name,
         socketId: idSocketClient,
       });
 
-      if (!client) {
+      if (client.isLeft()) {
         return left(new ClientCreateError());
       }
 
-      this.client = client;
-      return right(client);
+      this.client = client.value;
+      return right(this.client);
     }
   }
 

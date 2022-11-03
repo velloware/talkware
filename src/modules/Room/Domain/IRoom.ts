@@ -1,5 +1,5 @@
-import { ClientClass } from '../../Chat/Domain';
-import { MessageClass } from '../../Chat/Domain';
+import { ClientClass } from '../../Client/Domain/IClient';
+import { MessageClass } from '../../Message/Domain/IMessage';
 
 export interface IRoom {
   id: string;

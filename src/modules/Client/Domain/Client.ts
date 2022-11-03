@@ -1,14 +1,26 @@
-import { Entity } from "../../../../core/domain/Entity";
+import { Either, left, right } from "../../../core/logic/Either";
+import { Entity } from "../../../core/domain/Entity";
+import { ClientDontCreate } from "./Errors/ClientDontCreate";
 import { ClientClass, IClient } from "./IClient";
 
 export class Client extends Entity<IClient> implements ClientClass {
 
   public socketId: string = "";
 
-  constructor(ClientProps: IClient) {
+  private constructor(ClientProps: IClient) {
     super(ClientProps, ClientProps.userId);
 
     this.socketId = ClientProps.socketId || "";
+  }
+
+  public static create(ClientProps: IClient): Either<ClientDontCreate, Client> {
+    const client = new Client(ClientProps);
+
+    if (!client.userId) {
+      return left(new ClientDontCreate());
+    }
+
+    return right(client);
   }
 
   get userId(): string {
