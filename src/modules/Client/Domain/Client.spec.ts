@@ -4,20 +4,25 @@ import { ClientDontCreate } from './Errors/ClientDontCreate';
 describe('Test Client', () => {
   it('Should be a create Client isRight', () => {
     const client = Client.create({
+      id: 'idUser',
+      name: 'name',
       userId: 'userId',
+    });
+
+    const client2 = Client.create({
+      id: 'idUser',
       name: 'name',
     });
 
-    if (client.isLeft()) {
+    if (client.isLeft() || client2.isLeft()) {
       throw Error('client invalid');
     }
 
     expect(client.value).toBeInstanceOf(Client);
-    expect(client.value.userId).toEqual('userId');
+    expect(client.value.id).toEqual('idUser');
     expect(client.value.name).toEqual('name');
-
-    client.value.SocketId = 'socketId';
-    expect(client.value.socketId).toEqual('socketId');
+    expect(client.value.userId).toEqual('userId');
+    expect(client2.value.userId).toEqual('');
 
     client.value.name = 'name2';
     expect(client.value.name).toEqual('name2');
@@ -25,7 +30,7 @@ describe('Test Client', () => {
 
   it('Should be a not create Client isLeft', () => {
     const client = Client.create({
-      userId: '',
+      id: '',
       name: 'name',
     });
 

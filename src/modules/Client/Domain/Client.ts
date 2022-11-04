@@ -5,22 +5,22 @@ import { ClientClass, IClient } from "./IClient";
 
 export class Client extends Entity<IClient> implements ClientClass {
 
-  public socketId: string = "";
-
   private constructor(ClientProps: IClient) {
-    super(ClientProps, ClientProps.userId);
-
-    this.socketId = ClientProps.socketId || "";
+    super(ClientProps, ClientProps.id);
   }
 
   public static create(ClientProps: IClient): Either<ClientDontCreate, Client> {
     const client = new Client(ClientProps);
 
-    if (!client.userId) {
+    if (!client.id) {
       return left(new ClientDontCreate());
     }
 
     return right(client);
+  }
+
+  get id(): string {
+    return this.props.id;
   }
 
   get userId(): string {
@@ -29,10 +29,6 @@ export class Client extends Entity<IClient> implements ClientClass {
 
   get name(): string {
     return this.props.name;
-  }
-
-  set SocketId(socketId: string) {
-    this.socketId = socketId;
   }
 
   set name(name: string) {

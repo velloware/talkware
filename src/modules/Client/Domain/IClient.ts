@@ -1,12 +1,12 @@
 export interface IClient {
-  userId: string;
+  id: string;
   name: string;
-  socketId?: string;
+  userId?: string;
 }
 
 export interface ClientClass {
+  get id(): string;
   get userId(): string;
   get name(): string;
   set name(name: string);
-  set SocketId(socketId: string);
 }

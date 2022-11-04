@@ -10,6 +10,11 @@ export class Message extends Entity<IMessage> implements MessageClass {
   }
 
   static create(MessageProps: IMessage): Either<MessageDontCreate, Message> {
+
+    if (!MessageProps.clientId) {
+      return left(new MessageDontCreate());
+    }
+
     const message = new Message(MessageProps);
 
     if (!message.id) {
@@ -27,11 +32,15 @@ export class Message extends Entity<IMessage> implements MessageClass {
     return this.props.data;
   }
 
-  get roomId(): string | Buffer {
+  get clientId(): string {
+    return this.props.clientId;
+  }
+
+  get roomId(): string {
     return this.props.roomId;
   }
 
-  get userId(): string | Buffer {
-    return this.props.userId;
+  get userId(): string {
+    return this.props.userId || '';
   }
 }

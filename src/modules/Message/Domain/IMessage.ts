@@ -2,7 +2,8 @@ export interface IMessage {
   id: string;
   data: string | Buffer; //Message data
   roomId: string; //Room id
-  userId: string; //User id
+  userId?: string; //User id
+  clientId: string; //Client id
 }
 
 export interface MessageClass {

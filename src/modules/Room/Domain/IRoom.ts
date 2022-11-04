@@ -1,23 +1,23 @@
-import { ClientClass } from '../../Client/Domain/IClient';
-import { MessageClass } from '../../Message/Domain/IMessage';
+import { Client } from '../../../modules/Client/Domain/Client';
+import { Message } from '../../../modules/Message/Domain/Message';
 
 export interface IRoom {
-  id: string;
+  id?: string;
   name: string;
-  messages: MessageClass[];
-  users: ClientClass[];
+  messages: Message[];
+  clients: Client[];
   isPrivate: boolean;
   password: string;
   ownerId: string;
 }
 
 export interface IRoomClass {
-  addMessage(message: MessageClass): void;
-  addUser(user: ClientClass): void;
-  removeUser(userId: string): void;
+  addMessage(message: Message): void;
+  addClient(client: Client): void;
+  removeClient(clientId: string): void;
   removeMessage(messageId: string): void;
-  getMessages(): MessageClass[];
-  getUsers(): ClientClass[];
+  getMessages(): Message[];
+  getClients(): Client[];
   getOwnerId(): string;
 }
 
