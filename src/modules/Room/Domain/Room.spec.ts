@@ -9,7 +9,7 @@ describe('Test Room', () => {
       id: '1',
       name: 'room1',
       messages: [],
-      users: [],
+      clients: [],
       isPrivate: false,
       password: '',
       ownerId: '1',
@@ -22,7 +22,7 @@ describe('Test Room', () => {
     const room = Room.create({
       name: 'room1',
       messages: [],
-      users: [],
+      clients: [],
       isPrivate: false,
       password: '',
       ownerId: '1',
@@ -36,7 +36,7 @@ describe('Test Room', () => {
       id: '1',
       name: '',
       messages: [],
-      users: [],
+      clients: [],
       isPrivate: false,
       password: '',
       ownerId: '1',
@@ -51,7 +51,7 @@ describe('Test Room', () => {
       id: '1',
       name: 'room1',
       messages: [],
-      users: [],
+      clients: [],
       isPrivate: false,
       password: '',
       ownerId: '1',
@@ -64,8 +64,8 @@ describe('Test Room', () => {
     const message = Message.create({
       id: '1',
       data: 'message1',
+      clientId: '1',
       roomId: '1',
-      userId: '1',
     });
 
     if (message.isLeft()) { throw new Error('Message is not right'); }
@@ -80,7 +80,7 @@ describe('Test Room', () => {
       id: '1',
       name: 'room1',
       messages: [],
-      users: [],
+      clients: [],
       isPrivate: false,
       password: '',
       ownerId: '1',
@@ -94,7 +94,7 @@ describe('Test Room', () => {
       id: '1',
       data: 'message1',
       roomId: '1',
-      userId: '1',
+      clientId: '1',
     });
 
     if (message.isLeft()) { throw new Error('Message is not right'); }
@@ -113,7 +113,7 @@ describe('Test Room', () => {
       id: '1',
       name: 'room1',
       messages: [],
-      users: [],
+      clients: [],
       isPrivate: false,
       password: '',
       ownerId: '1',
@@ -123,21 +123,21 @@ describe('Test Room', () => {
 
     if (room.isLeft()) { throw new Error('Room is not right'); }
 
-    expect(room.value.getUsers().length).toBe(0);
+    expect(room.value.getClients().length).toBe(0);
 
     const client = Client.create({
       name: '1test',
       userId: '1',
-      socketId: '1',
+      id: '1'
     });
 
     if (client.isLeft()) {
       throw new Error('Client is not right');
     }
 
-    room.value.addUser(client.value);
+    room.value.addClient(client.value);
 
-    expect(room.value.getUsers().length).toBe(1);
+    expect(room.value.getClients().length).toBe(1);
   });
 
   it('Should be a get OnwerId to Room', () => {
@@ -145,7 +145,7 @@ describe('Test Room', () => {
       id: '1',
       name: 'room1',
       messages: [],
-      users: [],
+      clients: [],
       isPrivate: false,
       password: '',
       ownerId: '1',
@@ -156,5 +156,39 @@ describe('Test Room', () => {
     if (room.isLeft()) { throw new Error('Room is not right'); }
 
     expect(room.value.getOwnerId()).toBe('1');
-  })
+  });
+
+  it('Remove a client from the room', () => {
+    const room = Room.create({
+      id: '1',
+      name: 'room1',
+      messages: [],
+      clients: [],
+      isPrivate: false,
+      password: '',
+      ownerId: '1',
+    });
+
+    expect(room.isRight()).toBeTruthy();
+
+    if (room.isLeft()) { throw new Error('Room is not right'); }
+
+    const client = Client.create({
+      name: '1test',
+      userId: '1',
+      id: '1'
+    });
+
+    if (client.isLeft()) {
+      throw new Error('Client is not right');
+    }
+
+    room.value.addClient(client.value);
+
+    expect(room.value.getClients().length).toBe(1);
+
+    room.value.removeClient('1');
+
+    expect(room.value.getClients().length).toBe(0);
+  });
 })

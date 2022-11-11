@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { RoomEvents } from '../../../modules/Room/useCases/Room/infra/ws/Events/RoomEvents';
+import { RoomEvents } from '../../../modules/Room/useCases/RoomChatManager/infra/ws/Events/RoomEvents';
 
 export class EventsSocketIo {
   private io: Server;
@@ -22,8 +22,9 @@ export class EventsSocketIo {
       this.onConnection(socket);
 
       socket.on("disconnect", () => this.onDisconnect(socket));
-      socket.on("joinChat", (tokenUser: any) => {
-        new RoomEvents(socket, tokenUser || {});
+      socket.on("joinChat", async (tokenUser: any) => {
+        await new RoomEvents(socket)
+          .onJoinChat(tokenUser);
       });
     });
 

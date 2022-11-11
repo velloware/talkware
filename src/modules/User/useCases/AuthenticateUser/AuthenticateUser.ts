@@ -8,7 +8,7 @@ interface IAuthUserRequest {
   password: string;
 }
 
-type IToken = {
+export type IToken = {
   token: string;
 }
 

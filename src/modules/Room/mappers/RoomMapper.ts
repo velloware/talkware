@@ -1,8 +1,7 @@
 import { Room as PersistenceRoom } from '@prisma/client';
-
 import { Room } from '../Domain/Room';
 
-export class UserMapper {
+export class RoomMapper {
   static toDomain(raw: PersistenceRoom): Room | null {
 
     const rommOrError = Room.create(
@@ -13,7 +12,7 @@ export class UserMapper {
         password: raw.password,
         ownerId: raw.ownerId,
         messages: [],
-        users: []
+        clients: []
       }
     )
 

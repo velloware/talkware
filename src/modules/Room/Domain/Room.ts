@@ -45,7 +45,7 @@ export class Room extends Entity<IRoom> implements IRoomClass {
   }
 
   removeClient(clientId: string): void {
-    this.props.clients = this.props.clients.filter((client: Client) => client.id === clientId);
+    this.props.clients = this.props.clients.filter((client: Client) => client.id !== clientId);
   }
 
   removeMessage(messageId: string): void {

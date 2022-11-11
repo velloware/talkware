@@ -7,7 +7,7 @@ interface ICreateClient {
   name: string;
 }
 
-type CreateClientReturn = Either<ClientDontCreate, Client>;
+export type CreateClientReturn = Either<ClientDontCreate, Client>;
 
 export class CreateClient {
 

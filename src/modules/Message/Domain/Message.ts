@@ -11,7 +11,7 @@ export class Message extends Entity<IMessage> implements MessageClass {
 
   static create(MessageProps: IMessage): Either<MessageDontCreate, Message> {
 
-    if (!MessageProps.clientId) {
+    if (!MessageProps.clientId || !MessageProps.roomId || !MessageProps.data) {
       return left(new MessageDontCreate());
     }
 
