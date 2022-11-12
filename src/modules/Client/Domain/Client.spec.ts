@@ -20,12 +20,12 @@ describe('Test Client', () => {
 
     expect(client.value).toBeInstanceOf(Client);
     expect(client.value.id).toEqual('idUser');
-    expect(client.value.name).toEqual('name');
+    expect(client.value.name).toContain('name');
     expect(client.value.userId).toEqual('userId');
     expect(client2.value.userId).toEqual('');
 
     client.value.name = 'name2';
-    expect(client.value.name).toEqual('name2');
+    expect(client.value.name).toContain('name2');
   });
 
   it('Should be a not create Client isLeft', () => {

@@ -20,22 +20,23 @@
 
 # :pushpin: Table of Contents
 
-* [Technologies](#computer-technologies)
-* [How Works Application](#how-works)
-* [Features](#rocket-features)
-* [How to Run](#construction_worker-how-to-run)
-* [Contributing](#tada-contributing)
-* [License](#closed_book-license)
+- [Technologies](#computer-technologies)
+- [How Works Application](#how-works)
+- [Features](#rocket-features)
+- [How to Run](#construction_worker-how-to-run)
+- [Contributing](#tada-contributing)
+- [License](#closed_book-license)
 
 # :computer: Technologies
+
 This project was made using the follow technologies:
 
-* [typescript](https://www.typescriptlang.org/) - Super Javascript
-* [Javascript](https://www.typescriptlang.org/)
-* [Nodejs](http://nodejs.org/) - Nodejs
-* [Jest](https://jestjs.io/) - UnitTest
-* [ESlint](https://eslint.org/) - Linter
-* [Prettier](https://prettier.io/) - Code Formatter
+- [typescript](https://www.typescriptlang.org/) - Super Javascript
+- [Javascript](https://www.typescriptlang.org/)
+- [Nodejs](http://nodejs.org/) - Nodejs
+- [Jest](https://jestjs.io/) - UnitTest
+- [ESlint](https://eslint.org/) - Linter
+- [Prettier](https://prettier.io/) - Code Formatter
 
 # :rocket: Features
 
@@ -74,7 +75,24 @@ $ npm run prisma:dev
 # Run Aplication
 $ npm run dev
 ```
+
 Go to http://localhost:3333/ to see the result.
+
+# Test log
+
+```
+=============================== Coverage summary ===============================
+Statements   : 69.48% ( 230/331 )
+Branches     : 58.97% ( 46/78 )
+Functions    : 71.59% ( 63/88 )
+Lines        : 69.44% ( 225/324 )
+================================================================================
+
+Test Suites: 16 passed, 16 total
+Tests:       52 passed, 52 total
+Snapshots:   0 total
+Time:        7.731 s
+```
 
 # :tada: contributing
 

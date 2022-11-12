@@ -6,7 +6,6 @@ describe('CreateMessage', () => {
     const createMessage = new CreateMessage();
 
     const message = await createMessage.create({
-      id: '1',
       data: 'test',
       clientId: '1',
       roomId: '1',
@@ -19,7 +18,6 @@ describe('CreateMessage', () => {
     const createMessage = new CreateMessage();
 
     const message = await createMessage.create({
-      id: '1',
       data: '',
       clientId: '1',
       roomId: '1',
