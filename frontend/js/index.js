@@ -1,10 +1,11 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
-const socket = io('https://talkware-backend.velloware.com/', {});
-// const socket = io('localhost:3333', {});
+// const socket = io('https://talkware-backend.velloware.com/', {});
+const socket = io('localhost:3333', {});
 
 socket.on('connect', () => setUserName(socket.id));
 socket.on('disconnect', () => console.log(`Disconnect For SocketServer`));
 
+socket.on('error', data => onError(data));
 socket.on('messageSender', data => writeMessagesInteTextArea(data));
 socket.on('message', data => writeMessagesInteTextArea(data));
 socket.on('ChatMessage', data => writeMessagesInteTextArea(data));
@@ -40,9 +41,17 @@ setChatName('No Chat Selected. GLOBAL CHAT');
 
 const setRoom = () => {
   const roomId = document.getElementById('chatIdJoin').value;
-  socket.emit('changeRoom', roomId);
+  socket.emit('joinChat', {
+    idRoom: roomId,
+    token: 'Anonymous',
+  });
+  // socket.emit('changeRoom', roomId);
 
   setChatName(`${roomId}`);
+};
+
+const onError = error => {
+  console.log(error);
 };
 
 document.getElementById('sender').addEventListener('click', sendMessage);

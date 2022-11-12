@@ -1,6 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { RoomEvents } from './RoomEvents';
-import { Chat } from '../../../modules/useCases/Chat/Chat';
+import { RoomEvents } from '../../../modules/Room/useCases/RoomChatManager/infra/ws/Events/RoomEvents';
 
 export class EventsSocketIo {
   private io: Server;
@@ -20,21 +19,17 @@ export class EventsSocketIo {
   public RegisterEvents() {
 
     this.io.on("connection", (socket) => {
+      const roomEvents = new RoomEvents(socket);
       this.onConnection(socket);
 
       socket.on("disconnect", () => this.onDisconnect(socket));
+      socket.on("joinChat", async (joinChatProps: any) => {
 
-      new RoomEvents(socket, this.initChat());
+        await roomEvents
+          .joinRoom(joinChatProps);
+
+      });
     });
-
-  }
-
-  public initChat() {
-    const chat = new Chat();
-    return {
-      Room: chat.getRoomGlobal(),
-      SudoClient: chat.getClientSudo(),
-    }
 
   }
 }

@@ -78,7 +78,7 @@ Go to http://localhost:3333/ to see the result.
 
 # :tada: contributing
 
-Feel free to **file a new issue** with a respective title and description on the the [talkware](https://github.com/velloware/talkware/issues) repository. If you already found a solution to your problem, **i would love to review your pull request**!
+**file a new issue** with a respective title and description on the the [talkware](https://github.com/velloware/talkware/issues) repository. If you already found a solution to your problem, **i would love to review your pull request**!
 
 # :closed_book: License
 
