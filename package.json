@@ -15,6 +15,7 @@
     "prisma:reset": "npx prisma migrate reset",
     "prisma:createOnly": "npx prisma migrate dev --create-only",
     "prisma:deploy": "npx prisma migrate deploy",
+    "prisma:seed": "npx prisma db seed",
     "dependeciesUpdateCheck": "npm outdated",
     "dependeciesUpdate": "npm update"
   },
