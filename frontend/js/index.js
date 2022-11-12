@@ -1,6 +1,6 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
-// const socket = io('https://talkware-backend.velloware.com/', {});
-const socket = io('localhost:3333', {});
+const socket = io('https://talkware-backend.velloware.com/', {});
+//const socket = io('localhost:3333', {});
 
 socket.on('connect', () => setUserName(socket.id));
 socket.on('disconnect', () => console.log(`Disconnect For SocketServer`));
