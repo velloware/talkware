@@ -38,4 +38,4 @@ jobs:
             pm2 link ${{ secrets.PM2A }} ${{ secrets.PM2B }}
             pm2 delete Talkware - Server
             pm2 start ecosystem.config.js
-            curl --request POST --url https://dash.velloware.com/api/notification --header 'Content-Type: application/json' --data '{"message": "Deploing Talkware Backend - ⛑${{ github.ref_name }}📢\n on Vello-1-server (acess: talkware.velloware.com)"}'
+            curl --request POST --url https://dash.velloware.com/api/notification --header 'Content-Type: application/json' --data '{"message": "Deploing ${{ github.repository }} - ⛑${{ github.ref_name }}📢\n on Vello-1-server (acess: talkware.velloware.com)\n\nby: ${{ github.actor }}"}'
