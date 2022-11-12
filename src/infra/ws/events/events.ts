@@ -19,12 +19,15 @@ export class EventsSocketIo {
   public RegisterEvents() {
 
     this.io.on("connection", (socket) => {
+      const roomEvents = new RoomEvents(socket);
       this.onConnection(socket);
 
       socket.on("disconnect", () => this.onDisconnect(socket));
-      socket.on("joinChat", async (tokenUser: any) => {
-        await new RoomEvents(socket)
-          .onJoinChat(tokenUser);
+      socket.on("joinChat", async (joinChatProps: any) => {
+
+        await roomEvents
+          .joinRoom(joinChatProps);
+
       });
     });
 

@@ -5,8 +5,11 @@ import { ClientClass, IClient } from "./IClient";
 
 export class Client extends Entity<IClient> implements ClientClass {
 
+  private saltClient: string;
+
   private constructor(ClientProps: IClient) {
     super(ClientProps, ClientProps.id);
+    this.saltClient = `${new Date().getMilliseconds()}`;
   }
 
   public static create(ClientProps: IClient): Either<ClientDontCreate, Client> {
@@ -32,7 +35,7 @@ export class Client extends Entity<IClient> implements ClientClass {
   }
 
   set name(name: string) {
-    this.props.name = name;
+    this.props.name = `${name}-${this.saltClient}`;
   }
 
 }
