@@ -61,7 +61,7 @@ export class RoomManager {
     return client;
   }
 
-  static async createClient(id: string, name = `Anonymous-${new Date().getMilliseconds()}`): Promise<CreateClientReturn> {
+  static async createClient(id: string, name?: string): Promise<CreateClientReturn> {
     const clientCreate = await new CreateClient().create({ id: id, name: name });
 
     if (clientCreate.isLeft()) {

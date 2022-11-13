@@ -1,10 +1,28 @@
 import Server from './infra/http/server';
 import { WebSocketServer } from './infra/ws/server';
+import dotenv from 'dotenv';
 
-const server = new Server(5337, false);
+dotenv.config();
+
+const server = new Server(process.env.PORT || 5337, false);
+
+const webSocketServerManager = new WebSocketServer();
+const wsServer = webSocketServerManager.createWsServer();
 
 server.adpter(
-  new WebSocketServer()
-    .createWsServer()
+  wsServer
 );
 server.init();
+
+process.on('SIGTERM', () => {
+  console.log('> Server ending after close all connections - ', new Date().toISOString());
+  webSocketServerManager.close(wsServer);
+  server.close(() => process.exit());
+});
+
+process.on('SIGINT', () => {
+  console.log('> Server ending now! - ', new Date().toISOString());
+  webSocketServerManager.close(wsServer);
+  server.close(() => process.exit());
+  process.exit();
+});

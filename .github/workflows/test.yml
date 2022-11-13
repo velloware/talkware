@@ -1,0 +1,21 @@
+name: Test - Aplication
+
+on: 'pull_request'
+
+jobs:
+  code:
+    name: Test code
+    runs-on: ubuntu-latest
+    container: node:lts
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Run Jest
+        run: npm test
