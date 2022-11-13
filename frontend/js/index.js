@@ -6,9 +6,8 @@ socket.on('connect', () => setUserName(socket.id));
 socket.on('disconnect', () => console.log(`Disconnect For SocketServer`));
 
 socket.on('error', data => onError(data));
-socket.on('messageSender', data => writeMessagesInteTextArea(data));
 socket.on('message', data => writeMessagesInteTextArea(data));
-socket.on('ChatMessage', data => writeMessagesInteTextArea(data));
+socket.on('log', data => console.log(data));
 
 socket.on('voice', data => console.log(data));
 
