@@ -4,7 +4,7 @@ import { ClientDontCreate } from '../../Domain/Errors/ClientDontCreate';
 
 interface ICreateClient {
   id: string;
-  name: string;
+  name?: string;
 }
 
 export type CreateClientReturn = Either<ClientDontCreate, Client>;
@@ -14,7 +14,14 @@ export class CreateClient {
   constructor() { }
 
   async create({ id, name }: ICreateClient): Promise<CreateClientReturn> {
-    const client = Client.create({ id, name });
+
+    let nameToCreate = '';
+
+    if (!name) {
+      nameToCreate = `Anonymous`;
+    }
+
+    const client = Client.create({ id, name: nameToCreate });
 
     if (client.isLeft()) {
       return left(client.value);

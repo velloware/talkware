@@ -1,6 +1,6 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
-const socket = io('https://talkware-backend.velloware.com/', {});
-//const socket = io('localhost:3333', {});
+// const socket = io('https://talkware-backend.velloware.com/', {});
+const socket = io('localhost:5337', {});
 
 socket.on('connect', () => setUserName(socket.id));
 socket.on('disconnect', () => console.log(`Disconnect For SocketServer`));
@@ -9,6 +9,8 @@ socket.on('error', data => onError(data));
 socket.on('messageSender', data => writeMessagesInteTextArea(data));
 socket.on('message', data => writeMessagesInteTextArea(data));
 socket.on('ChatMessage', data => writeMessagesInteTextArea(data));
+
+socket.on('voice', data => console.log(data));
 
 const sendMessage = () => {
   const message = document.getElementById('message').value;
@@ -45,7 +47,6 @@ const setRoom = () => {
     idRoom: roomId,
     token: 'Anonymous',
   });
-  // socket.emit('changeRoom', roomId);
 
   setChatName(`${roomId}`);
 };
