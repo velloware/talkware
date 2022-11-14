@@ -1,3 +1,4 @@
+import { uidCreate } from '../../../shared/Utils/uid';
 import { Entity } from '../../../core/domain/Entity';
 import { Either, left, right } from '../../../core/logic/Either';
 import { InvalidEmailError } from './Errors/InvalidEmailError';
@@ -31,7 +32,7 @@ export class User extends Entity<IUser> {
   }
 
   private constructor(UserProps: IUser, id?: string) {
-    super(UserProps, id);
+    super(UserProps, id || uidCreate());
   }
 
   static create(

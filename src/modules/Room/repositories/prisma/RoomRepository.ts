@@ -24,16 +24,16 @@ export class RoomRepository implements IRoomRepository {
     return true;
   }
 
-  create(room: Room): void {
-    prisma.room.create({
+  async create(room: Room): Promise<void> {
+    await prisma.room.create({
       data: {
-        id: room.props.id,
-        name: room.props.name,
-        isPrivate: room.props.isPrivate,
-        password: room.props.password,
-        ownerId: room.props.ownerId,
+        id: room.id,
+        name: room.name,
+        isPrivate: room.isPrivate,
+        password: room.password,
+        ownerId: room.ownerId,
       }
-    })
+    });
   }
 
   async save(room: Room): Promise<void> {

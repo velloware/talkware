@@ -26,6 +26,7 @@ describe('Test Room', () => {
       isPrivate: false,
       password: '',
       ownerId: '1',
+      id: '',
     });
 
     expect(room.isRight()).toBeTruthy();

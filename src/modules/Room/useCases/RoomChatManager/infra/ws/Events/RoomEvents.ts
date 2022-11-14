@@ -69,6 +69,17 @@ export class RoomEvents {
     this.socket.emit("message", `*Welcome ${this.roomManager.Client.name} To '${this.roomManager.RoomId}'*`);
   }
 
+  roomInfo() {
+    const roomInfos = {
+      clients: this.roomManager.Room.props.clients,
+      isPrivate: this.roomManager.Room.props.isPrivate,
+      messages: this.roomManager.Room.props.messages,
+      name: this.roomManager.Room.props.name,
+      roomId: this.roomManager.Room.props.id,
+      ownerId: this.roomManager.Room.props.ownerId
+    }
+  }
+
   listParticipants() {
     const participants = this.roomManager.Room.getClients();
     this.socket.emit("listParticipants", participants);
