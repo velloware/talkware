@@ -4,6 +4,7 @@ import {
 import 'express-async-errors';
 
 import users from './users.routes';
+import rooms from './rooms.routes';
 
 export const routesCreator = Router();
 
@@ -11,6 +12,9 @@ const routes = Router();
 
 //Users
 routes.use('/users', users);
+
+//Rooms
+routes.use('/rooms', rooms);
 
 // Create docs route for json schem of routes
 routes.use('/docs', (request: Request, response: Response) => {
@@ -92,7 +96,62 @@ routes.use('/docs', (request: Request, response: Response) => {
           },
         },
       },
-    }
+    },
+    rooms: {
+      post: {
+        '/rooms': {
+          description: 'Create a new room',
+          body: {
+            type: 'object',
+            properties: {
+              name: {
+                type: 'string',
+                description: 'Room name',
+              },
+              isPrivate: {
+                type: 'boolean',
+                description: 'Room is private',
+              },
+              password: {
+                type: 'string',
+                description: 'Room password',
+              },
+            },
+          },
+          response: {
+            201: {
+              type: 'object',
+              properties: {
+                id: {
+                  type: 'string',
+                  description: 'Room id',
+                },
+                name: {
+                  type: 'string',
+                  description: 'Room name',
+                },
+                isPrivate: {
+                  type: 'boolean',
+                  description: 'Room is private',
+                },
+                ownerId: {
+                  type: 'string',
+                  description: 'Room owner id',
+                },
+                clients: {
+                  type: 'array',
+                  description: 'Room clients',
+                },
+                messages: {
+                  type: 'array',
+                  description: 'Room messages',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   });
 });
 

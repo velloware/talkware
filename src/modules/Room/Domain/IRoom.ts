@@ -2,7 +2,7 @@ import { Client } from '../../../modules/Client/Domain/Client';
 import { Message } from '../../../modules/Message/Domain/Message';
 
 export interface IRoom {
-  id?: string;
+  id: string;
   name: string;
   messages: Message[];
   clients: Client[];

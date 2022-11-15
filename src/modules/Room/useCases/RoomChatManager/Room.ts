@@ -11,6 +11,7 @@ import { RoomRepository } from '../../repositories/prisma/RoomRepository';
 export interface clientConnectProps {
   idRoom: string;
   token: string;
+  password?: string;
 }
 
 export type RoomManagerReturn = Either<ClientCreateError | UserDontFind, RoomManager>;
@@ -38,6 +39,12 @@ export class RoomManager {
 
     if (!room) {
       return left(new UserDontFind());
+    }
+
+    if (room.props.isPrivate) {
+      if (!(clientConnectProps.token && clientConnectProps.token !== "Anonymous") || !(clientConnectProps.password)) {
+        return left(new UserDontFind());
+      }
     }
 
     roomManager.room = room;

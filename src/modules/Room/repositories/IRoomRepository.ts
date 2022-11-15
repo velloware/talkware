@@ -6,5 +6,5 @@ export interface IRoomRepository {
   exists(id: string): Promise<boolean>
   findRoomById(RoomId: string): Promise<Room | null>
   save(room: Room): Promise<void>
-  create(room: Room): void
+  create(room: Room): Promise<void>
 }
