@@ -14,7 +14,7 @@ socket.on('voice', data => console.log(data));
 
 const sendMessage = () => {
   const message = document.getElementById('message').value;
-  writeMessagesInteTextArea(`You: ${message}`);
+  writeMessagesInteTextArea(`Me: ${message}`);
   socket.emit('message', message);
 };
 
