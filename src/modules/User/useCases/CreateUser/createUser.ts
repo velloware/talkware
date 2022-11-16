@@ -1,3 +1,4 @@
+import { uidCreate } from '../../../../shared/Utils/uid';
 import { Either, left, right } from '../../../../core/logic/Either';
 import { Email } from '../../Domain/Email';
 import { InvalidEmailError } from '../../Domain/Errors/InvalidEmailError';
@@ -44,7 +45,9 @@ export class CreateUser {
       email: emailOrError.value,
       password: passwordOrError.value,
       username,
-    });
+    },
+      uidCreate()
+    );
 
     if (userOrError.isLeft()) {
       return left(userOrError.value);

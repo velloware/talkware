@@ -76,6 +76,30 @@ $ npm run prisma:dev
 $ npm run dev
 ```
 
+### Run Docker
+
+```bash
+# Clone Repository
+$ git clone https://github.com/velloware/talkware.git
+
+# Install Dependencies
+$ sudo docker build -t "talkware-backend" .
+
+# Run migrations Prisma
+$ sudo docker run -p 5337:5337 -d talkware-backend
+```
+
+### Run Tests
+
+```bash
+# Run Test
+$ npm run test
+
+# Run Test Coverage
+$ npm run test:coverage
+
+```
+
 Go to http://localhost:3333/ to see the result.
 
 # Test log
