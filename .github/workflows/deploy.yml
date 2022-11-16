@@ -31,8 +31,9 @@ jobs:
           script: |
             sudo chown -R $USER /var/www/talkware.velloware.com
             cd /var/www/talkware.velloware.com
-            sudo docker stop talkware-backend
-            sudo docker rm talkware-backend
-            sudo docker build -t "talkware-backend" --rm --build-arg PM2_PUBLIC_KEY_ARG=${{ secrets.PM2A }} --build-arg PM2_SECRET_KEY_ARG=${{ secrets.PM2B }} .
-            sudo docker run --name talkware-backend -p 5337:5337 -d talkware-backend
+            echo "\n\nDeploying the project branch ${{ github.ref_name }} in /var/www/talkware.velloware.com" >> /var/www/logs/${{ github.repository }}/${{ github.sha }}/deploy.log
+            sudo docker stop talkware-backend >> /var/www/logs/${{ github.repository }}/${{ github.sha }}/deploy.log
+            sudo docker rm talkware-backend >> /var/www/logs/${{ github.repository }}/${{ github.sha }}/deploy.log
+            sudo docker build -t "talkware-backend" --rm --build-arg PM2_PUBLIC_KEY_ARG=${{ secrets.PM2A }} --build-arg PM2_SECRET_KEY_ARG=${{ secrets.PM2B }} . >> /var/www/logs/${{ github.repository }}/${{ github.sha }}/deploy.log
+            sudo docker run --name talkware-backend -p 5337:5337 -d talkware-backend >> /var/www/logs/${{ github.repository }}/${{ github.sha }}/deploy.log
             curl --request POST --url https://dash.velloware.com/api/notification --header 'Content-Type: application/json' --data '{"message": "Deploing ${{ github.repository }} - ⛑${{ github.ref_name }}📢\n on Vello-1-server (acess: talkware.velloware.com)\n\nby: ${{ github.actor }}"}'
