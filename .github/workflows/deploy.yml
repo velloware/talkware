@@ -31,13 +31,6 @@ jobs:
           script: |
             sudo chown -R $USER /var/www/talkware.velloware.com
             cd /var/www/talkware.velloware.com
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            npm ci i
-            npm run build
-            pm2 link ${{ secrets.PM2A }} ${{ secrets.PM2B }}
-            pm2 delete Talkware - Server
-            npm run prisma:deploy
-            npm run prisma:seed
-            pm2 start ecosystem.config.js
+            sudo docker build -t "talkware-backend" .
+            sudo docker run -p 5337:5337 -d talkware-backend
             curl --request POST --url https://dash.velloware.com/api/notification --header 'Content-Type: application/json' --data '{"message": "Deploing ${{ github.repository }} - ⛑${{ github.ref_name }}📢\n on Vello-1-server (acess: talkware.velloware.com)\n\nby: ${{ github.actor }}"}'
