@@ -1,6 +1,7 @@
 import { Socket } from "socket.io";
 import { wsLogger } from '../../../../../../../shared/Utils/wsLogger';
 import { RoomManager, clientConnectProps } from '../../../Room';
+export { clientConnectProps } from '../../../Room';
 
 export class RoomEvents {
 
@@ -13,7 +14,18 @@ export class RoomEvents {
     this.joinedRoom = '';
   }
 
-  async joinRoom(clientConnectProps: clientConnectProps | any) {
+  async joinRoom(clientConnectProps: clientConnectProps) {
+
+    if (!clientConnectProps) {
+      this.socket.emit("error", "Invalid data");
+      return;
+    }
+
+    if (clientConnectProps.idRoom === this.roomManager.RoomId) {
+      this.socket.emit("log", "You are already in this room");
+      return;
+    }
+
     if (this.joinedRoom) {
       wsLogger(this.socket, "Already joined", "Join");
       await this.onChangeRoom(clientConnectProps.idRoom);

@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { RoomEvents } from '../../../modules/Room/useCases/RoomChatManager/infra/ws/Events/RoomEvents';
+import { RoomEvents, clientConnectProps } from '../../../modules/Room/useCases/RoomChatManager/infra/ws/Events/RoomEvents';
 
 export class EventsSocketIo {
   private io: Server;
@@ -23,7 +23,7 @@ export class EventsSocketIo {
       this.onConnection(socket);
 
       socket.on("disconnect", () => this.onDisconnect(socket));
-      socket.on("joinChat", async (joinChatProps: any) => {
+      socket.on("joinChat", async (joinChatProps: clientConnectProps) => {
 
         await roomEvents
           .joinRoom(joinChatProps);
