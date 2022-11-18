@@ -41,11 +41,9 @@ export class RoomEvents {
     return true;
   }
 
-  async onJoinChat(clientConnectProps: clientConnectProps | any): Promise<string> {
-    if (clientConnectProps || !clientConnectProps.idRoom || !clientConnectProps.token) {
-      this.socket.emit("error", "Invalid data");
-    } else {
-      clientConnectProps as clientConnectProps;
+  async onJoinChat(clientConnectProps: clientConnectProps): Promise<string> {
+    if (clientConnectProps) {
+      this.socket.emit("error", "Invalid data onJoinChat");
     }
 
     const roomManager = await RoomManager.createRoomManager(
