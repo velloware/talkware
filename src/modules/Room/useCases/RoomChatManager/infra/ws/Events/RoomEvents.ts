@@ -23,7 +23,7 @@ export class RoomEvents {
 
     if (clientConnectProps.idRoom === this.roomManager.RoomId) {
       this.socket.emit("log", "You are already in this room");
-      return;
+      return true;
     }
 
     if (this.joinedRoom) {
