@@ -7,6 +7,5 @@ describe('Test assCrypt', () => {
 
     expect(password).toContain('$2b$08$');
     expect(compare).toBe(true);
-
   });
 });

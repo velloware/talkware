@@ -38,7 +38,10 @@ export class User extends Entity<IUser> {
   static create(
     UserProps: IUser,
     id?: string,
-  ): Either<InvalidEmailError | InvalidPasswordError | InvalidUsernameError, User> {
+  ): Either<
+    InvalidEmailError | InvalidPasswordError | InvalidUsernameError,
+    User
+  > {
     if (!UserProps.username) {
       return left(new InvalidUsernameError());
     }

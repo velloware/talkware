@@ -3,24 +3,21 @@ import { Room } from '../Domain/Room';
 
 export class RoomMapper {
   static toDomain(raw: PersistenceRoom): Room | null {
-
-    const rommOrError = Room.create(
-      {
-        id: raw.id,
-        isPrivate: raw.isPrivate,
-        name: raw.name,
-        password: raw.password,
-        ownerId: raw.ownerId,
-        messages: [],
-        clients: []
-      }
-    )
+    const rommOrError = Room.create({
+      id: raw.id,
+      isPrivate: raw.isPrivate,
+      name: raw.name,
+      password: raw.password,
+      ownerId: raw.ownerId,
+      messages: [],
+      clients: [],
+    });
 
     if (rommOrError.isRight()) {
-      return rommOrError.value
+      return rommOrError.value;
     }
 
-    return null
+    return null;
   }
 
   static async toPersistence(Room: Room) {
@@ -29,7 +26,7 @@ export class RoomMapper {
       name: Room.props.name,
       isPrivate: Room.props.isPrivate,
       password: Room.props.password,
-      ownerId: Room.props.ownerId
-    }
+      ownerId: Room.props.ownerId,
+    };
   }
 }

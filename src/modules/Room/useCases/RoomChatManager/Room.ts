@@ -1,10 +1,16 @@
-import { Either, left, right } from "../../../../core/logic/Either";
-import { IRoomRepository } from "../../repositories/IRoomRepository";
+import { Either, left, right } from '../../../../core/logic/Either';
+import { IRoomRepository } from '../../repositories/IRoomRepository';
 import { Client } from '../../../Client/Domain/Client';
-import { CreateClient, CreateClientReturn } from '../../../Client/useCases/CreateClient/CreateClient';
-import { CreateMessage, ICreateMessage } from '../../../Message/useCases/CreateMessage/CreateMessage';
-import { ClientCreateError } from "./Errors/ClientCreateError";
-import { UserDontFind } from "./Errors/UserDontFind";
+import {
+  CreateClient,
+  CreateClientReturn,
+} from '../../../Client/useCases/CreateClient/CreateClient';
+import {
+  CreateMessage,
+  ICreateMessage,
+} from '../../../Message/useCases/CreateMessage/CreateMessage';
+import { ClientCreateError } from './Errors/ClientCreateError';
+import { UserDontFind } from './Errors/UserDontFind';
 import { Room } from '../../Domain/Room';
 import { RoomRepository } from '../../repositories/prisma/RoomRepository';
 
@@ -14,7 +20,10 @@ export interface clientConnectProps {
   password?: string;
 }
 
-export type RoomManagerReturn = Either<ClientCreateError | UserDontFind, RoomManager>;
+export type RoomManagerReturn = Either<
+  ClientCreateError | UserDontFind,
+  RoomManager
+>;
 
 export class RoomManager {
   protected roomRepository: IRoomRepository;
@@ -25,24 +34,37 @@ export class RoomManager {
     this.roomRepository = RoomRepository;
   }
 
-  static async createRoomManager(idClient: string, clientConnectProps: clientConnectProps): Promise<RoomManagerReturn> {
-
+  static async createRoomManager(
+    idClient: string,
+    clientConnectProps: clientConnectProps,
+  ): Promise<RoomManagerReturn> {
     const roomManager = new RoomManager(new RoomRepository());
 
-    const client = await roomManager.createAcessClient(idClient, clientConnectProps);
+    const client = await roomManager.createAcessClient(
+      idClient,
+      clientConnectProps,
+    );
 
     if (!client) {
       return left(new ClientCreateError());
     }
 
-    const room = await roomManager.getRoom(clientConnectProps.idRoom, roomManager.roomRepository);
+    const room = await roomManager.getRoom(
+      clientConnectProps.idRoom,
+      roomManager.roomRepository,
+    );
 
     if (!room) {
       return left(new UserDontFind());
     }
 
     if (room.props.isPrivate) {
-      if (!(clientConnectProps.token && clientConnectProps.token !== "Anonymous") || !(clientConnectProps.password)) {
+      if (
+        !(
+          clientConnectProps.token && clientConnectProps.token !== 'Anonymous'
+        ) ||
+        !clientConnectProps.password
+      ) {
         return left(new UserDontFind());
       }
     }
@@ -53,9 +75,16 @@ export class RoomManager {
     return right(roomManager);
   }
 
-  async createAcessClient(idClient: string, clientConnectProps: clientConnectProps): Promise<Client | false> {
+  async createAcessClient(
+    idClient: string,
+    clientConnectProps: clientConnectProps,
+  ): Promise<Client | false> {
     let client = {} as Client;
-    if (!(clientConnectProps) || !(clientConnectProps?.token) || (clientConnectProps.token === "Anonymous")) {
+    if (
+      !clientConnectProps ||
+      !clientConnectProps?.token ||
+      clientConnectProps.token === 'Anonymous'
+    ) {
       const clientCreate = await RoomManager.createClient(idClient);
 
       if (clientCreate.isLeft()) {
@@ -68,8 +97,14 @@ export class RoomManager {
     return client;
   }
 
-  static async createClient(id: string, name?: string): Promise<CreateClientReturn> {
-    const clientCreate = await new CreateClient().create({ id: id, name: name });
+  static async createClient(
+    id: string,
+    name?: string,
+  ): Promise<CreateClientReturn> {
+    const clientCreate = await new CreateClient().create({
+      id: id,
+      name: name,
+    });
 
     if (clientCreate.isLeft()) {
       return left(clientCreate.value);
@@ -100,8 +135,7 @@ export class RoomManager {
   }
 
   public async createMessage(createMessage: ICreateMessage) {
-    const message = await new CreateMessage()
-      .create(createMessage);
+    const message = await new CreateMessage().create(createMessage);
 
     if (message.isLeft()) {
       return false;

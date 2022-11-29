@@ -1,6 +1,4 @@
-import {
-  Router, Response, Request,
-} from 'express';
+import { Router, Response, Request } from 'express';
 import 'express-async-errors';
 
 import CreateRoomController from '../../../modules/Room/useCases/CreateRoom/infra/http/Controllers/CreateRoomController';

@@ -1,16 +1,19 @@
-import { Either, left, right } from "../../../core/logic/Either";
-import { Entity } from "../../../core/domain/Entity";
-import { ClientDontCreate } from "./Errors/ClientDontCreate";
-import { ClientClass, IClient } from "./IClient";
+import { Either, left, right } from '../../../core/logic/Either';
+import { Entity } from '../../../core/domain/Entity';
+import { ClientDontCreate } from './Errors/ClientDontCreate';
+import { ClientClass, IClient } from './IClient';
 import { createHash } from '../../../shared/Utils/lowHash';
 
 export class Client extends Entity<IClient> implements ClientClass {
-
   private saltClient: string;
 
   private constructor(ClientProps: IClient) {
     super(ClientProps, ClientProps.id);
-    this.saltClient = createHash(`${new Date().getMilliseconds()}`) + this.id[0] + this.id[1] + this.id[2];
+    this.saltClient =
+      createHash(`${new Date().getMilliseconds()}`) +
+      this.id[0] +
+      this.id[1] +
+      this.id[2];
   }
 
   public static create(ClientProps: IClient): Either<ClientDontCreate, Client> {
@@ -40,5 +43,4 @@ export class Client extends Entity<IClient> implements ClientClass {
   set name(name: string) {
     this.props.name = `${name}-${this.saltClient}`;
   }
-
 }

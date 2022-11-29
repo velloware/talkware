@@ -1,5 +1,8 @@
-import { Server, Socket } from "socket.io";
-import { RoomEvents, clientConnectProps } from '../../../modules/Room/useCases/RoomChatManager/infra/ws/Events/RoomEvents';
+import { Server, Socket } from 'socket.io';
+import {
+  RoomEvents,
+  clientConnectProps,
+} from '../../../modules/Room/useCases/RoomChatManager/infra/ws/Events/RoomEvents';
 
 export class EventsSocketIo {
   private io: Server;
@@ -13,23 +16,18 @@ export class EventsSocketIo {
   }
 
   public onDisconnect(socket: Socket) {
-    console.log("Disconnected");
+    console.log('Disconnected');
   }
 
   public RegisterEvents() {
-
-    this.io.on("connection", (socket) => {
+    this.io.on('connection', socket => {
       const roomEvents = new RoomEvents(socket);
       this.onConnection(socket);
 
-      socket.on("disconnect", () => this.onDisconnect(socket));
-      socket.on("joinChat", async (joinChatProps: clientConnectProps) => {
-
-        await roomEvents
-          .joinRoom(joinChatProps);
-
+      socket.on('disconnect', () => this.onDisconnect(socket));
+      socket.on('joinChat', async (joinChatProps: clientConnectProps) => {
+        await roomEvents.joinRoom(joinChatProps);
       });
     });
-
   }
 }

@@ -40,11 +40,14 @@ describe('Test User (Password, Email)', () => {
       throw Error('Password invalid');
     }
 
-    const user = User.create({
-      email: email.value,
-      password: password.value,
-      username: 'Gabriel',
-    }, 'uuidHere');
+    const user = User.create(
+      {
+        email: email.value,
+        password: password.value,
+        username: 'Gabriel',
+      },
+      'uuidHere',
+    );
 
     if (user.isLeft()) {
       throw Error('User don`t create');

@@ -1,6 +1,5 @@
 import { CreateMessage } from './CreateMessage';
 
-
 describe('CreateMessage', () => {
   it('should be able to create a new message', async () => {
     const createMessage = new CreateMessage();

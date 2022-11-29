@@ -2,7 +2,6 @@ import { MessageDontCreate } from './Errors/MessageDontCreate';
 import { Message } from './Message';
 
 describe('Test Message', () => {
-
   it('Should be a create Message isRight', () => {
     const message = Message.create({
       id: 'id',
@@ -56,7 +55,7 @@ describe('Test Message', () => {
 
   it('Should be a not create Message isLeft', () => {
     const message = Message.create({
-      id: "",
+      id: '',
       data: 'data',
       roomId: 'roomId',
       userId: 'userId',
@@ -67,7 +66,9 @@ describe('Test Message', () => {
       throw Error('message valid');
     }
 
-    expect(message.value.message).toEqual('CoreError > The Message Dont create is invalid');
+    expect(message.value.message).toEqual(
+      'CoreError > The Message Dont create is invalid',
+    );
     expect(message.value).toBeInstanceOf(MessageDontCreate);
   });
 
@@ -84,7 +85,9 @@ describe('Test Message', () => {
       throw Error('message valid');
     }
 
-    expect(message.value.message).toEqual('CoreError > The Message Dont create is invalid');
+    expect(message.value.message).toEqual(
+      'CoreError > The Message Dont create is invalid',
+    );
     expect(message.value).toBeInstanceOf(MessageDontCreate);
   });
 });

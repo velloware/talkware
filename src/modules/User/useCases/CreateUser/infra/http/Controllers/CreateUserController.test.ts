@@ -1,5 +1,8 @@
 import { request, response } from 'express';
-import { Authenticator, IToken } from '../../../../AuthenticateUser/AuthenticateUser';
+import {
+  Authenticator,
+  IToken,
+} from '../../../../AuthenticateUser/AuthenticateUser';
 import { InMemoryUsersRepository } from '../../../../../repositories/InMemory/UsersRepository';
 import { IUsersRepository } from '../../../../../repositories/IUsersRepository';
 import { CreateUser } from '../../../createUser';
@@ -38,32 +41,42 @@ describe('Test Authenticator UseCase', () => {
     });
 
     // eslint-disable-next-line no-promise-executor-return
-    const createUserControllerSpy = jest.spyOn(CreateUser.prototype, 'create').mockReturnValue(new Promise((resolve) => resolve({
-      isLeft() {
-        return false;
-      },
-      isRight() {
-        return true;
-      },
-      value: user.value as User,
-    })));
+    const createUserControllerSpy = jest
+      .spyOn(CreateUser.prototype, 'create')
+      .mockReturnValue(
+        new Promise(resolve =>
+          resolve({
+            isLeft() {
+              return false;
+            },
+            isRight() {
+              return true;
+            },
+            value: user.value as User,
+          }),
+        ),
+      );
 
     // eslint-disable-next-line no-promise-executor-return
-    jest.spyOn(Authenticator.prototype, 'authUser').mockReturnValue(new Promise((resolve) => resolve({
-      isLeft() {
-        return false;
-      },
-      isRight() {
-        return true;
-      },
-      value: {
-        message: 'User logged in successfully',
-        statusCode: 200,
-        token: '123456',
-        name: 'Teste',
-        stack: 'Teste',
-      },
-    })));
+    jest.spyOn(Authenticator.prototype, 'authUser').mockReturnValue(
+      new Promise(resolve =>
+        resolve({
+          isLeft() {
+            return false;
+          },
+          isRight() {
+            return true;
+          },
+          value: {
+            message: 'User logged in successfully',
+            statusCode: 200,
+            token: '123456',
+            name: 'Teste',
+            stack: 'Teste',
+          },
+        }),
+      ),
+    );
 
     jest.spyOn(response, 'status').mockReturnValue(response);
     jest.spyOn(response, 'json').mockReturnValue(response);
@@ -81,29 +94,29 @@ describe('Test Authenticator UseCase', () => {
     requestCurrent.body = false;
 
     try {
-      await createUserController.execute(requestCurrent, response)
+      await createUserController.execute(requestCurrent, response);
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
     }
 
     requestCurrent.body = {
       password: 'dasdads',
-      username: 'dasdasd'
+      username: 'dasdasd',
     };
 
     try {
-      await createUserController.execute(requestCurrent, response)
+      await createUserController.execute(requestCurrent, response);
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
     }
 
     requestCurrent.body = {
       email: 'dasdasd',
-      username: 'dasdasd'
+      username: 'dasdasd',
     };
 
     try {
-      await createUserController.execute(requestCurrent, response)
+      await createUserController.execute(requestCurrent, response);
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
     }
@@ -114,11 +127,10 @@ describe('Test Authenticator UseCase', () => {
     };
 
     try {
-      await createUserController.execute(requestCurrent, response)
+      await createUserController.execute(requestCurrent, response);
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
     }
-
   });
 
   it('should be a not Create createUsersService return isLeft', async () => {
@@ -133,18 +145,22 @@ describe('Test Authenticator UseCase', () => {
     };
 
     // eslint-disable-next-line no-promise-executor-return
-    jest.spyOn(CreateUser.prototype, 'create').mockReturnValue(new Promise((resolve) => resolve({
-      isLeft() {
-        return true;
-      },
-      isRight() {
-        return false;
-      },
-      value: {} as User,
-    })));
+    jest.spyOn(CreateUser.prototype, 'create').mockReturnValue(
+      new Promise(resolve =>
+        resolve({
+          isLeft() {
+            return true;
+          },
+          isRight() {
+            return false;
+          },
+          value: {} as User,
+        }),
+      ),
+    );
 
     try {
-      await createUserController.execute(requestCurrent, response)
+      await createUserController.execute(requestCurrent, response);
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
     }

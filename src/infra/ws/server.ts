@@ -1,17 +1,18 @@
-import { Server, Socket } from "socket.io";
-export { Server as ISockeIServer } from "socket.io";
+import { Server, Socket } from 'socket.io';
+export { Server as ISockeIServer } from 'socket.io';
 
 import { EventsSocketIo } from './events/events';
 
 export class WebSocketServer {
-
-  constructor() { }
+  constructor() {
+    // ...
+  }
 
   createWsServer(): Server {
     const socket = new Server({
       cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
+        origin: '*',
+        methods: ['GET', 'POST'],
       },
     });
 

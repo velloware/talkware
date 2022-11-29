@@ -6,4 +6,4 @@ describe('Test UID create', () => {
 
     expect(uid).toHaveLength(36);
   });
-})
+});

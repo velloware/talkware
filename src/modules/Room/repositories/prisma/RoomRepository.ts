@@ -1,7 +1,7 @@
 import { Either, left, right } from '../../../../core/logic/Either';
 import { Room } from '../../Domain/Room';
 import { roomDontExist } from '../Errors/RoomsDontExist';
-import { prisma } from '../../../../infra/prisma/client'
+import { prisma } from '../../../../infra/prisma/client';
 import { RoomMapper } from '../../mappers/RoomMapper';
 import { IRoomRepository } from '../IRoomRepository';
 
@@ -9,12 +9,11 @@ type RoomServiceReturn = Either<roomDontExist, Room>;
 type RoomsReturn = Either<roomDontExist, Room[] | Room>;
 
 export class RoomRepository implements IRoomRepository {
-
   async exists(id: string): Promise<boolean> {
     const room = await prisma.room.findUnique({
       where: {
-        id
-      }
+        id,
+      },
     });
 
     if (!room) {
@@ -32,29 +31,29 @@ export class RoomRepository implements IRoomRepository {
         isPrivate: room.isPrivate,
         password: room.password,
         ownerId: room.ownerId,
-      }
+      },
     });
   }
 
   async save(room: Room): Promise<void> {
     await prisma.room.update({
       where: {
-        id: room.props.id
+        id: room.props.id,
       },
       data: {
         name: room.props.name,
         isPrivate: room.props.isPrivate,
         password: room.props.password,
         ownerId: room.props.ownerId,
-      }
+      },
     });
   }
 
   async findRoomById(RoomId: string): Promise<Room | null> {
     const rooms = await prisma.room.findUnique({
       where: {
-        id: RoomId
-      }
+        id: RoomId,
+      },
     });
 
     if (!rooms) {
@@ -77,7 +76,7 @@ export class RoomRepository implements IRoomRepository {
       return left(new roomDontExist());
     }
 
-    let roomsList: Room[] = [];
+    const roomsList: Room[] = [];
 
     for (const roomsMapped of rooms) {
       const room = RoomMapper.toDomain(roomsMapped);
@@ -91,6 +90,4 @@ export class RoomRepository implements IRoomRepository {
 
     return right(roomsList);
   }
-
-
 }

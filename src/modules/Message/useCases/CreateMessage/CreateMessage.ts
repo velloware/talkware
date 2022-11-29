@@ -13,16 +13,22 @@ export interface ICreateMessage {
 type CreateMessageReturn = Either<MessageDontCreate, Message>;
 
 export class CreateMessage {
+  constructor() {
+    // ...
+  }
 
-  constructor() { }
-
-  async create({ data, clientId, roomId, userId }: ICreateMessage): Promise<CreateMessageReturn> {
+  async create({
+    data,
+    clientId,
+    roomId,
+    userId,
+  }: ICreateMessage): Promise<CreateMessageReturn> {
     const message = Message.create({
       id: uidCreate(),
       data,
       clientId,
       roomId,
-      userId
+      userId,
     });
 
     if (message.isLeft()) {
@@ -31,5 +37,4 @@ export class CreateMessage {
 
     return right(message.value);
   }
-
 }

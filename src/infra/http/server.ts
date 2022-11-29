@@ -59,27 +59,36 @@ class ServerHttp {
   }
 
   middlerwares() {
-    this.app.use((request: Request, response: Response, _next: NextFunction) => {
-      request.debug = this.debug;
-      request.debug(`> ${request.path} -> Acess`);
-      _next();
-    });
+    this.app.use(
+      (request: Request, response: Response, _next: NextFunction) => {
+        request.debug = this.debug;
+        request.debug(`> ${request.path} -> Acess`);
+        _next();
+      },
+    );
   }
 
   middlewareHandlerErrors() {
-    this.app.use((err: Error, request: Request, response: Response, _next: NextFunction) => {
-      this.debug(err);
-      if (err instanceof AppError) {
-        return response.status(err.statusCode).json({
+    this.app.use(
+      (
+        err: Error,
+        request: Request,
+        response: Response,
+        _next: NextFunction,
+      ) => {
+        this.debug(err);
+        if (err instanceof AppError) {
+          return response.status(err.statusCode).json({
+            status: 'error',
+            message: err.message,
+          });
+        }
+        return response.status(500).json({
           status: 'error',
-          message: err.message,
+          message: 'Internal server error',
         });
-      }
-      return response.status(500).json({
-        status: 'error',
-        message: 'Internal server error',
-      });
-    });
+      },
+    );
   }
 
   close(callback: () => void) {

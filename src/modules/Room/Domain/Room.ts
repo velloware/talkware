@@ -1,5 +1,5 @@
 import { IRoomClass, IRoom } from './IRoom';
-import { Entity } from "../../../core/domain/Entity";
+import { Entity } from '../../../core/domain/Entity';
 
 import { Message } from '../../Message/Domain/Message';
 import { Either, left, right } from '../../../core/logic/Either';
@@ -7,19 +7,20 @@ import { Either, left, right } from '../../../core/logic/Either';
 import { InvalidPropsError } from './Errors/InvalidPropsError';
 
 import { uidCreate } from '../../../shared/Utils/uid';
-import { comparePassword, hashedPassword } from '../../../shared/Utils/PassCrypt';
+import {
+  comparePassword,
+  hashedPassword,
+} from '../../../shared/Utils/PassCrypt';
 import { Client } from '../../../modules/Client/Domain/Client';
 
 export type createRoomReturns = Either<InvalidPropsError, Room>;
 
 export class Room extends Entity<IRoom> implements IRoomClass {
-
   private constructor(room: IRoom) {
     super(room, room.id || uidCreate());
   }
 
   public static create(room: IRoom): createRoomReturns {
-
     if (!room.name) {
       return left(new InvalidPropsError('Room name is required'));
     }
@@ -30,7 +31,7 @@ export class Room extends Entity<IRoom> implements IRoomClass {
 
     const roomClass = new Room(room);
 
-    room.password ? roomClass.cryptPassword() : roomClass.props.password = '';
+    room.password ? roomClass.cryptPassword() : (roomClass.props.password = '');
 
     return right(roomClass);
   }
@@ -72,11 +73,15 @@ export class Room extends Entity<IRoom> implements IRoomClass {
   }
 
   removeClient(clientId: string): void {
-    this.props.clients = this.props.clients.filter((client: Client) => client.id !== clientId);
+    this.props.clients = this.props.clients.filter(
+      (client: Client) => client.id !== clientId,
+    );
   }
 
   removeMessage(messageId: string): void {
-    this.props.messages = this.props.messages.filter((message: Message) => message.id !== messageId);
+    this.props.messages = this.props.messages.filter(
+      (message: Message) => message.id !== messageId,
+    );
   }
 
   get isPrivate(): boolean {

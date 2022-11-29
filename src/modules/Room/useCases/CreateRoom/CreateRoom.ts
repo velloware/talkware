@@ -1,5 +1,5 @@
-import { Room, createRoomReturns } from "../../Domain/Room";
-import { IRoomRepository } from "../../repositories/IRoomRepository";
+import { Room, createRoomReturns } from '../../Domain/Room';
+import { IRoomRepository } from '../../repositories/IRoomRepository';
 
 export interface ICreateRoom {
   name: string;
@@ -9,7 +9,6 @@ export interface ICreateRoom {
 }
 
 export class CreateRooom {
-
   protected roomRepository: IRoomRepository;
 
   constructor(roomRepository: IRoomRepository) {
