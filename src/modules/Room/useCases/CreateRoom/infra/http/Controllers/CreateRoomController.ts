@@ -4,10 +4,7 @@ import { AppError } from '../../../../../../../shared/Error/AppError';
 import { CreateRooom, ICreateRoom } from '../../../CreateRoom';
 
 export default class CreateRoomController {
-  public async execute(
-    request: Request,
-    response: Response,
-  ) {
+  public async execute(request: Request, response: Response) {
     const createRoomsService = new CreateRooom(new RoomRepository());
     const bodyParams: ICreateRoom = request.body;
 
@@ -19,15 +16,14 @@ export default class CreateRoomController {
     }
     if (bodyParams.isPrivate) {
       if (!bodyParams.password) {
-        throw new AppError(`IsPrivate need Password proprety ${bodyParams.isPrivate}`, 400);
+        throw new AppError(
+          `IsPrivate need Password proprety ${bodyParams.isPrivate}`,
+          400,
+        );
       }
     }
 
-    const {
-      name,
-      isPrivate,
-      password
-    } = bodyParams;
+    const { name, isPrivate, password } = bodyParams;
 
     const result = await createRoomsService.create({
       name,

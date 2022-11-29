@@ -1,10 +1,9 @@
 // Create function to create hash
 
 export function createHash(data: string): string {
-
   let limitLength = 5;
   const dataNow = `${data}${new Date().getMilliseconds()}`;
-  const max = (2 << 32);
+  const max = 2 << 32;
   let hash = '';
 
   for (let i = 0; i < limitLength; i++) {
@@ -15,7 +14,6 @@ export function createHash(data: string): string {
     } else {
       limitLength++;
     }
-
   }
 
   return hash;

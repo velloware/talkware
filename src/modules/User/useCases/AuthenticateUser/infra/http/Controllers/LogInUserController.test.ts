@@ -1,6 +1,4 @@
-import {
-  request, response,
-} from 'express';
+import { request, response } from 'express';
 import LogInUserController from './LogInUserController';
 import { AppError } from '../../../../../../../shared/Error/AppError';
 import { Authenticator } from '../../../AuthenticateUser';
@@ -25,21 +23,27 @@ describe('Test UseCase List AppointmentsController', () => {
     requestCurrent.debug = () => ({});
 
     // eslint-disable-next-line no-promise-executor-return
-    const AuthenticatorSpy = jest.spyOn(Authenticator.prototype, 'authUser').mockReturnValue(new Promise((resolve) => resolve({
-      isLeft() {
-        return false;
-      },
-      isRight() {
-        return true;
-      },
-      value: {
-        message: 'User logged in successfully',
-        statusCode: 200,
-        token: '123456',
-        name: 'Teste',
-        stack: 'Teste',
-      },
-    })));
+    const AuthenticatorSpy = jest
+      .spyOn(Authenticator.prototype, 'authUser')
+      .mockReturnValue(
+        new Promise(resolve =>
+          resolve({
+            isLeft() {
+              return false;
+            },
+            isRight() {
+              return true;
+            },
+            value: {
+              message: 'User logged in successfully',
+              statusCode: 200,
+              token: '123456',
+              name: 'Teste',
+              stack: 'Teste',
+            },
+          }),
+        ),
+      );
 
     jest.spyOn(response, 'json').mockReturnValue(response);
 
@@ -60,21 +64,25 @@ describe('Test UseCase List AppointmentsController', () => {
     requestCurrent.debug = () => ({});
 
     // eslint-disable-next-line no-promise-executor-return
-    jest.spyOn(Authenticator.prototype, 'authUser').mockReturnValue(new Promise((resolve) => resolve({
-      isLeft() {
-        return true;
-      },
-      isRight() {
-        return false;
-      },
-      value: {
-        message: 'User logged in successfully',
-        statusCode: 200,
-        token: '123456',
-        name: 'Teste',
-        stack: 'Teste',
-      },
-    })));
+    jest.spyOn(Authenticator.prototype, 'authUser').mockReturnValue(
+      new Promise(resolve =>
+        resolve({
+          isLeft() {
+            return true;
+          },
+          isRight() {
+            return false;
+          },
+          value: {
+            message: 'User logged in successfully',
+            statusCode: 200,
+            token: '123456',
+            name: 'Teste',
+            stack: 'Teste',
+          },
+        }),
+      ),
+    );
 
     jest.spyOn(response, 'json').mockReturnValue(response);
 
@@ -96,7 +104,9 @@ describe('Test UseCase List AppointmentsController', () => {
       await logInUserController.execute(requestCurrent, response);
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
-      expect((error as AppError).message).toBe('AppError > Email is proprety required undefined');
+      expect((error as AppError).message).toBe(
+        'AppError > Email is proprety required undefined',
+      );
     }
   });
 
@@ -111,7 +121,9 @@ describe('Test UseCase List AppointmentsController', () => {
       await logInUserController.execute(requestCurrent, response);
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
-      expect((error as AppError).message).toBe('AppError > Password is proprety required undefined');
+      expect((error as AppError).message).toBe(
+        'AppError > Password is proprety required undefined',
+      );
     }
   });
 
@@ -124,7 +136,9 @@ describe('Test UseCase List AppointmentsController', () => {
       await logInUserController.execute(requestCurrent, response);
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
-      expect((error as AppError).message).toBe('AppError > Your request Body is invalid');
+      expect((error as AppError).message).toBe(
+        'AppError > Your request Body is invalid',
+      );
     }
   });
 });

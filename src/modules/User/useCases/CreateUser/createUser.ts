@@ -41,12 +41,13 @@ export class CreateUser {
 
     await passwordOrError.value.setHashPassword();
 
-    const userOrError = User.create({
-      email: emailOrError.value,
-      password: passwordOrError.value,
-      username,
-    },
-      uidCreate()
+    const userOrError = User.create(
+      {
+        email: emailOrError.value,
+        password: passwordOrError.value,
+        username,
+      },
+      uidCreate(),
     );
 
     if (userOrError.isLeft()) {

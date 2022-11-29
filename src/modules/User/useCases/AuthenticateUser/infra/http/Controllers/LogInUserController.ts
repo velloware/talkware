@@ -4,10 +4,7 @@ import { AppError } from '../../../../../../../shared/Error/AppError';
 import { Authenticator } from '../../../AuthenticateUser';
 
 export default class CreateUserController {
-  public async execute(
-    request: Request,
-    response: Response,
-  ) {
+  public async execute(request: Request, response: Response) {
     const bodyParams = request.body;
 
     if (!bodyParams) {
@@ -19,12 +16,16 @@ export default class CreateUserController {
     }
 
     if (!bodyParams.password) {
-      throw new AppError(`Password is proprety required ${bodyParams.password}`);
+      throw new AppError(
+        `Password is proprety required ${bodyParams.password}`,
+      );
     }
 
     request.debug(`User Try Auth -> Id = ${bodyParams.email}`);
 
-    const userAuth = await new Authenticator(new PrismaUsersRepository()).authUser({
+    const userAuth = await new Authenticator(
+      new PrismaUsersRepository(),
+    ).authUser({
       email: bodyParams.email,
       password: bodyParams.password,
     });

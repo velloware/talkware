@@ -30,7 +30,7 @@ describe('Test Room', () => {
     });
 
     expect(room.isRight()).toBeTruthy();
-  })
+  });
 
   it('Should not create a room with invalid props', () => {
     const room = Room.create({
@@ -60,7 +60,9 @@ describe('Test Room', () => {
 
     expect(room.isRight()).toBeTruthy();
 
-    if (room.isLeft()) { throw new Error('Room is not right'); }
+    if (room.isLeft()) {
+      throw new Error('Room is not right');
+    }
 
     const message = Message.create({
       id: '1',
@@ -69,7 +71,9 @@ describe('Test Room', () => {
       roomId: '1',
     });
 
-    if (message.isLeft()) { throw new Error('Message is not right'); }
+    if (message.isLeft()) {
+      throw new Error('Message is not right');
+    }
 
     room.value.addMessage(message.value);
 
@@ -89,7 +93,9 @@ describe('Test Room', () => {
 
     expect(room.isRight()).toBeTruthy();
 
-    if (room.isLeft()) { throw new Error('Room is not right'); }
+    if (room.isLeft()) {
+      throw new Error('Room is not right');
+    }
 
     const message = Message.create({
       id: '1',
@@ -98,7 +104,9 @@ describe('Test Room', () => {
       clientId: '1',
     });
 
-    if (message.isLeft()) { throw new Error('Message is not right'); }
+    if (message.isLeft()) {
+      throw new Error('Message is not right');
+    }
 
     room.value.addMessage(message.value);
 
@@ -122,14 +130,16 @@ describe('Test Room', () => {
 
     expect(room.isRight()).toBeTruthy();
 
-    if (room.isLeft()) { throw new Error('Room is not right'); }
+    if (room.isLeft()) {
+      throw new Error('Room is not right');
+    }
 
     expect(room.value.getClients().length).toBe(0);
 
     const client = Client.create({
       name: '1test',
       userId: '1',
-      id: '1'
+      id: '1',
     });
 
     if (client.isLeft()) {
@@ -154,7 +164,9 @@ describe('Test Room', () => {
 
     expect(room.isRight()).toBeTruthy();
 
-    if (room.isLeft()) { throw new Error('Room is not right'); }
+    if (room.isLeft()) {
+      throw new Error('Room is not right');
+    }
 
     expect(room.value.getOwnerId()).toBe('1');
   });
@@ -172,12 +184,14 @@ describe('Test Room', () => {
 
     expect(room.isRight()).toBeTruthy();
 
-    if (room.isLeft()) { throw new Error('Room is not right'); }
+    if (room.isLeft()) {
+      throw new Error('Room is not right');
+    }
 
     const client = Client.create({
       name: '1test',
       userId: '1',
-      id: '1'
+      id: '1',
     });
 
     if (client.isLeft()) {
@@ -192,4 +206,4 @@ describe('Test Room', () => {
 
     expect(room.value.getClients().length).toBe(0);
   });
-})
+});

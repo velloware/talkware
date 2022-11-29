@@ -10,11 +10,11 @@ interface ICreateClient {
 export type CreateClientReturn = Either<ClientDontCreate, Client>;
 
 export class CreateClient {
-
-  constructor() { }
+  constructor() {
+    //  ...
+  }
 
   async create({ id, name }: ICreateClient): Promise<CreateClientReturn> {
-
     let nameToCreate = '';
 
     if (!name) {
@@ -29,5 +29,4 @@ export class CreateClient {
 
     return right(client.value);
   }
-
 }

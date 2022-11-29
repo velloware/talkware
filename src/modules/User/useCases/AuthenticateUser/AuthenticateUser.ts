@@ -10,9 +10,9 @@ interface IAuthUserRequest {
 
 export type IToken = {
   token: string;
-}
+};
 
-type IAuthenticatorAuthUser = Either<InvalidEmailOrPasswordError, IToken>
+type IAuthenticatorAuthUser = Either<InvalidEmailOrPasswordError, IToken>;
 
 export class Authenticator {
   protected userRepository: IUsersRepository;
@@ -21,7 +21,10 @@ export class Authenticator {
     this.userRepository = UserRepository;
   }
 
-  async authUser({ email, password }: IAuthUserRequest): Promise<IAuthenticatorAuthUser> {
+  async authUser({
+    email,
+    password,
+  }: IAuthUserRequest): Promise<IAuthenticatorAuthUser> {
     const userTryAuth = await this.userRepository.findByEmail(email);
 
     if (!userTryAuth) {

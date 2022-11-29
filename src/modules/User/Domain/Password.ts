@@ -1,5 +1,8 @@
 import { Either, left, right } from '../../../core/logic/Either';
-import { comparePassword, hashedPassword } from '../../../shared/Utils/PassCrypt';
+import {
+  comparePassword,
+  hashedPassword,
+} from '../../../shared/Utils/PassCrypt';
 import { InvalidPasswordError } from './Errors/InvalidPasswordError';
 
 export class Password {
@@ -23,9 +26,9 @@ export class Password {
 
   static validate(password: string): boolean {
     if (
-      !password
-      || password.trim().length < 6
-      || password.trim().length > 255
+      !password ||
+      password.trim().length < 6 ||
+      password.trim().length > 255
     ) {
       return false;
     }

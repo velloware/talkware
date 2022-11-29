@@ -20,7 +20,9 @@ describe('Test Email', () => {
       throw Error('email valid');
     }
 
-    expect(email.value.message).toEqual('CoreError > The Email(gabreilbarros13@gmail) is invalid');
+    expect(email.value.message).toEqual(
+      'CoreError > The Email(gabreilbarros13@gmail) is invalid',
+    );
     expect(email.value).toBeInstanceOf(InvalidEmailError);
   });
 

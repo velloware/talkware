@@ -5,13 +5,13 @@ import { InvalidJWTTokenError } from './Errors/InvalidJWTTokenError';
 import { User } from './User';
 
 interface JWTData {
-  userId: string
-  token: string
+  userId: string;
+  token: string;
 }
 
 export interface JWTTokenPayload {
-  exp: number
-  sub: string
+  exp: number;
+  sub: string;
 }
 
 export class JWT {

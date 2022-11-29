@@ -9,13 +9,14 @@ const server = new Server(process.env.PORT || 5337, false);
 const webSocketServerManager = new WebSocketServer();
 const wsServer = webSocketServerManager.createWsServer();
 
-server.adpter(
-  wsServer
-);
+server.adpter(wsServer);
 server.init();
 
 process.on('SIGTERM', () => {
-  console.log('> Server ending after close all connections - ', new Date().toISOString());
+  console.log(
+    '> Server ending after close all connections - ',
+    new Date().toISOString(),
+  );
   webSocketServerManager.close(wsServer);
   server.close(() => process.exit());
 });

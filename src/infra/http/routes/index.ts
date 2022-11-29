@@ -1,6 +1,4 @@
-import {
-  Router, Response, Request,
-} from 'express';
+import { Router, Response, Request } from 'express';
 import 'express-async-errors';
 
 import users from './users.routes';

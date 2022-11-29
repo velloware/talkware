@@ -5,10 +5,7 @@ import { CreateUser, ICreateUser } from '../../../createUser';
 import { Authenticator } from '../../../../AuthenticateUser/AuthenticateUser';
 
 export default class CreateUserController {
-  public async execute(
-    request: Request,
-    response: Response,
-  ) {
+  public async execute(request: Request, response: Response) {
     const createUsersService = new CreateUser(new PrismaUsersRepository());
     const bodyParams: ICreateUser = request.body;
 
@@ -19,10 +16,14 @@ export default class CreateUserController {
       throw new AppError(`Email is proprety required ${bodyParams.email}`);
     }
     if (!bodyParams.password) {
-      throw new AppError(`Password is proprety required ${bodyParams.password}`);
+      throw new AppError(
+        `Password is proprety required ${bodyParams.password}`,
+      );
     }
     if (!bodyParams.username) {
-      throw new AppError(`Username is proprety required ${bodyParams.username}`);
+      throw new AppError(
+        `Username is proprety required ${bodyParams.username}`,
+      );
     }
 
     const { email, password, username } = bodyParams;
@@ -40,7 +41,9 @@ export default class CreateUserController {
     request.debug(`User created -> Id = ${result.value.id}`);
     request.debug(`Logging in User -> Id = ${result.value.id}`);
 
-    const userAuth = await new Authenticator(new PrismaUsersRepository()).authUser({
+    const userAuth = await new Authenticator(
+      new PrismaUsersRepository(),
+    ).authUser({
       email,
       password,
     });

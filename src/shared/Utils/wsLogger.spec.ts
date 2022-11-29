@@ -1,11 +1,10 @@
 import { wsLogger } from './wsLogger';
-import { Socket } from "socket.io";
+import { Socket } from 'socket.io';
 
 describe('Test wsLogger', () => {
   it('Should be a create wsLogger', () => {
     const socket = {
       id: 'id',
-
     } as Socket;
 
     const text = 'text';
@@ -21,7 +20,6 @@ describe('Test wsLogger', () => {
   it('Should be a create wsLogger using default Action', () => {
     const socket = {
       id: 'id',
-
     } as Socket;
 
     const text = 'text';

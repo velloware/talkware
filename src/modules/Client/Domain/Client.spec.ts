@@ -38,7 +38,9 @@ describe('Test Client', () => {
       throw Error('client valid');
     }
 
-    expect(client.value.message).toEqual('CoreError > The Client Dont create is invalid');
+    expect(client.value.message).toEqual(
+      'CoreError > The Client Dont create is invalid',
+    );
     expect(client.value).toBeInstanceOf(ClientDontCreate);
   });
-})
+});
