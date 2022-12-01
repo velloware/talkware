@@ -18,6 +18,14 @@ export class InMemoryUsersRepository implements IUsersRepository {
     return users;
   }
 
+  async findById(id: string): Promise<User> {
+    const users = this.items.filter(user => {
+      return user.id == id;
+    })[0];
+
+    return users;
+  }
+
   async save(user: User): Promise<void> {
     const userIndex = this.items.findIndex(findUser => {
       findUser.id === user.id;

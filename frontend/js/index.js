@@ -1,7 +1,24 @@
+/* eslint-disable no-undef */
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 
-const socket = io('https://talkware-backend.velloware.com/', {});
-// const socket = io('localhost:5337', {});
+let socket;
+if (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1'
+) {
+  socket = io('localhost:5337', {
+    query: {
+      token:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Njk4NTQ5MTAsImV4cCI6MTY3MjQ0NjkxMCwic3ViIjoiMzJlYzZkYmQtYjA0YS00ZWEyLWI0MGQtNjBkMGZjYjU1YmM3In0.9fkGL8yf6ndv2SW-T47B6TTZyCqay0ocjf1XMI6sFF0', // Parser JWT Token
+    },
+  });
+} else {
+  socket = io('https://talkware-backend.velloware.com/', {
+    query: {
+      token: 'Anonymous',
+    },
+  });
+}
 
 socket.on('connect', () => setUserName(socket.id));
 socket.on('disconnect', () => console.log(`Disconnect For SocketServer`));
