@@ -8,8 +8,8 @@ if (
 ) {
   socket = io('localhost:5337', {
     query: {
-      token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Njk4NTQ5MTAsImV4cCI6MTY3MjQ0NjkxMCwic3ViIjoiMzJlYzZkYmQtYjA0YS00ZWEyLWI0MGQtNjBkMGZjYjU1YmM3In0.9fkGL8yf6ndv2SW-T47B6TTZyCqay0ocjf1XMI6sFF0', // Parser JWT Token
+      token: 'Anonymous',
+      //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Njk4NTQ5MTAsImV4cCI6MTY3MjQ0NjkxMCwic3ViIjoiMzJlYzZkYmQtYjA0YS00ZWEyLWI0MGQtNjBkMGZjYjU1YmM3In0.9fkGL8yf6ndv2SW-T47B6TTZyCqay0ocjf1XMI6sFF0', // Parser JWT Token
     },
   });
 } else {
@@ -43,8 +43,8 @@ const setUser = () => {
 };
 
 const writeMessagesInteTextArea = data => {
-  const chatRef = document.getElementById('chat');
-  chatRef.value = chatRef.value += data += '\n';
+  const roomRef = document.getElementById('room');
+  roomRef.value = roomRef.value += data += '\n';
 };
 
 const setUserName = name => {
@@ -52,20 +52,20 @@ const setUserName = name => {
   userIdRef.textContent = name;
 };
 
-const setChatName = name => {
-  const userIdRef = document.getElementById('chatCurrent');
+const setRoomName = name => {
+  const userIdRef = document.getElementById('roomCurrent');
   userIdRef.textContent = name;
 };
-setChatName('No Chat Selected. GLOBAL CHAT');
+setRoomName('No Room Selected. GLOBAL CHAT');
 
 const setRoom = () => {
-  const roomId = document.getElementById('chatIdJoin').value;
-  socket.emit('joinChat', {
+  const roomId = document.getElementById('roomIdJoin').value;
+  socket.emit('joinRoom', {
     idRoom: roomId,
     token: 'Anonymous',
   });
 
-  setChatName(`${roomId}`);
+  setRoomName(`${roomId}`);
 };
 
 const onError = error => {
@@ -74,4 +74,4 @@ const onError = error => {
 
 document.getElementById('sender').addEventListener('click', sendMessage);
 document.getElementById('setName').addEventListener('click', setUser);
-document.getElementById('setChat').addEventListener('click', setRoom);
+document.getElementById('setRoom').addEventListener('click', setRoom);

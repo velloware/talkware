@@ -2,10 +2,6 @@ import { Either, left, right } from '../../../../core/logic/Either';
 import { IRoomRepository } from '../../repositories/IRoomRepository';
 import { Client } from '../../../Client/Domain/Client';
 import {
-  CreateClient,
-  CreateClientReturn,
-} from '../../../Client/useCases/CreateClient/CreateClient';
-import {
   CreateMessage,
   ICreateMessage,
 } from '../../../Message/useCases/CreateMessage/CreateMessage';
@@ -14,9 +10,8 @@ import { UserDontFind } from './Errors/UserDontFind';
 import { Room } from '../../Domain/Room';
 import { RoomRepository } from '../../repositories/prisma/RoomRepository';
 
-export interface clientConnectProps {
+export interface clientConnectRoomProps {
   idRoom: string;
-  token: string;
   password?: string;
 }
 
@@ -30,27 +25,23 @@ export class RoomManager {
   private room: Room = {} as Room;
   private client: Client = {} as Client;
 
-  private constructor(RoomRepository: IRoomRepository) {
+  private constructor(RoomRepository: IRoomRepository, Client: Client) {
     this.roomRepository = RoomRepository;
+    this.client = Client;
   }
 
   static async createRoomManager(
-    idClient: string,
-    clientConnectProps: clientConnectProps,
+    Client: Client,
+    clientConnectRoomProps: clientConnectRoomProps,
   ): Promise<RoomManagerReturn> {
-    const roomManager = new RoomManager(new RoomRepository());
-
-    const client = await roomManager.createAcessClient(
-      idClient,
-      clientConnectProps,
-    );
-
-    if (!client) {
+    if (!Client || !clientConnectRoomProps) {
       return left(new ClientCreateError());
     }
 
+    const roomManager = new RoomManager(new RoomRepository(), Client);
+
     const room = await roomManager.getRoom(
-      clientConnectProps.idRoom,
+      clientConnectRoomProps.idRoom,
       roomManager.roomRepository,
     );
 
@@ -58,59 +49,10 @@ export class RoomManager {
       return left(new UserDontFind());
     }
 
-    if (room.props.isPrivate) {
-      if (
-        !(
-          clientConnectProps.token && clientConnectProps.token !== 'Anonymous'
-        ) ||
-        !clientConnectProps.password
-      ) {
-        return left(new UserDontFind());
-      }
-    }
-
     roomManager.room = room;
-    roomManager.Client = client;
+    roomManager.Client = Client;
 
     return right(roomManager);
-  }
-
-  async createAcessClient(
-    idClient: string,
-    clientConnectProps: clientConnectProps,
-  ): Promise<Client | false> {
-    let client = {} as Client;
-    if (
-      !clientConnectProps ||
-      !clientConnectProps?.token ||
-      clientConnectProps.token === 'Anonymous'
-    ) {
-      const clientCreate = await RoomManager.createClient(idClient);
-
-      if (clientCreate.isLeft()) {
-        return false;
-      }
-
-      client = clientCreate.value;
-    }
-
-    return client;
-  }
-
-  static async createClient(
-    id: string,
-    name?: string,
-  ): Promise<CreateClientReturn> {
-    const clientCreate = await new CreateClient().create({
-      id: id,
-      name: name,
-    });
-
-    if (clientCreate.isLeft()) {
-      return left(clientCreate.value);
-    }
-
-    return right(clientCreate.value);
   }
 
   public async getRoom(idRoom: string, RepositoryRoom: IRoomRepository) {

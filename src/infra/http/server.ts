@@ -19,7 +19,7 @@ class ServerHttp {
   private port: number | string;
 
   constructor(port: number | string, multiProcess: boolean) {
-    this.debug = Debug('server:http');
+    this.debug = Debug('app:server');
     this.multiProcess = multiProcess;
     this.app = express();
     this.server = http.createServer(this.app);
@@ -47,7 +47,7 @@ class ServerHttp {
       this.routes();
       this.middlewareHandlerErrors();
       this.server.listen(this.port, () => {
-        console.log(`Server started on port ${this.port}`);
+        this.debug(`Server started on port ${this.port}`);
       });
     }
   }

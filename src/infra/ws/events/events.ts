@@ -1,10 +1,14 @@
 import { NewConnection } from '../../../modules/Client/useCases/NewConnection/NewConnection';
 import { Server, Socket } from 'socket.io';
 import {
-  RoomEvents,
-  clientConnectProps,
-} from '../../../modules/Room/useCases/RoomChatManager/infra/ws/Events/RoomEvents';
+  ConnectionManager,
+  IJoinRoom,
+} from '../../../modules/Client/useCases/ConnectionManager/ConnectionManager';
 import ensureAuthenticated from '../middleware/EnsureAuthenticated';
+
+import Debug from 'debug';
+
+const debug = Debug('app:socket');
 
 export class EventsSocketIo {
   private io: Server;
@@ -15,38 +19,32 @@ export class EventsSocketIo {
   }
 
   public onConnection(socket: Socket) {
-    console.log(`Connected: ${socket.id}`);
+    debug(`Connected: ${socket.id}`);
   }
 
   public onDisconnect(socket: Socket) {
-    console.log('Disconnected');
+    debug('Disconnected');
   }
 
   public RegisterEvents() {
-    this.io.on('connection', socket => {
-      (async () => {
-        // Using to try
-        const connection = await new NewConnection({
-          data: socket.data,
-          id: socket.id,
-        }).execute();
+    this.io.on('connection', async socket => {
+      const connectionManager = new ConnectionManager({
+        data: socket.data,
+        id: socket.id,
+      });
 
-        if (connection.isLeft()) {
-          return;
-        }
-
-        const client = connection.value;
-
-        console.log(client);
-      })();
-
-      const roomEvents = new RoomEvents(socket);
       this.onConnection(socket);
+      if (await connectionManager.connect()) {
+        debug('connectconnectconnectconnect');
+
+        socket.on('joinRoom', async (joinRoomProps: IJoinRoom) => {
+          debug('joinRoomjoinRoomjoinRoomjoinRoom');
+          await connectionManager.joinRoom(joinRoomProps);
+        });
+      }
+      debug('Connected');
 
       socket.on('disconnect', () => this.onDisconnect(socket));
-      socket.on('joinChat', async (joinChatProps: clientConnectProps) => {
-        await roomEvents.joinRoom(joinChatProps);
-      });
     });
   }
 }

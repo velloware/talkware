@@ -19,7 +19,8 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
 
-  rooms Room[]
+  rooms         Room[]
+  RoomsHasAcess RoomsHasAcess[]
 }
 
 model Room {
@@ -32,5 +33,20 @@ model Room {
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
 
-  owner User @relation(fields: [ownerId], references: [id])
+  owner         User            @relation(fields: [ownerId], references: [id])
+  RoomsHasAcess RoomsHasAcess[]
+}
+
+model RoomsHasAcess {
+  id        String  @id @unique @default(uuid())
+  userId    String
+  roomId    String
+  isOwner   Boolean @default(false)
+  isBlocked Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+  room Room @relation(fields: [roomId], references: [id])
 }

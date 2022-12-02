@@ -1,5 +1,9 @@
 import { Socket } from 'socket.io';
 
+import Debug from 'debug';
+
+const debug = Debug('app:socket');
+
 export const wsLogger = (socket: Socket, text: string, action = 'Action') => {
-  console.log(`Websocket > [${socket.id}] < ${action} > [${text}]`);
+  debug(`Websocket > [${socket.id}] < ${action} > [${text}]`);
 };

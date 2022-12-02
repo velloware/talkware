@@ -25,7 +25,7 @@ export interface SocketDataClient {
 
 export interface INewConnectionrReturn {
   client: Client;
-  RoomsAcess?: Room[];
+  RoomsHasAcess?: Room[];
   RoomsCreated?: Room[];
   alerts?: string[];
 }
@@ -46,10 +46,9 @@ export class NewConnection {
     let client: CreateClientReturn;
     const alerts: string[] = [];
     const RoomsCreated: Room[] = [];
-    const RoomsAcess: Room[] = [];
+    const RoomsHasAcess: Room[] = [];
 
     const DataClient: SocketDataClient = this.newConnectionProps.data;
-
     if (DataClient.anonymous) {
       client = await this.createClient.create({
         id: this.newConnectionProps.id,
@@ -107,7 +106,7 @@ export class NewConnection {
 
     return right({
       client: client.value,
-      RoomsAcess,
+      RoomsHasAcess,
       RoomsCreated,
       alerts,
     });

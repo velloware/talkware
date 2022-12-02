@@ -17,9 +17,9 @@ export class CreateClient {
   }
 
   async create({ id, name, user }: ICreateClient): Promise<CreateClientReturn> {
-    let nameToCreate = '';
+    let nameToCreate = name;
 
-    if (!name) {
+    if (!nameToCreate) {
       nameToCreate = `Anonymous`;
     }
 
