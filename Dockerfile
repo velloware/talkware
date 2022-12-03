@@ -17,8 +17,6 @@ RUN npx prisma generate
 RUN npm run prisma:deploy
 RUN npm run prisma:seed
 
-RUN curl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash && sudo NEW_RELIC_API_KEY=${NEW_RELIC_KEY} NEW_RELIC_ACCOUNT_ID=3721999 /usr/local/bin/newrelic install -n node-agent-installer
-
 COPY tsconfig.json .
 COPY src ./src 
 RUN npm run build
