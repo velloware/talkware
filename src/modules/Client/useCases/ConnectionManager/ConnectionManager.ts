@@ -8,13 +8,14 @@ import { JoinRoom, IJoinRoom } from '../../../Room/useCases/JoinRoom/JoinRoom';
 export { IJoinRoom } from '../../../Room/useCases/JoinRoom/JoinRoom';
 
 import Debug from 'debug';
+import { Message } from '../../../Message/Domain/Message';
 
 const debug = Debug('app:module:client');
 
 export class ConnectionManager {
   private newConnection: NewConnection;
-  private Client: Client = {} as Client;
-  private RoomsCurrent: Room = {} as Room;
+  public Client: Client = {} as Client;
+  public RoomsCurrent: Room = {} as Room;
   private RoomsHasAcess: Room[] = {} as Room[];
   private RoomsCreated: Room[] = {} as Room[];
   private alerts: string[] = [];
@@ -36,6 +37,11 @@ export class ConnectionManager {
     this.RoomsCreated = client.RoomsCreated || [];
     this.alerts = client.alerts || [];
 
+    // Sendo Alerts to client
+    this.alerts.forEach(alert => {
+      debug(alert);
+    });
+
     return true;
   }
 
@@ -43,7 +49,10 @@ export class ConnectionManager {
     debug('Disconnected');
   }
 
-  public async joinRoom(joinRoomProps: IJoinRoom) {
+  public async joinRoom(
+    joinRoomProps: IJoinRoom,
+    callback?: (room: Room) => void,
+  ) {
     const joinRoom = new JoinRoom();
 
     const room = await joinRoom.join({
@@ -57,11 +66,47 @@ export class ConnectionManager {
       return false;
     }
 
+    // this.RoomsCurrent remove client and add new client in new room
     this.RoomsCurrent = room.value;
     this.RoomsCurrent.addClient(this.Client);
-    debug(this.RoomsCurrent);
-    debug(this.RoomsCurrent.getClients()[0]);
+
+    callback && callback(this.RoomsCurrent);
 
     return true;
+  }
+
+  public async changeRoom(
+    joinRoomProps: IJoinRoom,
+    callback?: (room: Room) => void,
+  ) {
+    this.joinRoom(joinRoomProps, callback);
+  }
+
+  public async sendMessage(data: string, callback?: (message: string) => void) {
+    const message = Message.create({
+      clientId: this.Client.id,
+      roomId: this.RoomsCurrent.id,
+      data,
+      userId: this.Client.userId,
+    });
+
+    if (message.isLeft()) {
+      debug(message.value);
+      return false;
+    }
+
+    this.RoomsCurrent.addMessage(message.value);
+
+    if (callback) {
+      callback(String(message.value.data));
+    }
+  }
+
+  public async sendVoice(voiceStream: string | Buffer) {
+    debug(voiceStream);
+  }
+
+  public async changeName(name: string) {
+    this.Client.name = name;
   }
 }

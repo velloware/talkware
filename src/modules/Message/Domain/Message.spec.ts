@@ -56,7 +56,7 @@ describe('Test Message', () => {
   it('Should be a not create Message isLeft', () => {
     const message = Message.create({
       id: '',
-      data: 'data',
+      data: '',
       roomId: 'roomId',
       userId: 'userId',
       clientId: 'clientId',

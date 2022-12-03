@@ -4,3 +4,4 @@ dist/*
 .env
 prisma/dev.db*
 coverage/*
+.clinic

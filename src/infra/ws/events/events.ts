@@ -1,9 +1,9 @@
-import { NewConnection } from '../../../modules/Client/useCases/NewConnection/NewConnection';
 import { Server, Socket } from 'socket.io';
 import {
   ConnectionManager,
   IJoinRoom,
 } from '../../../modules/Client/useCases/ConnectionManager/ConnectionManager';
+import { ConnectionManagerController } from '../../../modules/Client/useCases/ConnectionManager/infra/ws/Controllers/ConnectionManagerController';
 import ensureAuthenticated from '../middleware/EnsureAuthenticated';
 
 import Debug from 'debug';
@@ -28,21 +28,19 @@ export class EventsSocketIo {
 
   public RegisterEvents() {
     this.io.on('connection', async socket => {
-      const connectionManager = new ConnectionManager({
-        data: socket.data,
-        id: socket.id,
-      });
+      const connectionManagerController = new ConnectionManagerController(
+        socket,
+        new ConnectionManager({
+          data: socket.data,
+          id: socket.id,
+        }),
+      );
 
       this.onConnection(socket);
-      if (await connectionManager.connect()) {
-        debug('connectconnectconnectconnect');
-
-        socket.on('joinRoom', async (joinRoomProps: IJoinRoom) => {
-          debug('joinRoomjoinRoomjoinRoomjoinRoom');
-          await connectionManager.joinRoom(joinRoomProps);
-        });
+      if (!(await connectionManagerController.connectionManager.connect())) {
+        socket.disconnect();
+        return;
       }
-      debug('Connected');
 
       socket.on('disconnect', () => this.onDisconnect(socket));
     });

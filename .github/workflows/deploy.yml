@@ -37,6 +37,6 @@ jobs:
             sudo docker rm talkware-backend >> /var/www/logs/talkware/${{ github.sha }}-deploy.log
             sudo docker rmi $(docker images --filter "dangling=true" -q --no-trunc) >> /var/www/logs/talkware/${{ github.sha }}-deploy.log
             sudo docker rmi talkware-backend >> /var/www/logs/talkware/${{ github.sha }}-deploy.log
-            sudo docker build -t "talkware-backend" --rm --build-arg PM2_PUBLIC_KEY_ARG=${{ secrets.PM2A }} --build-arg PM2_SECRET_KEY_ARG=${{ secrets.PM2B }} . >> /var/www/logs/talkware/${{ github.sha }}-deploy.log
+            sudo docker build -t "talkware-backend" --rm --build-arg PM2_PUBLIC_KEY_ARG=${{ secrets.PM2A }} --build-arg PM2_SECRET_KEY_ARG=${{ secrets.PM2B }} --build-arg NEW_RELIC_KEY=${{ secrets.NEW_RELIC_KEY }} . >> /var/www/logs/talkware/${{ github.sha }}-deploy.log
             sudo docker run --name talkware-backend -p 5337:5337 -d talkware-backend >> /var/www/logs/talkware/${{ github.sha }}-deploy.log
             curl --request POST --url https://dash.velloware.com/api/notification --header 'Content-Type: application/json' --data '{"message": "Deploing ${{ github.repository }} - ⛑${{ github.ref_name }}📢\n on Vello-1-server (acess: talkware.velloware.com)\n\nby: ${{ github.actor }}"}'
