@@ -1,3 +1,4 @@
+import { User } from '../../../User/Domain/User';
 import { Either, left, right } from '../../../../core/logic/Either';
 import { Client } from '../../Domain/Client';
 import { ClientDontCreate } from '../../Domain/Errors/ClientDontCreate';
@@ -5,6 +6,7 @@ import { ClientDontCreate } from '../../Domain/Errors/ClientDontCreate';
 interface ICreateClient {
   id: string;
   name?: string;
+  user?: User;
 }
 
 export type CreateClientReturn = Either<ClientDontCreate, Client>;
@@ -14,14 +16,14 @@ export class CreateClient {
     //  ...
   }
 
-  async create({ id, name }: ICreateClient): Promise<CreateClientReturn> {
-    let nameToCreate = '';
+  async create({ id, name, user }: ICreateClient): Promise<CreateClientReturn> {
+    let nameToCreate = name;
 
-    if (!name) {
+    if (!nameToCreate) {
       nameToCreate = `Anonymous`;
     }
 
-    const client = Client.create({ id, name: nameToCreate });
+    const client = Client.create({ id, name: nameToCreate, user });
 
     if (client.isLeft()) {
       return left(client.value);

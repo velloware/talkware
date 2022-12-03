@@ -5,7 +5,9 @@
   "main": "src/server.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "DEBUG=app:* ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev-monitor": "npm run build && DEBUG=app:* clinic doctor -- node dist/server.js",
+    "dev-bubble": "npm run build && DEBUG=app:* clinic bubbleprof -- node dist/server.js",
     "start": "node dist/server.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
@@ -37,6 +39,8 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
+    "0x": "^5.4.1",
+    "clinic": "^12.0.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
@@ -56,14 +60,12 @@
     "@prisma/client": "^4.5.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
+    "debug": "^4.3.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
-    "get-user-media-promise": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
-    "microphone-stream": "^6.0.1",
     "socket.io": "^4.5.2",
-    "socket.io-client": "^4.5.2",
     "uuid": "^9.0.0"
   }
 }

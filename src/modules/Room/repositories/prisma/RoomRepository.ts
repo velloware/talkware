@@ -69,6 +69,42 @@ export class RoomRepository implements IRoomRepository {
     return room;
   }
 
+  async findRoomByOwnerId(userId: string): Promise<Room[] | Room | null> {
+    const rooms = await prisma.room.findMany({
+      where: {
+        ownerId: userId,
+      },
+    });
+
+    if (!rooms) {
+      return null;
+    }
+
+    if (rooms.length === 1) {
+      const room = RoomMapper.toDomain(rooms[0]);
+
+      if (!room) {
+        return null;
+      }
+
+      return room;
+    }
+
+    const roomsList: Room[] = [];
+
+    for (const roomsMapped of rooms) {
+      const room = RoomMapper.toDomain(roomsMapped);
+
+      if (!room) {
+        return null;
+      }
+
+      roomsList.push(room);
+    }
+
+    return roomsList;
+  }
+
   async list(): Promise<RoomsReturn> {
     const rooms = await prisma.room.findMany();
 

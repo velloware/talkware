@@ -1,33 +1,48 @@
 import { Server, Socket } from 'socket.io';
 import {
-  RoomEvents,
-  clientConnectProps,
-} from '../../../modules/Room/useCases/RoomChatManager/infra/ws/Events/RoomEvents';
+  ConnectionManager,
+  IJoinRoom,
+} from '../../../modules/Client/useCases/ConnectionManager/ConnectionManager';
+import { ConnectionManagerController } from '../../../modules/Client/useCases/ConnectionManager/infra/ws/Controllers/ConnectionManagerController';
+import ensureAuthenticated from '../middleware/EnsureAuthenticated';
+
+import Debug from 'debug';
+
+const debug = Debug('app:socket');
 
 export class EventsSocketIo {
   private io: Server;
 
   constructor(io: Server) {
     this.io = io;
+    this.io.use(ensureAuthenticated);
   }
 
   public onConnection(socket: Socket) {
-    console.log(`Connected: ${socket.id}`);
+    debug(`Connected: ${socket.id}`);
   }
 
   public onDisconnect(socket: Socket) {
-    console.log('Disconnected');
+    debug('Disconnected');
   }
 
   public RegisterEvents() {
-    this.io.on('connection', socket => {
-      const roomEvents = new RoomEvents(socket);
+    this.io.on('connection', async socket => {
+      const connectionManagerController = new ConnectionManagerController(
+        socket,
+        new ConnectionManager({
+          data: socket.data,
+          id: socket.id,
+        }),
+      );
+
       this.onConnection(socket);
+      if (!(await connectionManagerController.connectionManager.connect())) {
+        socket.disconnect();
+        return;
+      }
 
       socket.on('disconnect', () => this.onDisconnect(socket));
-      socket.on('joinChat', async (joinChatProps: clientConnectProps) => {
-        await roomEvents.joinRoom(joinChatProps);
-      });
     });
   }
 }

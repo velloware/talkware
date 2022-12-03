@@ -3,6 +3,7 @@ import { Entity } from '../../../core/domain/Entity';
 import { ClientDontCreate } from './Errors/ClientDontCreate';
 import { ClientClass, IClient } from './IClient';
 import { createHash } from '../../../shared/Utils/lowHash';
+import { User } from '../../User/Domain/User';
 
 export class Client extends Entity<IClient> implements ClientClass {
   private saltClient: string;
@@ -42,5 +43,13 @@ export class Client extends Entity<IClient> implements ClientClass {
 
   set name(name: string) {
     this.props.name = `${name}-${this.saltClient}`;
+  }
+
+  set setUserId(userId: string) {
+    this.props.userId = userId;
+  }
+
+  get user(): User | undefined {
+    return this.props.user;
   }
 }

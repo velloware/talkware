@@ -1,7 +1,30 @@
+/* eslint-disable no-undef */
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 
-const socket = io('https://talkware-backend.velloware.com/', {});
-// const socket = io('localhost:5337', {});
+let tokenUser = 'Anonymous';
+tokenUser = prompt(
+  'Enter your tokenUser, IF you dont have one, please enter Anonymous or press Ok to continue',
+);
+
+tokenUser = tokenUser || 'Anonymous';
+
+let socket;
+if (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1'
+) {
+  socket = io('localhost:5337', {
+    query: {
+      token: tokenUser,
+    },
+  });
+} else {
+  socket = io('https://talkware-backend.velloware.com/', {
+    query: {
+      token: tokenUser,
+    },
+  });
+}
 
 socket.on('connect', () => setUserName(socket.id));
 socket.on('disconnect', () => console.log(`Disconnect For SocketServer`));
@@ -26,8 +49,8 @@ const setUser = () => {
 };
 
 const writeMessagesInteTextArea = data => {
-  const chatRef = document.getElementById('chat');
-  chatRef.value = chatRef.value += data += '\n';
+  const roomRef = document.getElementById('room');
+  roomRef.value = roomRef.value += data += '\n';
 };
 
 const setUserName = name => {
@@ -35,20 +58,20 @@ const setUserName = name => {
   userIdRef.textContent = name;
 };
 
-const setChatName = name => {
-  const userIdRef = document.getElementById('chatCurrent');
+const setRoomName = name => {
+  const userIdRef = document.getElementById('roomCurrent');
   userIdRef.textContent = name;
 };
-setChatName('No Chat Selected. GLOBAL CHAT');
+setRoomName('No Room Selected. GLOBAL CHAT');
 
 const setRoom = () => {
-  const roomId = document.getElementById('chatIdJoin').value;
-  socket.emit('joinChat', {
+  const roomId = document.getElementById('roomIdJoin').value;
+  socket.emit('joinRoom', {
     idRoom: roomId,
     token: 'Anonymous',
   });
 
-  setChatName(`${roomId}`);
+  setRoomName(`${roomId}`);
 };
 
 const onError = error => {
@@ -57,4 +80,4 @@ const onError = error => {
 
 document.getElementById('sender').addEventListener('click', sendMessage);
 document.getElementById('setName').addEventListener('click', setUser);
-document.getElementById('setChat').addEventListener('click', setRoom);
+document.getElementById('setRoom').addEventListener('click', setRoom);
