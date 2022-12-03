@@ -8,6 +8,7 @@ module.exports = {
       log_date_format: 'MM/DD/YYYY HH:mm:ss',
       env: {
         NODE_ENV: 'production',
+        DEBUG: 'app:*',
       },
     },
   ],
