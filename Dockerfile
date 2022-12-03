@@ -21,8 +21,9 @@ COPY tsconfig.json .
 COPY src ./src 
 RUN npm run build
 
-ENV PM2_PUBLIC_KEY ${PM2_PUBLIC_KEY_ARG}
-ENV PM2_SECRET_KEY ${PM2_SECRET_KEY_ARG}
+RUN npm install pm2 -g
+ENV PM2_PUBLIC_KEY 50fvqcd9aq8nint
+ENV PM2_SECRET_KEY gimlkkifqatypao
 
 COPY . .
 
