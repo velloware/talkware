@@ -7,11 +7,7 @@ COPY package*.json ./
 COPY prisma ./prisma/
 
 ARG PORT_EXPOSE=5337
-ARG PM2_PUBLIC_KEY_ARG=""
-ARG PM2_SECRET_KEY_ARG=""
-ARG NEW_RELIC_KEY=""
 
-RUN npm install pm2 -g
 RUN npm ci i
 RUN npx prisma generate
 RUN npm run prisma:deploy
@@ -21,11 +17,12 @@ COPY tsconfig.json .
 COPY src ./src 
 RUN npm run build
 
-RUN npm install pm2 -g
-ENV PM2_PUBLIC_KEY 50fvqcd9aq8nint
-ENV PM2_SECRET_KEY gimlkkifqatypao
+ENV NEW_RELIC_NO_CONFIG_FILE=true
+ENV NEW_RELIC_DISTRIBUTED_TRACING_ENABLED=true \
+  NEW_RELIC_LOG=stdout
+ENV NODE_ENV=production
 
 COPY . .
 
 EXPOSE ${PORT_EXPOSE}
-CMD ["pm2-runtime", "start", "ecosystem.config.js"]
+CMD ["node", "dist/server.js"]

@@ -1,3 +1,4 @@
+import 'newrelic';
 import Server from './infra/http/server';
 import { WebSocketServer } from './infra/ws/server';
 import dotenv from 'dotenv';
