@@ -1,0 +1,151 @@
+{
+  "components": {
+    "schemas": {
+      "id": {
+        "type": "string",
+        "description": "UUID",
+        "example": "3bda699f-6fac-451b-890c-6462d356a686"
+      },
+      "email": {
+        "type": "string",
+        "description": "Email",
+        "example": "ga@hjotmal.com"
+      },
+      "username": {
+        "type": "string",
+        "description": "Username",
+        "example": "gamerXd"
+      },
+      "Room": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Room UUID",
+            "example": "3bda699f-6fac-451b-890c-6462d356a686"
+          },
+          "name": {
+            "type": "string",
+            "description": "Room's Name",
+            "example": "Room of games"
+          },
+          "isPrivate": {
+            "type": "boolean",
+            "description": "If the room is private",
+            "example": false
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "User UUID",
+            "example": "3bda699f-6fac-451b-890c-6462d356a686"
+          },
+          "username": {
+            "type": "string",
+            "description": "username's about user",
+            "example": "gamerXd"
+          },
+          "email": {
+            "type": "string",
+            "description": "email's about user",
+            "example": "ga@hjotmal.com"
+          }
+        }
+      },
+      "CreateUser": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "username's about user",
+            "example": "gamerXd"
+          },
+          "email": {
+            "type": "string",
+            "description": "email's about user",
+            "example": "ga@hjotmal.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "password of user",
+            "example": "ga@hjotmal.com"
+          }
+        }
+      },
+      "CreatedUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "User UUID",
+            "example": "3bda699f-6fac-451b-890c-6462d356a686"
+          },
+          "username": {
+            "type": "string",
+            "description": "username's about user",
+            "example": "gamerXd"
+          },
+          "email": {
+            "type": "string",
+            "description": "email's about user",
+            "example": "ga@hjotmal.com"
+          },
+          "token": {
+            "type": "string",
+            "description": "Token JWT to access",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzAzNzIyNDEsImV4cCI6MTY3Mjk2NDI0MSwic3ViIjoiM2U4M2NmZDItYjE3MC00M2ZkLTkwNmUtNGE0NDg4YTMyMjBkIn0.ilA9CFnxzhLSOlPshc0ARjmJcaAUIKzU8dW2WuLRr20"
+          }
+        }
+      },
+      "AuthUser": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "email's about user",
+            "example": "ga@hjotmal.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "password of user",
+            "example": "passoword123"
+          }
+        }
+      },
+      "AuthtedUser": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "email's about user",
+            "example": "ga@hjotmal.com"
+          },
+          "token": {
+            "type": "string",
+            "description": "Token JWT to access",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzAzNzIyNDEsImV4cCI6MTY3Mjk2NDI0MSwic3ViIjoiM2U4M2NmZDItYjE3MC00M2ZkLTkwNmUtNGE0NDg4YTMyMjBkIn0.ilA9CFnxzhLSOlPshc0ARjmJcaAUIKzU8dW2WuLRr20"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "AppError > Password is proprety required undefined"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status about error",
+            "example": "error"
+          }
+        }
+      }
+    }
+  }
+}

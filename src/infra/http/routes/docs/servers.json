@@ -1,0 +1,12 @@
+{
+  "servers": [
+    {
+      "url": "https://talkware-backend.velloware.com",
+      "description": "QA server"
+    },
+    {
+      "url": "http://localhost:5000/todos",
+      "description": "Local server"
+    }
+  ]
+}
