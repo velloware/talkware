@@ -1,5 +1,12 @@
 {
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "id": {
         "type": "string",
@@ -15,26 +22,6 @@
         "type": "string",
         "description": "Username",
         "example": "gamerXd"
-      },
-      "Room": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Room UUID",
-            "example": "3bda699f-6fac-451b-890c-6462d356a686"
-          },
-          "name": {
-            "type": "string",
-            "description": "Room's Name",
-            "example": "Room of games"
-          },
-          "isPrivate": {
-            "type": "boolean",
-            "description": "If the room is private",
-            "example": false
-          }
-        }
       },
       "User": {
         "type": "object",
@@ -128,6 +115,54 @@
             "type": "string",
             "description": "Token JWT to access",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzAzNzIyNDEsImV4cCI6MTY3Mjk2NDI0MSwic3ViIjoiM2U4M2NmZDItYjE3MC00M2ZkLTkwNmUtNGE0NDg4YTMyMjBkIn0.ilA9CFnxzhLSOlPshc0ARjmJcaAUIKzU8dW2WuLRr20"
+          }
+        }
+      },
+      "Room": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Room UUID",
+            "example": "3bda699f-6fac-451b-890c-6462d356a686"
+          },
+          "name": {
+            "type": "string",
+            "description": "Room's Name",
+            "example": "Room of games"
+          },
+          "isPrivate": {
+            "type": "boolean",
+            "description": "If the room is private",
+            "example": false
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "UUID to User Create Room",
+            "example": "32ec6dbd-b04a-4ea2-b40d-60d0fcb55bc7"
+          }
+        }
+      },
+      "CreateRoom": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Room's Name",
+            "example": "Room of games",
+            "required": true
+          },
+          "isPrivate": {
+            "type": "boolean",
+            "description": "If the room is private",
+            "example": false,
+            "required": true
+          },
+          "password": {
+            "type": "string",
+            "description": "Room's Password, REQUIRED if isPrivate = true",
+            "example": "Room of games",
+            "required": false
           }
         }
       },

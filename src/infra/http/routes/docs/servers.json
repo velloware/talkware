@@ -5,7 +5,7 @@
       "description": "QA server"
     },
     {
-      "url": "http://localhost:5000/todos",
+      "url": "http://localhost:5337",
       "description": "Local server"
     }
   ]

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Websocket Docs</title>
+</head>
+<body>
+  <h1>Websocket Docs</h1>
+
+  <h2>How to use</h2>
+
+  <h3>Install</h3>
+  <p>npm install socket.io or use https://cdn.socket.io/4.4.1/socket.io.esm.min.js</p>
+
+  <pre>
+    import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
+    import { io } from 'socket.io';
+  </pre>
+
+  <h3>Connection</h3>
+  <p>Code to Connectio</p>
+  <p>
+Querys: {
+  token: 'Token JWT User OR parse 'Anonymous',
+}
+  </p>
+  <pre>
+    const socket = io('localhost:5337', {
+      query: {
+        token: tokenUser,
+      },
+    });
+  </pre>
+
+
+  <h3>Events</h3>
+  <p>ON's</p>
+  <pre>
+    // Receive when connect to server
+    'connect'
+
+    // Receive when disconnect to server
+    'disconnect'
+
+    // Receive message from server
+    'message' => Return { data: string }
+
+    // Receive voice from server
+    'voice' => Return { data: base64 }
+
+    // Receive error from server
+    'error' => Return { data: string }
+
+    // Receive logs from server
+    'log'  => Return { data: string }
+
+    <h4>Usages</h4>
+    <p>
+      socket.on('message', (data) => {
+        console.log(data);
+      });
+
+      socket.on('voice', (data) => {
+        console.log(data);
+      });
+
+      socket.on('error', (data) => {
+        console.log(data);
+      });
+
+      socket.on('log', (data) => {
+        console.log(data);
+      });
+
+      socket.on('connect', () => {
+        console.log('Connected');
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected');
+      });
+    </p>
+  </pre>
+
+  <p>Can EMIT's</p>
+  <pre>
+    // Join Room or Change Room
+    'joinRoom' => Inteface  {   
+      idRoom: string;
+      password?: string; 
+    }
+
+    // Send message to server
+    'message' => string;
+
+    // Send voice to server
+    'voice' => string;
+
+    // Change name to client
+    'changeName' => string;
+
+    <h4>Usages</h4>
+    <p>
+      socket.emit('joinRoom', {
+        idRoom: 'idRoom',
+        password: 'password',
+      });
+
+      socket.emit('message', 'message');
+
+      socket.emit('voice', 'voice');
+
+      socket.emit('changeName', 'name');
+    </p>
+  <pre>
+</body>
+</html>

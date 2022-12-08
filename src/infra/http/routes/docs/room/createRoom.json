@@ -1,0 +1,51 @@
+{
+  "post": {
+    "tags": [
+      "Room"
+    ],
+    "description": "Create a new room",
+    "operationId": "/rooms",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "header",
+        "name": "Authorization",
+        "description": "Token JWT of user. In the format: Bearer {token}. To use in web docs use button 'Authorize' and paste the token in the input.",
+        "required": false
+      }
+    ],
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "requestBody": {
+      "description": "Create a new room",
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/CreateRoom"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "201": {
+        "description": "User created successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Room"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "AppError > Key is proprety required undefined"
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "DEBUG=app:* ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "NEW_RELIC_APP_NAME=talk DEBUG=app:* ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "dev-monitor": "npm run build && DEBUG=app:* clinic doctor -- node dist/server.js",
     "dev-bubble": "npm run build && DEBUG=app:* clinic bubbleprof -- node dist/server.js",
     "start": "node dist/server.js",

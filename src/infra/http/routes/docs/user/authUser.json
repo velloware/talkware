@@ -1,7 +1,7 @@
 {
   "post": {
     "tags": [
-      "Create User"
+      "User"
     ],
     "description": "Create a new user",
     "operationId": "/users",

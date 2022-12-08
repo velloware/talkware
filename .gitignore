@@ -5,3 +5,4 @@ dist/*
 prisma/dev.db*
 coverage/*
 .clinic
+newrelic_agent.log

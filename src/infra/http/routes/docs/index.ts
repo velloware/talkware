@@ -5,6 +5,7 @@ import { servers } from './servers.json';
 import { tags } from './tags.json';
 
 import { userPaths } from './user/index';
+import { roomPaths } from './room/index';
 
 // Create swagger object
 export const swaggerObject = {
@@ -14,5 +15,9 @@ export const swaggerObject = {
   tags,
   paths: {
     ...userPaths,
+    ...roomPaths,
+  },
+  security: {
+    bearerAuth: [],
   },
 };
