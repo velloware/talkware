@@ -1,0 +1,38 @@
+{
+  "post": {
+    "tags": [
+      "User"
+    ],
+    "description": "Create a new user",
+    "operationId": "/users",
+    "produces": [
+      "application/json"
+    ],
+    "requestBody": {
+      "description": "Authentification user",
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/AuthUser"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "201": {
+        "description": "User created successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/AuthtedUser"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "AppError > Key is proprety required undefined"
+      }
+    }
+  }
+}
