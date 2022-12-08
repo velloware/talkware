@@ -18,7 +18,14 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 routes.get('/websocket', (request, response) => {
-  const htmlPwd = join(__dirname + '/static/websocketDocs/websocket.html');
+  const htmlPwd = join(
+    __dirname,
+    '..',
+    '..',
+    '..',
+    '..',
+    '/static/websocketDocs/websocket.html',
+  );
 
   if (!htmlPwd || !htmlPwd.includes('websocket.html'))
     return response.status(404).send({ message: 'File not found' });
