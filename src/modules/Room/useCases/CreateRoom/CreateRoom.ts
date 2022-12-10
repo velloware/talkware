@@ -8,7 +8,7 @@ export interface ICreateRoom {
   ownerId: string;
 }
 
-export class CreateRooom {
+export class CreateRoom {
   protected roomRepository: IRoomRepository;
 
   constructor(roomRepository: IRoomRepository) {

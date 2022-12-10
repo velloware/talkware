@@ -1,11 +1,11 @@
 import { Response, Request } from 'express';
 import { RoomRepository } from '../../../../../repositories/prisma/RoomRepository';
 import { AppError } from '../../../../../../../shared/Error/AppError';
-import { CreateRooom, ICreateRoom } from '../../../CreateRoom';
+import { CreateRoom, ICreateRoom } from '../../../CreateRoom';
 
 export default class CreateRoomController {
   public async execute(request: Request, response: Response) {
-    const createRoomsService = new CreateRooom(new RoomRepository());
+    const createRoomsService = new CreateRoom(new RoomRepository());
     const bodyParams: ICreateRoom = request.body;
 
     if (!bodyParams) {
