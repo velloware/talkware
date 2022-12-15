@@ -44,4 +44,26 @@ describe('JoinRoom', () => {
     expect(roomJoinded.isRight()).toBe(false);
     expect(roomJoinded.isLeft()).toBe(true);
   });
+
+  it('should not be able to join in room with wrong password', async () => {
+    const newRoom = await createRoom.create({
+      isPrivate: true,
+      name: 'Room 1',
+      ownerId: '123',
+      password: '123',
+    });
+
+    if (newRoom.isLeft()) {
+      throw new Error('Room not created');
+    }
+
+    const roomJoinded = await joinRoom.join({
+      idRoom: newRoom.value.id,
+      password: '123123',
+      RoomsHasAcess: [],
+    });
+
+    expect(roomJoinded.isRight()).toBe(false);
+    expect(roomJoinded.isLeft()).toBe(true);
+  });
 });

@@ -1,4 +1,4 @@
-import { ConnectionManager, IJoinRoom } from './ConnectionManager';
+import { ConnectionManager } from './ConnectionManager';
 import { CreateINewConnection } from '../NewConnection/NewConnection';
 
 import { CreateRoom } from '../../../Room/useCases/CreateRoom/CreateRoom';
