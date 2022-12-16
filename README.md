@@ -107,16 +107,16 @@ Go to http://localhost:3333/ to see the result.
 
 ```
 =============================== Coverage summary ===============================
-Statements   : 53.94% ( 253/469 )
-Branches     : 48.57% ( 51/105 )
-Functions    : 57.14% ( 64/112 )
-Lines        : 53.89% ( 249/462 )
+Statements   : 89.19% ( 322/361 )
+Branches     : 73.73% ( 73/99 )
+Functions    : 90.1% ( 82/91 )
+Lines        : 89.04% ( 317/356 )
 ================================================================================
 
-Test Suites: 16 passed, 16 total
-Tests:       52 passed, 52 total
+Test Suites: 22 passed, 22 total
+Tests:       65 passed, 65 total
 Snapshots:   0 total
-Time:        13.18 s
+Time:        6.057 s
 ```
 
 # :tada: contributing

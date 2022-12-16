@@ -38,7 +38,16 @@ type INewConnectionAllReturn = Either<
 export class NewConnection {
   private newConnectionProps: CreateINewConnection;
   private createClient = new CreateClient();
-  constructor(newConnectionProps: CreateINewConnection) {
+  protected prismaUsersRepository: PrismaUsersRepository;
+  protected roomRepository: RoomRepository;
+  constructor(
+    newConnectionProps: CreateINewConnection,
+    prismaUsersRepository?: PrismaUsersRepository,
+    roomRepository?: RoomRepository,
+  ) {
+    this.prismaUsersRepository =
+      prismaUsersRepository || new PrismaUsersRepository();
+    this.roomRepository = roomRepository || new RoomRepository();
     this.newConnectionProps = newConnectionProps;
   }
 
@@ -58,8 +67,8 @@ export class NewConnection {
         return left(new DontCreateAnonymousClient(client.value.message));
       }
     } else {
-      const findUser = new FindUser(new PrismaUsersRepository());
-      const findRoom = new FindRoom(new RoomRepository());
+      const findUser = new FindUser(this.prismaUsersRepository);
+      const findRoom = new FindRoom(this.roomRepository);
 
       if (!DataClient.userId && typeof DataClient.userId !== 'string') {
         return left(new UserDataError('userId is not a string'));
