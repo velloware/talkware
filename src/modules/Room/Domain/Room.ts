@@ -37,8 +37,6 @@ export class Room extends Entity<IRoom> implements IRoomClass {
     });
     roomClass.props.id = roomClass.props.id ? roomClass.props.id : id;
 
-    console.log('roomClass', roomClass);
-
     return right(roomClass);
   }
 
