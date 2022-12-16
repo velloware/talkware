@@ -1,3 +1,4 @@
+import { hashedPassword } from '../../../../shared/Utils/PassCrypt';
 import { Room } from '../../Domain/Room';
 import { IRoomRepository } from '../IRoomRepository';
 
@@ -22,6 +23,8 @@ export class InMemoryRoomRepository implements IRoomRepository {
     const room = this.items.filter(user => {
       return user.id == RoomId;
     })[0];
+    console.log('this.items', this.items);
+    console.log('room', room);
 
     return room;
   }
@@ -35,6 +38,8 @@ export class InMemoryRoomRepository implements IRoomRepository {
   }
 
   async create(room: Room): Promise<void> {
+    console.log('create room = ', room);
+    room.password = await hashedPassword(room.password);
     this.items.push(room);
   }
 }

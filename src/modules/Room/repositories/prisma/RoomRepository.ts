@@ -4,6 +4,7 @@ import { roomDontExist } from '../Errors/RoomsDontExist';
 import { prisma } from '../../../../infra/prisma/client';
 import { RoomMapper } from '../../mappers/RoomMapper';
 import { IRoomRepository } from '../IRoomRepository';
+import { hashedPassword } from '../../../../shared/Utils/PassCrypt';
 
 type RoomServiceReturn = Either<roomDontExist, Room>;
 type RoomsReturn = Either<roomDontExist, Room[] | Room>;
@@ -29,7 +30,7 @@ export class RoomRepository implements IRoomRepository {
         id: room.id,
         name: room.name,
         isPrivate: room.isPrivate,
-        password: room.password,
+        password: await hashedPassword(room.password),
         ownerId: room.ownerId,
       },
     });

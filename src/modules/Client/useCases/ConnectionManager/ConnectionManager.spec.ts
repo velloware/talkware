@@ -32,7 +32,7 @@ describe('ConnectionManager', () => {
   it('should be able to join in room', async () => {
     const newRoom = await createRoom.create({
       isPrivate: false,
-      name: 'Room 1',
+      name: 'Room 156',
       ownerId: '123',
       password: '123',
     });

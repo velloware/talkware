@@ -23,7 +23,6 @@ export class CreateRoom {
       ownerId: CreateRoom.ownerId,
       clients: [],
       messages: [],
-      id: '',
     });
 
     if (room.isLeft()) {
@@ -31,8 +30,6 @@ export class CreateRoom {
     }
 
     await this.roomRepository.create(room.value);
-
-    room.value.props.password = '';
 
     return room;
   }
