@@ -1,4 +1,4 @@
-import { IRoomClass, IRoom } from './IRoom';
+import { IRoomClass, IRoom, ICreateRoom } from './IRoom';
 import { Entity } from '../../../core/domain/Entity';
 
 import { Message } from '../../Message/Domain/Message';
@@ -20,7 +20,7 @@ export class Room extends Entity<IRoom> implements IRoomClass {
     super(room, room.id || uidCreate());
   }
 
-  public static create(room: IRoom): createRoomReturns {
+  public static create(room: ICreateRoom): createRoomReturns {
     if (!room.name) {
       return left(new InvalidPropsError('Room name is required'));
     }
@@ -29,9 +29,13 @@ export class Room extends Entity<IRoom> implements IRoomClass {
       return left(new InvalidPropsError('Room password is required'));
     }
 
-    const roomClass = new Room(room);
+    const id = room.id || uidCreate();
 
-    room.password ? roomClass.cryptPassword() : (roomClass.props.password = '');
+    const roomClass = new Room({
+      ...room,
+      id,
+    });
+    roomClass.props.id = roomClass.props.id ? roomClass.props.id : id;
 
     return right(roomClass);
   }
@@ -46,6 +50,10 @@ export class Room extends Entity<IRoom> implements IRoomClass {
 
   get password(): string {
     return this.props.password;
+  }
+
+  set password(password: string) {
+    this.props.password = password;
   }
 
   get ownerId(): string {
@@ -90,9 +98,5 @@ export class Room extends Entity<IRoom> implements IRoomClass {
 
   async comparePassword(password: string): Promise<boolean> {
     return await comparePassword(this.props.password, password);
-  }
-
-  async cryptPassword(): Promise<void> {
-    this.props.password = await hashedPassword(this.props.password);
   }
 }

@@ -11,6 +11,16 @@ export interface IRoom {
   ownerId: string;
 }
 
+export interface ICreateRoom {
+  id?: string;
+  name: string;
+  messages: Message[];
+  clients: Client[];
+  isPrivate: boolean;
+  password: string;
+  ownerId: string;
+}
+
 export interface IRoomClass {
   addMessage(message: Message): void;
   addClient(client: Client): void;

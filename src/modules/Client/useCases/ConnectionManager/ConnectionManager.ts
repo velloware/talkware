@@ -19,9 +19,11 @@ export class ConnectionManager {
   private RoomsHasAcess: Room[] = {} as Room[];
   private RoomsCreated: Room[] = {} as Room[];
   private alerts: string[] = [];
+  private joinRoomService: JoinRoom = {} as JoinRoom;
 
-  constructor(createINewConnection: CreateINewConnection) {
+  constructor(createINewConnection: CreateINewConnection, joinRoom?: JoinRoom) {
     this.newConnection = new NewConnection(createINewConnection);
+    this.joinRoomService = joinRoom || new JoinRoom();
   }
 
   public async connect() {
@@ -53,9 +55,7 @@ export class ConnectionManager {
     joinRoomProps: IJoinRoom,
     callback?: (room: Room) => void,
   ) {
-    const joinRoom = new JoinRoom();
-
-    const room = await joinRoom.join({
+    const room = await this.joinRoomService.join({
       idRoom: joinRoomProps.idRoom,
       password: joinRoomProps.password,
       RoomsHasAcess: this.RoomsHasAcess,

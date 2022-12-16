@@ -30,7 +30,7 @@ export class JoinRoom {
     }
 
     if (roomAttach.isPrivate) {
-      if (RoomsHasAcess) {
+      if (RoomsHasAcess && RoomsHasAcess.length > 0) {
         const room = RoomsHasAcess.find(room => room.id === idRoom);
 
         if (!room) {

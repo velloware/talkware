@@ -8,7 +8,7 @@ export interface ICreateRoom {
   ownerId: string;
 }
 
-export class CreateRooom {
+export class CreateRoom {
   protected roomRepository: IRoomRepository;
 
   constructor(roomRepository: IRoomRepository) {
@@ -23,7 +23,6 @@ export class CreateRooom {
       ownerId: CreateRoom.ownerId,
       clients: [],
       messages: [],
-      id: '',
     });
 
     if (room.isLeft()) {
@@ -31,8 +30,6 @@ export class CreateRooom {
     }
 
     await this.roomRepository.create(room.value);
-
-    room.value.props.password = '';
 
     return room;
   }

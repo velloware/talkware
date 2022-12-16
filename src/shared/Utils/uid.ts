@@ -1,3 +1,3 @@
-import { v4 as UUIDs4 } from 'uuid';
+import { randomUUID as UUIDs4 } from 'node:crypto';
 
 export const uidCreate = (): string => UUIDs4();
