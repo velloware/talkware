@@ -1,4 +1,4 @@
-import { AppError } from '../../../../../shared/Error/AppError';
+import { AppError } from '../../../../shared/Error/AppError';
 
 export class RoomDontFind extends AppError {
   constructor() {

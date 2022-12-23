@@ -3,7 +3,7 @@ import { RoomRepository } from '../../repositories/prisma/RoomRepository';
 import { Either, left, right } from '../../../../core/logic/Either';
 import { Room } from '../../Domain/Room';
 
-import { JoinRoomError } from './Errors/JoinRoomError';
+import { JoinRoomError } from '../Errors/JoinRoomError';
 
 export interface IJoinRoom {
   idRoom: string;

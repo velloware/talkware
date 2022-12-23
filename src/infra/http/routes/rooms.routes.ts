@@ -2,13 +2,16 @@ import { Router, Response, Request } from 'express';
 import 'express-async-errors';
 
 import CreateRoomController from '../../../modules/Room/useCases/CreateRoom/infra/http/Controllers/CreateRoomController';
+import EditRoomController from '../../../modules/Room/useCases/EditRoom/infra/http/Controllers/EditRoomController';
 import ensureAuthenticated from '../middlewares/EnsureAuthenticated';
 
 const createRoomController = new CreateRoomController();
+const editRoomController = new EditRoomController();
 
 const rooms = Router();
 
 rooms.post('/', ensureAuthenticated, createRoomController.execute);
+rooms.put('/', ensureAuthenticated, editRoomController.execute);
 
 rooms.get('/docs', (request: Request, response: Response) => {
   response.status(200).json({
