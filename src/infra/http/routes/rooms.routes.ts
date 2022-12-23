@@ -3,15 +3,18 @@ import 'express-async-errors';
 
 import CreateRoomController from '../../../modules/Room/useCases/CreateRoom/infra/http/Controllers/CreateRoomController';
 import EditRoomController from '../../../modules/Room/useCases/EditRoom/infra/http/Controllers/EditRoomController';
+import DeleteRoomController from '../../../modules/Room/useCases/DeleteRoom/infra/http/Controllers/DeleteRoomController';
 import ensureAuthenticated from '../middlewares/EnsureAuthenticated';
 
 const createRoomController = new CreateRoomController();
 const editRoomController = new EditRoomController();
+const deleteRoomController = new DeleteRoomController();
 
 const rooms = Router();
 
 rooms.post('/', ensureAuthenticated, createRoomController.execute);
 rooms.put('/', ensureAuthenticated, editRoomController.execute);
+rooms.delete('/', ensureAuthenticated, deleteRoomController.execute);
 
 rooms.get('/docs', (request: Request, response: Response) => {
   response.status(200).json({

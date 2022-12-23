@@ -28,7 +28,6 @@ export default class EditRoomController {
     }
 
     request.debug(`Room edited -> Id = ${result.value.props.id}`);
-    request.debug(`Logging in Room -> Id = ${result.value.props.id}`);
 
     return response.status(201).json({
       id: result.value.id,

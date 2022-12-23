@@ -127,4 +127,18 @@ export class RoomRepository implements IRoomRepository {
 
     return right(roomsList);
   }
+
+  async delete(id: string): Promise<boolean> {
+    const room = await prisma.room.delete({
+      where: {
+        id,
+      },
+    });
+
+    if (!room) {
+      return false;
+    }
+
+    return true;
+  }
 }
