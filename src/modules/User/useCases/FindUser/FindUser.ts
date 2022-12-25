@@ -1,7 +1,7 @@
 import { Either, left, right } from '../../../../core/logic/Either';
 import { User } from '../../Domain/User';
 import { IUsersRepository } from '../../repositories/IUsersRepository';
-import { userDontExistError } from './Errors/userDontExist';
+import { userDontExistError } from '../Errors/userDontExist';
 
 export interface IFindById {
   id: string;

@@ -29,7 +29,7 @@ export default class EditRoomController {
 
     request.debug(`Room edited -> Id = ${result.value.props.id}`);
 
-    return response.status(201).json({
+    return response.status(200).json({
       id: result.value.id,
       name: result.value.name,
       isPrivate: result.value.isPrivate,

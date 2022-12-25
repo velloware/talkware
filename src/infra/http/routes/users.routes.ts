@@ -3,13 +3,17 @@ import 'express-async-errors';
 
 import CreateUserController from '../../../modules/User/useCases/CreateUser/infra/http/Controllers/CreateUserController';
 import AuthUserController from '../../../modules/User/useCases/AuthenticateUser/infra/http/Controllers/LogInUserController';
+import EditUserController from '../../../modules/User/useCases/EditUser/infra/http/Controllers/EditUserController';
+import ensureAuthenticated from '../middlewares/EnsureAuthenticated';
 
 const createUserController = new CreateUserController();
 const authUserController = new AuthUserController();
+const editUserController = new EditUserController();
 
 const users = Router();
 
 users.post('/', createUserController.execute);
+users.put('/', ensureAuthenticated, editUserController.execute);
 users.post('/auth', authUserController.execute);
 
 users.use('/', (request: Request, response: Response) => {

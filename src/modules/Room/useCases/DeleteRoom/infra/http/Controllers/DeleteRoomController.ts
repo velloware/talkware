@@ -20,7 +20,7 @@ export default class DeleteRoomController {
 
     request.debug(`Room deleteed -> Id = ${bodyParams.id}`);
 
-    return response.status(201).json({
+    return response.status(200).json({
       message: 'Room deleted',
     });
   }

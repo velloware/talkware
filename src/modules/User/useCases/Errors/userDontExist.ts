@@ -1,4 +1,4 @@
-import { AppError } from '../../../../../shared/Error/AppError';
+import { AppError } from '../../../../shared/Error/AppError';
 
 export class userDontExistError extends AppError {
   constructor(id: string) {
