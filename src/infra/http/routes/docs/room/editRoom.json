@@ -1,9 +1,9 @@
 {
-  "post": {
+  "put": {
     "tags": [
       "Room"
     ],
-    "description": "Create a new room",
+    "description": "Edit a room",
     "operationId": "/rooms",
     "produces": [
       "application/json"
@@ -22,19 +22,19 @@
       }
     ],
     "requestBody": {
-      "description": "Create a new room",
+      "description": "Edit a room",
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "#/components/schemas/CreateRoom"
+            "$ref": "#/components/schemas/EditRoom"
           }
         }
       },
       "required": true
     },
     "responses": {
-      "201": {
-        "description": "Room created successfully",
+      "200": {
+        "description": "Edit a room",
         "content": {
           "application/json": {
             "schema": {
@@ -44,7 +44,7 @@
         }
       },
       "400": {
-        "description": "AppError > Key is proprety required undefined"
+        "description": "Error"
       }
     }
   }
