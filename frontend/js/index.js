@@ -2,11 +2,11 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 
 let tokenUser = 'Anonymous';
-tokenUser = prompt(
-  'Enter your tokenUser, IF you dont have one, please enter Anonymous or press Ok to continue',
-);
+// tokenUser = prompt(
+//   'Enter your tokenUser, IF you dont have one, please enter Anonymous or press Ok to continue',
+// );
 
-tokenUser = tokenUser || 'Anonymous';
+// tokenUser = tokenUser || 'Anonymous';
 
 let socket;
 if (
@@ -35,10 +35,25 @@ socket.on('log', data => console.log(data));
 
 socket.on('voice', data => console.log(data));
 
+document.onkeyup = e => {
+  if (e.key === 'Enter') {
+    sendMessage();
+  }
+
+  if (e.key === 'Escape') {
+    document.getElementById('message').value = '';
+    document.getElementById('room').value = '';
+    socket.emit('leaveRoom');
+    setRoomName('No Room Selected. GLOBAL CHAT');
+    setUserName('No User Selected');
+  }
+};
+
 const sendMessage = () => {
   const message = document.getElementById('message').value;
   writeMessagesInteTextArea(`Me: ${message}`);
   socket.emit('message', message);
+  document.getElementById('message').value = '';
 };
 
 const setUser = () => {
@@ -64,14 +79,27 @@ const setRoomName = name => {
 };
 setRoomName('No Room Selected. GLOBAL CHAT');
 
-const setRoom = () => {
-  const roomId = document.getElementById('roomIdJoin').value;
-  socket.emit('joinRoom', {
-    idRoom: roomId,
-    token: 'Anonymous',
-  });
+const setRoom = idRoom => {
+  if (idRoom) {
+    socket.emit('joinRoom', {
+      idRoom: idRoom,
+      token: 'Anonymous',
+    });
 
-  setRoomName(`${roomId}`);
+    setRoomName(`${idRoom}`);
+  } else {
+    const roomId = document.getElementById('roomIdJoin').value;
+    socket.emit('joinRoom', {
+      idRoom: roomId,
+      token: 'Anonymous',
+    });
+
+    setRoomName(`${roomId}`);
+  }
+};
+
+const chooseRoom = () => {
+  setRoom(document.getElementById('roomsPublic').value);
 };
 
 const onError = error => {
@@ -81,3 +109,4 @@ const onError = error => {
 document.getElementById('sender').addEventListener('click', sendMessage);
 document.getElementById('setName').addEventListener('click', setUser);
 document.getElementById('setRoom').addEventListener('click', setRoom);
+document.getElementById('roomsPublic').addEventListener('change', chooseRoom);
