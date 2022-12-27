@@ -7,7 +7,11 @@ function submitSignUp() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
-  const data = { username: username, email: email, password: password };
+  const data = {
+    username: username,
+    email: email,
+    password: password,
+  };
 
   console.log(data);
 
@@ -19,7 +23,7 @@ function submitSignUp() {
     },
   })
     .then(function (response) {
-      if (response.status !== 200) {
+      if (response.status !== 200 && response.status !== 201) {
         console.log(
           'Looks like there was a problem. Status Code: ' + response.status,
         );
