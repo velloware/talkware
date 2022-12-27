@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,37 +8,43 @@
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-  <div class="Settings">
-    <h1 style="font-size:12px">Use ESC to hidden and Clear</h1>
-    <h1 style="font-size:16px">Session: <span id="userId"></span></h1>
-    <h1 style="font-size:16px">Room <span id="roomCurrent"></span></h1>
-    <div>
-      <h2 style="font-size:16px">Select Rooms:</h2>
-      <span>Chosse Publics Rooms to join:</span>
-      <select style="font-size:16px" id="roomsPublic" >
-        <option disable selected>Select a room</option>
-        <option value="1">Global 1</option>
-        <option value="2">Global 2</option>
-        <option value="3">Global 3</option>
-      </select>
-      <br>
-      <input type="text" id="roomIdJoin"/>
-      <button id="setRoom" type="button">Enter Room manual id</button> 
-      <br>
-      <br>
-      <input type="text" id="name"/>
-      <button id="setName" type="button">Set your name</button> 
+  <section class="section__settings">
+    <div class="settings__infos">
+      <h3>Use ESC to hidden and Clear</h3>
+      <h3>Session: <span id="userId"></span></h3>
+      <h3>Room: <span id="roomCurrent"></span></h3>
     </div>
-  </div>
-  <div class="chat">
+    
+    <div class="settings__inputs">
+      <h2>Select Rooms:</h2>
+      <div>
+        <span>Chosse Publics Rooms to join:</span>
+        <select id="roomsPublic" class="button">
+          <option disable selected>Select a room</option>
+          <option value="1">Global 1</option>
+          <option value="2">Global 2</option>
+          <option value="3">Global 3</option>
+        </select>
+      </div>
+      <div>
+        <input type="text" id="roomIdJoin"/>
+        <button id="setRoom" type="button" class="button">Enter Room manual id</button>   
+      </div>
+      <div>
+        <input type="text" id="name"/>
+        <button id="setName" type="button" class="button">Set your name</button> 
+      </div>
+    </div>
+  </section>
+  <section class="section__chat">
     <h1>Chat</h1>
-    <textarea id="room" cols="30" rows="10"></textarea>  
-    <br>
-    <input type="text" id="message"/>
-    <button id="sender" type="button">Send</button>
-  </div>
+    <textarea id="room" cols="30" rows="10" readonly></textarea>  
+    <div>
+      <input type="text" id="message"/>
+      <button id="sender" type="button" class="button">Send</button>
+    </div>
+  </section>
     
 </body>
   <script type="module" src="./js/index.js"></script>
-  <script type="module" src="./js/user.js"></script>
 </html>

@@ -1,68 +1,131 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
-    background-color: rgb(53, 53, 53);
-    color: white;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
+  display: grid;
+  font-family: 'Open Sans', sans-serif;
+  grid-template-columns: 2fr 3fr;
+  height: 95vh;
+  background-color: #ddd;
+  color: #333;
+}
+
+input, textarea {
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+input:focus, textarea:focus {
+  outline: 0px solid transparent;
+  box-shadow: rgba(150, 160, 138, 1) 0px 5px 7px -1px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 
-button {
-    background-color: rgb(138, 138, 138);
-    color: white;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    transition: 1s;
+#userId, #roomCurrent {
+  color: #96a08a;
 }
 
-button:hover {
-  background-color: rgb(150, 160, 138);
-  padding: 5px;
-  color: white;
+.section__settings {
+  text-align: center;
+  padding-top: 2em;
 }
 
-select {
-    transition: 1s;
-    background-color: rgb(138, 138, 138);
-    color: white;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
+.settings__infos h3 {
+  line-height: 1em;
+  margin-bottom: .5em;
+  font-weight: 100;
 }
 
-select:hover {
-  background-color: rgb(150, 160, 138);
-  padding: 5px;
-  color: white;
-}
-.Settings {
-    width: 50%;
-    float: left;
+.settings__infos {
+  color: #333;
 }
 
-.chat {
-  width: 50%;
-  float: right;
+.section__chat {
+  padding-top: 2em;
+  text-align: center;
 }
 
-.chat #room {
-    width: 100%;
-    height: 100%;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
+.section__chat h1 {
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: 500;
 }
-.chat #message {
+
+.settings__inputs {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.settings__inputs h2 {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.settings__inputs div {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.settings__inputs span {
+  margin-right: 10px;
+}
+
+.settings__inputs select {
+  height: 30px;
+  width: 12em;
+  text-align: center;
+  color: #eee;
+}
+
+.settings__inputs input {
+  width: 20em;
+  margin-right: 10px;
+}
+
+.settings__inputs  button {
+  width: 12em;
+}
+
+.section__chat textarea {
   width: 80%;
-  height: 100%;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+  height: 60%;
+  margin-bottom: 20px;
+  resize: none;
+  
 }
 
-.chat #sender {
-  width: 17%;
-  float: right;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+.section__chat div {
+  display: flex;
+  justify-content: center;
+}
+
+.section__chat div input {
+  width: 60%;
+  height: 30px;
+}
+
+.button {
+  background-color: #8a8a8a;
+  border-radius: 5px;
+  border: none;
+  transition: all .2s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  color: #eee;
+}
+
+.section__chat div button {
+  margin-left: 4%;
+  width: 16%;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: #96a08a;
+  box-shadow: rgba(0, 0, 0, 0.54) 0px 3px 10px;
 }
