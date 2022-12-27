@@ -1,7 +1,20 @@
 /* eslint-disable no-undef */
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 
+// get localStorage
+
 let tokenUser = 'Anonymous';
+
+try {
+  const token = localStorage.getItem('@token');
+
+  if (token) {
+    tokenUser = token;
+  }
+} catch (error) {
+  console.log(error);
+}
+
 let socket;
 
 const messageElement = document.querySelector('#message');
@@ -103,9 +116,17 @@ const cleanElements = () => {
   name.value = '';
 };
 
+const clearSession = () => {
+  socket.disconnect();
+  cleanElements();
+  localStorage.clear();
+  window.location.reload();
+};
+
 document.getElementById('sender').addEventListener('click', sendMessage);
 document.getElementById('setName').addEventListener('click', setUser);
 document.getElementById('setRoom').addEventListener('click', setRoom);
+document.getElementById('exit').addEventListener('click', clearSession);
 document.getElementById('roomsPublic').addEventListener('change', chooseRoom);
 
 document.onkeyup = e => {

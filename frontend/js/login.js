@@ -8,8 +8,6 @@ function submitLogin() {
 
   const data = { email: email, password: password };
 
-  console.log(data);
-
   fetch('https://talkware-backend.velloware.com/users/auth', {
     method: 'POST',
     body: JSON.stringify(data),
@@ -28,7 +26,7 @@ function submitLogin() {
       response.json().then(function (data) {
         console.log(data);
         if (data.token) {
-          localStorage.setItem('token', data.token);
+          localStorage.setItem('@token', data.token);
           // window.location.replace('https://talkware.velloware.com');
         }
       });

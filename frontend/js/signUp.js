@@ -33,7 +33,7 @@ function submitSignUp() {
       response.json().then(function (data) {
         console.log(data);
         if (data.token) {
-          localStorage.setItem('token', data.token);
+          localStorage.setItem('@token', data.token);
           // window.location.replace('https://talkware.velloware.com');
         }
       });
