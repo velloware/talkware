@@ -51,4 +51,18 @@ export class InMemoryRoomRepository implements IRoomRepository {
 
     return right(rooms);
   }
+
+  async delete(id: string): Promise<boolean> {
+    const roomIndex = this.items.findIndex(room => {
+      return room.id === id;
+    });
+
+    if (roomIndex === -1) {
+      return false;
+    }
+
+    this.items.splice(roomIndex, 1);
+
+    return true;
+  }
 }

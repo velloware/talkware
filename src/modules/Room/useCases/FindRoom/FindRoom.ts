@@ -1,7 +1,7 @@
 import { Either, right, left } from '../../../../core/logic/Either';
 import { Room } from '../../Domain/Room';
 import { IRoomRepository } from '../../repositories/IRoomRepository';
-import { RoomDontFind } from './Errors/RoomDontFind';
+import { RoomDontFind } from '../Errors/RoomDontFind';
 
 type FindRoomByOwnerIdReturn = Either<RoomDontFind, Room | Room[]>;
 

@@ -143,6 +143,32 @@
           }
         }
       },
+      "EditRoom": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Room UUID",
+            "example": "3bda699f-6fac-451b-890c-6462d356a686 REQUIRED"
+          },
+          "name": {
+            "type": "string",
+            "description": "Room's Name OPTIONAL",
+            "example": "Room of games OPTIONAL"
+          },
+          "isPrivate": {
+            "type": "boolean",
+            "description": "If the room is private OPTIONAL",
+            "optional": true,
+            "example": false
+          },
+          "password": {
+            "type": "boolean",
+            "description": "password to Room OPTIONAL",
+            "example": "OPTIONAL"
+          }
+        }
+      },
       "CreateRoom": {
         "type": "object",
         "properties": {

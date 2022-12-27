@@ -7,7 +7,7 @@ const debug = Debug('app:infra:process');
 class ProcessController {
   static PrimaryProcess() {
     if (cluster.isPrimary) {
-      process.title = 'Agendator - server primary';
+      process.title = 'Talkware - server primary';
       debug('> Primary process started');
       const processesCount = os.cpus().length;
       debug(`> Server Primary running in process - ${process.pid}`);
@@ -31,7 +31,7 @@ class ProcessController {
       return true;
     }
 
-    process.title = 'Agendator - server worker';
+    process.title = 'Talkware - server worker';
 
     return false;
   }
@@ -43,7 +43,7 @@ class ProcessController {
   }
 
   static SetNameWorker() {
-    process.title = 'Agendator - server worker';
+    process.title = 'Talkware - server worker';
   }
 }
 
