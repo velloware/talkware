@@ -5,25 +5,39 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talkware</title>
+  <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-  <h1>Your User-session: <span id="userId"></span></h1>
-  <h1>Room <span id="roomCurrent"></span></h1>
-  <button id="setRoom" type="button">JOIN CHAT BY ID:</button> 
-  <input type="text" id="roomIdJoin"/>  
-  <br>
-  <br>  
-  <textarea id="room" cols="30" rows="10"></textarea>  
-  <br>
-  <br>
-  <input type="text" id="message"/>
-  <button id="sender" type="button">Send</button> 
-  <br>
-  <br>
-  <br>
-  <br>
-  <button id="setName" type="button">Set your name</button> 
-  <input type="text" id="name"/>
+  <div class="Settings">
+    <h1 style="font-size:12px">Use ESC to hidden and Clear</h1>
+    <h1 style="font-size:16px">Session: <span id="userId"></span></h1>
+    <h1 style="font-size:16px">Room <span id="roomCurrent"></span></h1>
+    <div>
+      <h2 style="font-size:16px">Select Rooms:</h2>
+      <span>Chosse Publics Rooms to join:</span>
+      <select style="font-size:16px" id="roomsPublic" >
+        <option disable selected>Select a room</option>
+        <option value="1">Global 1</option>
+        <option value="2">Global 2</option>
+        <option value="3">Global 3</option>
+      </select>
+      <br>
+      <input type="text" id="roomIdJoin"/>
+      <button id="setRoom" type="button">Enter Room manual id</button> 
+      <br>
+      <br>
+      <input type="text" id="name"/>
+      <button id="setName" type="button">Set your name</button> 
+    </div>
+  </div>
+  <div class="chat">
+    <h1>Chat</h1>
+    <textarea id="room" cols="30" rows="10"></textarea>  
+    <br>
+    <input type="text" id="message"/>
+    <button id="sender" type="button">Send</button>
+  </div>
+    
 </body>
   <script type="module" src="./js/index.js"></script>
   <script type="module" src="./js/user.js"></script>
