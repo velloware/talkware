@@ -10,22 +10,22 @@
 <body>
   <div class="login-box">
     <h2>Login</h2>
-    <form>
+    <form onsubmit="return false">
       <div class="user-box">
-        <input type="text" name="" required="">
-        <label>Username</label>
+        <input type="text" name="email" id="email" required="">
+        <label>Email</label>
       </div>
       <div class="user-box">
-        <input type="password" name="" required="">
+        <input type="password" name="password" id="password" required="">
         <label>Password</label>
       </div>
       <div class="data">
         <a href="forgetPass.html"><p>forget Password</p></a>
         <a href="signUp.html"><p>Sign up</p></a>
       </div>
-      <a href="#">
+      <button id="loginSubmit">
         Login
-      </a>
+      </button>
     </form>
   </div>
 </body>
