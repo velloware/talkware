@@ -1,0 +1,47 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  font-family: 'Open Sans', sans-serif;
+  grid-template-columns: 2fr 3fr;
+  height: 150vh;
+  background-color: #ddd;
+  color: #333;
+}
+
+form {
+  margin: 5% 10% auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+form label {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+form input {
+  margin-right: 10px;
+  height: 30px;
+  width: 30em;
+}
+
+form select {
+  margin-right: 10px;
+  height: 30px;
+  width: 30em;
+}
+
+form button {
+  margin-top: 15px;
+  margin-right: 10px;
+  height: 30px;
+  width: 30em;
+}

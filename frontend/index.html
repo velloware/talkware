@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talkware</title>
   <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/addRoomModal.css">
 </head>
 <body>
   
@@ -14,6 +15,22 @@
       <a href="/login.html">Login</a>
       <a href="/signUp.html">SignUp</a>
       <button id="exit">Exit</button>
+      <button id="CreateRoom">Create Room</button>
+      <div id="addRoomModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            <labe>Name</label>
+            <input type="text" name="name" id="name">
+            <label>Private</label>
+            <select id="isPrivate">
+              <option disabled value="true">Yes</option>
+              <option selected value="false">No</option>
+            </select>
+            <label>Password</label>
+            <input type="password" name="password" id="password">
+            <button id="createRoomButton">Create</button>
+        </div>
+      </div>
       <h3>Use ESC to hidden and Clear</h3>
       <h3>Session: <span id="userId"></span></h3>
       <h3>Room: <span id="roomCurrent"></span></h3>
@@ -48,7 +65,7 @@
       <button id="sender" type="button" class="button">Send</button>
     </div>
   </section>
-    
 </body>
   <script type="module" src="./js/index.js"></script>
+  <script type="module" src="./js/addRoomModal.js"></script>
 </html>
