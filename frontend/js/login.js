@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
 
-document.getElementById('loginSubmit').addEventListener('click', submitLogin);
-
 function submitLogin() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
@@ -35,3 +33,5 @@ function submitLogin() {
       console.log('Fetch Error :-S', err);
     });
 }
+
+document.getElementById('loginSubmit').addEventListener('click', submitLogin);
