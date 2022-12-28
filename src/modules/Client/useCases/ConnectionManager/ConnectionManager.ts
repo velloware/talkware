@@ -9,6 +9,7 @@ export { IJoinRoom } from '../../../Room/useCases/JoinRoom/JoinRoom';
 
 import Debug from 'debug';
 import { Message } from '../../../Message/Domain/Message';
+import { IRoomReturns } from 'modules/Room/interfaces/RoomReturns';
 
 const debug = Debug('app:module:client');
 
@@ -17,7 +18,7 @@ export class ConnectionManager {
   public Client: Client = {} as Client;
   public RoomsCurrent: Room = {} as Room;
   private RoomsHasAcess: Room[] = {} as Room[];
-  private RoomsCreated: Room[] = {} as Room[];
+  private RoomsCreated: IRoomReturns[] = {} as IRoomReturns[];
   private alerts: string[] = [];
   private joinRoomService: JoinRoom = {} as JoinRoom;
 

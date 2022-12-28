@@ -14,6 +14,7 @@ if (!hasToken) {
 }
 
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
+import { getUserRooms } from './rooms.js';
 
 let tokenUser = 'Anonymous';
 
@@ -140,6 +141,18 @@ const clearSession = () => {
   window.location.reload();
 };
 
+const addRoomsInSelect = () => {
+  const rooms = getUserRooms();
+  if (rooms) {
+    rooms.forEach(room => {
+      let opt = document.createElement('option');
+      opt.value = room.id;
+      opt.innerHTML = room.name;
+      roomsPublic.appendChild(opt);
+    });
+  }
+};
+
 document.getElementById('sender').addEventListener('click', sendMessage);
 document.getElementById('setName').addEventListener('click', setUser);
 document.getElementById('setRoom').addEventListener('click', setRoom);
@@ -159,3 +172,4 @@ document.onkeyup = e => {
 };
 
 setRoomName('No Room Selected. GLOBAL CHAT');
+addRoomsInSelect();
