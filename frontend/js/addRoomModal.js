@@ -33,7 +33,6 @@ const createRoom = () => {
     isPrivate: false,
     password: password,
   };
-  console.log(data);
 
   fetch('https://talkware-backend.velloware.com/rooms', {
     method: 'POST',
@@ -44,7 +43,7 @@ const createRoom = () => {
     },
   })
     .then(function (response) {
-      if (response.status !== 200) {
+      if (response.status !== 200 && response.status !== 201) {
         console.log(
           'Looks like there was a problem. Status Code: ' + response.status,
         );
@@ -53,6 +52,7 @@ const createRoom = () => {
       // Examine the text in the response
       response.json().then(function (data) {
         console.log(data);
+        alert(`Room created! use ${data.id} to join!`);
       });
     })
     .catch(function (err) {
