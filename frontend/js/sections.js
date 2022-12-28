@@ -1,27 +1,24 @@
 /* eslint-disable no-undef */
 
-//Modal
 const modal = document.getElementById('addRoomModal');
-
 const btn = document.getElementById('CreateRoom');
-
 const span = document.getElementsByClassName('close')[0];
 
 btn.onclick = function () {
-  modal.style.display = 'block';
+  console.log(modal.classList);
+  modal.classList.remove('modal-hidden');
 };
 
 span.onclick = function () {
-  modal.style.display = 'none';
+  modal.classList.add('modal-hidden');
 };
 
 window.onclick = function (event) {
   if (event.target == modal) {
-    modal.style.display = 'none';
+    modal.classList.add('modal-hidden');
   }
 };
 
-// Create Room
 const createRoom = () => {
   const name = document.getElementById('name').value;
   const password = document.getElementById('password').value;
@@ -49,7 +46,6 @@ const createRoom = () => {
         );
         return;
       }
-      // Examine the text in the response
       response.json().then(function (data) {
         console.log(data);
         alert(`Room created! use ${data.id} to join!`);
@@ -63,3 +59,11 @@ const createRoom = () => {
 document
   .getElementById('createRoomButton')
   .addEventListener('click', createRoom);
+
+const buttonQuit = document.querySelector('.section__quit-active');
+
+buttonQuit.addEventListener('click', () => {
+  buttonQuit.classList.toggle('quit__button-press');
+  const sectionQuit = document.querySelector('.quit__div');
+  sectionQuit.classList.toggle('section__quit-hidden');
+});

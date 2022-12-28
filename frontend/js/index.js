@@ -1,4 +1,18 @@
 /* eslint-disable no-undef */
+
+const hasToken = window.localStorage.getItem('@token') === null ? false : true;
+
+if (!hasToken) {
+  if (window.location.href.includes('index.html')) {
+    window.location.href = window.location.href.replace(
+      'index.html',
+      '/pages/login.html',
+    );
+  } else {
+    window.location.href = window.location.href + '/pages/login.html';
+  }
+}
+
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 
 let tokenUser = 'Anonymous';
@@ -20,6 +34,11 @@ const roomElement = document.querySelector('#room');
 const roomsPublic = document.querySelector('#roomsPublic');
 const roomId = document.querySelector('#roomIdJoin');
 const name = document.getElementById('name');
+const login_a = document.querySelector('#login__a');
+const sign_a = document.querySelector('#sign__a');
+
+login_a.style.display = 'none';
+sign_a.style.display = 'none';
 
 if (
   window.location.hostname === 'localhost' ||

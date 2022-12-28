@@ -6,36 +6,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talkware</title>
   <link rel="stylesheet" href="./css/main.css">
-  <link rel="stylesheet" href="./css/addRoomModal.css">
+  <link rel="stylesheet" href="./css/sections.css">
 </head>
 <body>
-  
-  <section class="section__settings">
-    <div class="settings__infos">
-      <a href="/login.html">Login</a>
-      <a href="/signUp.html">SignUp</a>
-      <button id="exit">Exit</button>
-      <button id="CreateRoom">Create Room</button>
-      <div id="addRoomModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-            <labe>Name</label>
+  <div id="addRoomModal" class="modal modal-hidden">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+        <div class="modal__inputs">
+          <div>
+            <label for="name">Name</label>
             <input type="text" name="name" id="name">
+          </div>
+          <div>
+            <label>Password</label>
+            <input type="password" name="password" id="password">
+          </div>
+          <div>
             <label>Private</label>
-            <select id="isPrivate">
+            <select id="isPrivate" class="button">
               <option disabled value="true">Yes</option>
               <option selected value="false">No</option>
             </select>
-            <label>Password</label>
-            <input type="password" name="password" id="password">
-            <button id="createRoomButton">Create</button>
+          </div>
+          <div>
+            <button id="createRoomButton" class="button">Create</button>
+          </div>
         </div>
-      </div>
+    </div>
+  </div>
+  <section class="section__quit">
+    <div class="quit__div section__quit-hidden">
+      <a href="pages/login.html" id="login__a">Login</a>
+      <a href="pages/signUp.html" id="sign__a">SignUp</a>
+      <button id="CreateRoom" class="button">Create Room</button>
+      <button id="exit" class="button">Exit</button>
+    </div>
+    <div class="quit__button section__quit-active">
+      ➔
+    </div>
+  </section>
+
+  <section class="section__settings">
+    <div class="settings__infos">
       <h3>Use ESC to hidden and Clear</h3>
       <h3>Session: <span id="userId"></span></h3>
       <h3>Room: <span id="roomCurrent"></span></h3>
     </div>
-    
     <div class="settings__inputs">
       <h2>Select Rooms:</h2>
       <div>
@@ -67,5 +83,5 @@
   </section>
 </body>
   <script type="module" src="./js/index.js"></script>
-  <script type="module" src="./js/addRoomModal.js"></script>
+  <script type="module" src="./js/sections.js"></script>
 </html>

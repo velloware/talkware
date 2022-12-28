@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talkware</title>
-  <link rel="stylesheet" href="./css/login.css">
+  <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
   <div class="login-box">
@@ -13,21 +13,29 @@
     <form onsubmit="return false">
       <div class="user-box">
         <input type="text" name="email" id="email" required="">
+        <span class="user-box__span"></span>
         <label>Email</label>
       </div>
       <div class="user-box">
+        <input type="text" name="username" id="username" required="">
+        <span class="user-box__span"></span>
+        <label>Username</label>
+      </div>
+      <div class="user-box">
         <input type="password" name="password" id="password" required="">
+        <span class="user-box__span"></span>
         <label>Password</label>
       </div>
-      <div class="data">
-        <a href="forgetPass.html"><p>forget Password</p></a>
-        <a href="signUp.html"><p>Sign up</p></a>
-      </div>
-      <button id="loginSubmit">
-        Login
+      <button id="submitSignUp" class="button">
+        Create Accont
       </button>
+      <div class="sign__message">
+      </div>
+      <div class="data">
+        <a href="login.html"><p>Login</p></a>
+      </div>
     </form>
   </div>
 </body>
-  <script type="module" src="./js/login.js"></script>
+  <script type="module" src="../js/signUp.js"></script>
 </html>
