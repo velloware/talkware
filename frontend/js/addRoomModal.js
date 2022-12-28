@@ -27,6 +27,12 @@ const createRoom = () => {
   const password = document.getElementById('password').value;
   const isPrivate = document.getElementById('isPrivate').value;
 
+  if (!localStorage.getItem('@token')) {
+    // redirect to login
+    window.location.href = '/login.html';
+    return;
+  }
+
   const data = {
     name: name,
     // isPrivate: isPrivate == 'true' ? true : false,

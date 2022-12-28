@@ -11,6 +11,7 @@ import { DontCreateAnonymousClient } from './Errors/DontCreateAnonymousClient';
 import { UserDataError } from './Errors/UserDataError';
 import { UserIsLeft } from './Errors/UserIsLeft';
 import { Room } from '../../../Room/Domain/Room';
+import { IRoomReturns } from 'modules/Room/interfaces/RoomReturns';
 
 export interface CreateINewConnection {
   data: SocketDataClient;
@@ -26,7 +27,7 @@ export interface SocketDataClient {
 export interface INewConnectionrReturn {
   client: Client;
   RoomsHasAcess?: Room[];
-  RoomsCreated?: Room[];
+  RoomsCreated?: IRoomReturns[];
   alerts?: string[];
 }
 
@@ -54,7 +55,7 @@ export class NewConnection {
   public async execute(): Promise<INewConnectionAllReturn> {
     let client: CreateClientReturn;
     const alerts: string[] = [];
-    const RoomsCreated: Room[] = [];
+    const RoomsCreated: IRoomReturns[] = [];
     const RoomsHasAcess: Room[] = [];
 
     const DataClient: SocketDataClient = this.newConnectionProps.data;
@@ -103,8 +104,6 @@ export class NewConnection {
       if (getRooms.isRight()) {
         if (Array.isArray(getRooms.value)) {
           RoomsCreated.push(...getRooms.value);
-        } else {
-          RoomsCreated.push(getRooms.value);
         }
       }
     }
