@@ -7,7 +7,7 @@
 body {
   display: grid;
   font-family: 'Open Sans', sans-serif;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: .8fr 2fr 4fr;
   height: 95vh;
   background-color: #ddd;
   color: #333;
@@ -28,6 +28,46 @@ input:focus, textarea:focus {
 
 #userId, #roomCurrent {
   color: #96a08a;
+}
+
+.section__quit {
+  padding: 2em;
+  display: flex;
+  transition: all .2s;
+}
+
+.quit__div {
+  display: block;
+  transition: all .2s;
+}
+
+.section__quit-hidden {
+  display: none;
+  opacity: 0;
+}
+
+.section__quit a {
+  text-decoration: none;
+  color: #606659;
+  margin-right: 5px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.section__quit button {
+  padding: 7px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.quit__button {
+  transition: all .1s;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.quit__button-press {
+  transform: scale(-1, 1);
 }
 
 .section__settings {
@@ -109,6 +149,11 @@ input:focus, textarea:focus {
   height: 30px;
 }
 
+.section__chat div button {
+  margin-left: 4%;
+  width: 16%;
+}
+
 .button {
   background-color: #8a8a8a;
   border-radius: 5px;
@@ -118,13 +163,14 @@ input:focus, textarea:focus {
   color: #eee;
 }
 
-.section__chat div button {
-  margin-left: 4%;
-  width: 16%;
-}
-
 .button:hover {
   cursor: pointer;
   background-color: #96a08a;
   box-shadow: rgba(0, 0, 0, 0.54) 0px 3px 10px;
+}
+
+@media screen and (max-width: 759px) {
+  body {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,4 +1,12 @@
 /* eslint-disable no-undef */
+const hasToken = window.localStorage.getItem('@token') === null ? false : true;
+
+if (hasToken) {
+  window.location.href = window.location.href.replace(
+    'pages/login.html',
+    'index.html',
+  );
+}
 
 function submitLogin() {
   const email = document.getElementById('email').value;
@@ -15,17 +23,21 @@ function submitLogin() {
   })
     .then(function (response) {
       if (response.status !== 200) {
-        console.log(
-          'Looks like there was a problem. Status Code: ' + response.status,
-        );
+        document.querySelector('.sign__message').innerHTML =
+          'Incorrect username or password';
+        document.querySelector('.sign__message').style.color = '#d92804';
         return;
       }
-      // Examine the text in the response
+
       response.json().then(function (data) {
-        console.log(data);
         if (data.token) {
+          document.querySelector('.sign__message').innerHTML = 'Login success';
+          document.querySelector('.sign__message').style.color = '#1d9431';
           localStorage.setItem('@token', data.token);
-          // window.location.replace('https://talkware.velloware.com');
+          window.location.href = window.location.href.replace(
+            'pages/login.html',
+            'index.html',
+          );
         }
       });
     })
