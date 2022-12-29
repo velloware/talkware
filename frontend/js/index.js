@@ -119,6 +119,12 @@ const setRoom = idRoom => {
 };
 
 const chooseRoom = () => {
+  if (roomsPublic.value === '0') {
+    socket.emit('leaveRoom');
+    writeMessagesInteTextArea('You left the room');
+    setRoomName('No Room');
+    return;
+  }
   setRoom(roomsPublic.value);
 };
 
@@ -141,8 +147,8 @@ const clearSession = () => {
   window.location.reload();
 };
 
-const addRoomsInSelect = () => {
-  const rooms = getUserRooms();
+const addRoomsInSelect = async () => {
+  const rooms = await getUserRooms();
   if (rooms) {
     rooms.forEach(room => {
       let opt = document.createElement('option');
