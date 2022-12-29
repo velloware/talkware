@@ -34,11 +34,33 @@
         </div>
     </div>
   </div>
+  <div id="listRoomModal" class="modal modal-hidden">
+    <div class="modal-content">
+      <span id="close-listRooms" class="close">&times;</span>
+      <div id="listRooms" class="listRooms">
+        <div class="room" id="1">
+          <h3>Name: <span id="roomId">GLoo</span></h3>
+          <button class="button">Copy Id</button>
+          <button class="button">Copy Link</button>
+          <button class="button">Edit</button>
+        </div>
+        <div class="room" id="2">
+          <h3>Name: <span id="roomId">Sala dos cria</span></h3>
+          <button class="button">Copy Id</button>
+          <button class="button">Copy Link</button>
+          <button class="button">Edit</button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
   <section class="section__quit">
     <div class="quit__div section__quit-hidden">
       <a href="pages/login.html" id="login__a">Login</a>
       <a href="pages/signUp.html" id="sign__a">SignUp</a>
       <button id="CreateRoom" class="button">Create Room</button>
+      <button id="ListRooms" class="button">Your Rooms</button>
       <button id="exit" class="button">Exit</button>
     </div>
     <div class="quit__button section__quit-active">
@@ -84,4 +106,5 @@
 </body>
   <script type="module" src="./js/index.js"></script>
   <script type="module" src="./js/sections.js"></script>
+  <script type="module" src="./js/listRooms.js"></script>
 </html>
