@@ -17,6 +17,7 @@ export class ConnectionManagerController {
       this.onVoice(voiceStream),
     );
     this.socket.on('changeName', (name: string) => this.onChangeName(name));
+    this.socket.on('leaveRoom', () => this.onLeaveRoom());
   }
 
   private async onMessage(data: string) {
@@ -58,5 +59,9 @@ export class ConnectionManagerController {
         `*Welcome ${this.connectionManager.Client.name} To '${this.connectionManager.RoomsCurrent.name}'*`,
       );
     });
+  }
+
+  public async onLeaveRoom() {
+    this.socket.leave(this.connectionManager.RoomsCurrent.id);
   }
 }
