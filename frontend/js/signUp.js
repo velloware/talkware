@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { config } from './config.js';
 
 const hasToken = window.localStorage.getItem('@token') === null ? false : true;
 
