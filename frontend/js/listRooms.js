@@ -5,6 +5,7 @@ const btn = document.getElementById('ListRooms');
 const span = document.getElementById('close-listRooms');
 
 import { getUserRooms } from './rooms.js';
+import { config } from './config.js';
 
 btn.onclick = function () {
   modal.classList.remove('modal-hidden');
@@ -34,6 +35,22 @@ export function copyId(ThisElement) {
     );
 }
 
+export function copyLinkRoom(ThisElement) {
+  // copy id to clipboard
+  navigator.clipboard
+    .writeText(
+      `${config.URLFRONTEND}?room=${ThisElement.explicitOriginalTarget.id}`,
+    )
+    .then(
+      () => {
+        /* clipboard successfully set */
+      },
+      () => {
+        /* clipboard write failed */
+      },
+    );
+}
+
 // add rooms in the list
 const roomList = document.getElementById('listRooms');
 
@@ -47,10 +64,16 @@ const addRooms = async () => {
     newDiv.innerHTML = `
       <h3>Name: <span id="${room.id}">${room.name}</span></h3>
       <button class="button" class="joinRoom" id="${room.id}">Join</button>
-      <button class="button" class="copyId" id="${room.id}">Copy Id</button>
-      <button class="button" class="copyLink" id="${room.id}">Copy LInk</button>`;
+      <button class="button" name="${room.id}copyId" id="${room.id}">Copy Id</button>
+      <button class="button" name="${room.id}copyLink" id="${room.id}">Copy Link</button>`;
     roomList.appendChild(newDiv);
-    document.getElementById(`${room.id}`).addEventListener('click', copyId);
+    console.log(`${room.id}copyId`);
+    document
+      .getElementsByName(`${room.id}copyId`)[0]
+      .addEventListener('click', copyId);
+    document
+      .getElementsByName(`${room.id}copyLink`)[0]
+      .addEventListener('click', copyLinkRoom);
   });
 };
 
