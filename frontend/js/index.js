@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
+import { config } from './config.js';
 
+/* Redirect to login page if user is not logged in
 const hasToken = window.localStorage.getItem('@token') === null ? false : true;
 
 if (!hasToken) {
@@ -11,24 +13,37 @@ if (!hasToken) {
   } else {
     window.location.href = window.location.href + '/pages/login.html';
   }
-}
+}*/
 
+// if url have ?room= then join room
+const urlParams = new URLSearchParams(window.location.search);
+const roomAutoJoin = urlParams.get('room');
+console.log(roomAutoJoin);
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 import { getUserRooms } from './rooms.js';
 
-let tokenUser = 'Anonymous';
-
-try {
-  const token = localStorage.getItem('@token');
-
-  if (token) {
-    tokenUser = token;
-  }
-} catch (error) {
-  console.log(error);
-}
+let tokenUser = localStorage.getItem('@token')
+  ? localStorage.getItem('@token')
+  : 'Anonymous';
 
 let socket;
+
+if (tokenUser === 'Anonymous') {
+  // get userName element
+  const userName = document.querySelector('#UserName');
+  userName.innerHTML = 'Your are Anonymous';
+  userName.style.color = 'red';
+
+  const loginPage = document.querySelector('#loginPage');
+  loginPage.innerHTML = 'Login here';
+  loginPage.href = '/pages/login.html';
+} else {
+  // get userName element
+  const userName = document.querySelector('#UserName');
+  userName.innerHTML = 'Your are logged';
+  loginPage.style.display = 'none';
+  userName.style.color = 'green';
+}
 
 const messageElement = document.querySelector('#message');
 const roomElement = document.querySelector('#room');
@@ -41,22 +56,11 @@ const sign_a = document.querySelector('#sign__a');
 login_a.style.display = 'none';
 sign_a.style.display = 'none';
 
-if (
-  window.location.hostname === 'localhost' ||
-  window.location.hostname === '127.0.0.1'
-) {
-  socket = io('localhost:5337', {
-    query: {
-      token: tokenUser,
-    },
-  });
-} else {
-  socket = io('https://talkware-backend.velloware.com/', {
-    query: {
-      token: tokenUser,
-    },
-  });
-}
+socket = io(config.URLBACKEND, {
+  query: {
+    token: tokenUser,
+  },
+});
 
 socket.on('connect', () => setUserName(socket.id));
 socket.on('disconnect', () => console.log(`Disconnect For SocketServer`));
@@ -179,3 +183,7 @@ document.onkeyup = e => {
 
 setRoomName('No Room Selected. GLOBAL CHAT');
 addRoomsInSelect();
+if (roomAutoJoin) {
+  console.log('roomAutoJoin', roomAutoJoin);
+  setRoom(roomAutoJoin);
+}

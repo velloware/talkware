@@ -1,11 +1,10 @@
 /* eslint-disable no-undef */
+import { config } from './config.js';
+
 const hasToken = window.localStorage.getItem('@token') === null ? false : true;
 
 if (hasToken) {
-  window.location.href = window.location.href.replace(
-    'pages/login.html',
-    'index.html',
-  );
+  window.location.href = window.location.href.replace('pages/login.html', '');
 }
 
 function submitLogin() {
@@ -14,7 +13,7 @@ function submitLogin() {
 
   const data = { email: email, password: password };
 
-  fetch('https://talkware-backend.velloware.com/users/auth', {
+  fetch(`${config.URLBACKEND}/users/auth`, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
@@ -36,7 +35,7 @@ function submitLogin() {
           localStorage.setItem('@token', data.token);
           window.location.href = window.location.href.replace(
             'pages/login.html',
-            'index.html',
+            '',
           );
         }
       });

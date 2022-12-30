@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { config } from './config.js';
 
 const modal = document.getElementById('addRoomModal');
 const btn = document.getElementById('CreateRoom');
@@ -37,7 +38,7 @@ const createRoom = () => {
     password: password,
   };
 
-  fetch('https://talkware-backend.velloware.com/rooms', {
+  fetch(`${config.URLBACKEND}/rooms`, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {

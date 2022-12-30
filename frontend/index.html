@@ -38,18 +38,6 @@
     <div class="modal-content">
       <span id="close-listRooms" class="close">&times;</span>
       <div id="listRooms" class="listRooms">
-        <div class="room" id="1">
-          <h3>Name: <span id="roomId">GLoo</span></h3>
-          <button class="button">Copy Id</button>
-          <button class="button">Copy Link</button>
-          <button class="button">Edit</button>
-        </div>
-        <div class="room" id="2">
-          <h3>Name: <span id="roomId">Sala dos cria</span></h3>
-          <button class="button">Copy Id</button>
-          <button class="button">Copy Link</button>
-          <button class="button">Edit</button>
-        </div>
       </div>
       </div>
     </div>
@@ -70,6 +58,8 @@
 
   <section class="section__settings">
     <div class="settings__infos">
+      <h3 id="UserName">Your: </h3>
+      <a id="loginPage" style="margin-bottom: 50px;"></a>
       <h3>Use ESC to hidden and Clear</h3>
       <h3>Session: <span id="userId"></span></h3>
       <h3>Room: <span id="roomCurrent"></span></h3>
@@ -104,7 +94,8 @@
     </div>
   </section>
 </body>
-  <script type="module" src="./js/index.js"></script>
-  <script type="module" src="./js/sections.js"></script>
+<script type="module" src="./js/config.js"></script>
+<script type="module" src="./js/index.js"></script>
+<script type="module" src="./js/sections.js"></script>
   <script type="module" src="./js/listRooms.js"></script>
 </html>

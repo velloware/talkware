@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
+import { config } from './config.js';
+
 export async function getUserRooms() {
-  const response = await fetch('https://talkware-backend.velloware.com/rooms', {
+  const response = await fetch(`${config.URLBACKEND}/rooms`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
