@@ -183,6 +183,13 @@ document.onkeyup = e => {
 
 setRoomName('No Room Selected. GLOBAL CHAT');
 addRoomsInSelect();
+
 if (roomAutoJoin) {
   setRoom(roomAutoJoin);
+}
+
+const prefersColorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+if (prefersColorScheme.matches) {
+  document.getElementsByTagName('html')[0].classList.add('dark-mode');
 }
