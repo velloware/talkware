@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { config } from './config.js';
 
 const modal = document.getElementById('addRoomModal');
 const btn = document.getElementById('CreateRoom');

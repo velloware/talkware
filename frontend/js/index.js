@@ -15,6 +15,10 @@ if (!hasToken) {
   }
 }*/
 
+// if url have ?room= then join room
+const urlParams = new URLSearchParams(window.location.search);
+const roomAutoJoin = urlParams.get('room');
+console.log(roomAutoJoin);
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 import { getUserRooms } from './rooms.js';
 
@@ -179,3 +183,7 @@ document.onkeyup = e => {
 
 setRoomName('No Room Selected. GLOBAL CHAT');
 addRoomsInSelect();
+if (roomAutoJoin) {
+  console.log('roomAutoJoin', roomAutoJoin);
+  setRoom(roomAutoJoin);
+}

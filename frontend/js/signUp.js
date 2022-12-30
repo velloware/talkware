@@ -3,10 +3,7 @@
 const hasToken = window.localStorage.getItem('@token') === null ? false : true;
 
 if (hasToken) {
-  window.location.href = window.location.href.replace(
-    'pages/signUp.html',
-    'index.html',
-  );
+  window.location.href = window.location.href.replace('pages/signUp.html', '');
 }
 
 const submitButton = document.querySelector('#submitSignUp');
@@ -73,7 +70,7 @@ const submitSignUp = () => {
           localStorage.setItem('@token', data.token);
           window.location.href = window.location.href.replace(
             'pages/signUp.html',
-            'index.html',
+            '',
           );
         }
       });

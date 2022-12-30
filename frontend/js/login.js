@@ -1,12 +1,10 @@
 /* eslint-disable no-undef */
+import { config } from './config.js';
 
 const hasToken = window.localStorage.getItem('@token') === null ? false : true;
 
 if (hasToken) {
-  window.location.href = window.location.href.replace(
-    'pages/login.html',
-    'index.html',
-  );
+  window.location.href = window.location.href.replace('pages/login.html', '');
 }
 
 function submitLogin() {
@@ -37,7 +35,7 @@ function submitLogin() {
           localStorage.setItem('@token', data.token);
           window.location.href = window.location.href.replace(
             'pages/login.html',
-            'index.html',
+            '',
           );
         }
       });
