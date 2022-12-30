@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 const hasToken = window.localStorage.getItem('@token') === null ? false : true;
 
 if (hasToken) {
@@ -14,7 +15,7 @@ function submitLogin() {
 
   const data = { email: email, password: password };
 
-  fetch('https://talkware-backend.velloware.com/users/auth', {
+  fetch(`${config.URLBACKEND}/users/auth`, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {

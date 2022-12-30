@@ -98,6 +98,10 @@ class ServerHttp {
   private SocketAdapter(SockeIServer: ISockeIServer) {
     SockeIServer.attach(this.server);
   }
+
+  getServer() {
+    return this.server;
+  }
 }
 
 export default ServerHttp;

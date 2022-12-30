@@ -51,7 +51,7 @@ const submitSignUp = () => {
     return;
   }
 
-  fetch('https://talkware-backend.velloware.com/users', {
+  fetch(`${config.URLBACKEND}/users`, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
