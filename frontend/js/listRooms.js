@@ -21,34 +21,19 @@ window.onclick = function (event) {
   }
 };
 
-export function copyId(ThisElement) {
-  // copy id to clipboard
-  navigator.clipboard
-    .writeText(`${ThisElement.explicitOriginalTarget.id}`)
-    .then(
+export function copy(wantCopy) {
+  return () => {
+    // copy id to clipboard
+    navigator.clipboard.writeText(`${wantCopy}`).then(
       () => {
         /* clipboard successfully set */
       },
       () => {
+        alert(`${wantCopy}`);
         /* clipboard write failed */
       },
     );
-}
-
-export function copyLinkRoom(ThisElement) {
-  // copy id to clipboard
-  navigator.clipboard
-    .writeText(
-      `${config.URLFRONTEND}?room=${ThisElement.explicitOriginalTarget.id}`,
-    )
-    .then(
-      () => {
-        /* clipboard successfully set */
-      },
-      () => {
-        /* clipboard write failed */
-      },
-    );
+  };
 }
 
 // add rooms in the list
@@ -70,10 +55,10 @@ const addRooms = async () => {
     console.log(`${room.id}copyId`);
     document
       .getElementsByName(`${room.id}copyId`)[0]
-      .addEventListener('click', copyId);
+      .addEventListener('click', copy(`${room.id}`));
     document
       .getElementsByName(`${room.id}copyLink`)[0]
-      .addEventListener('click', copyLinkRoom);
+      .addEventListener('click', copy(`${config.URLFRONTEND}?room=${room.id}`));
   });
 };
 
