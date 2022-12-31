@@ -18,7 +18,6 @@
   --bg-input: #2b2a33;
 }
 
-
 * {
   padding: 0;
   margin: 0;
@@ -28,41 +27,44 @@
 body {
   display: grid;
   font-family: 'Open Sans', sans-serif;
-  grid-template-columns: .8fr 2fr 4fr;
+  grid-template-columns: 0.8fr 2fr 4fr;
   height: 95vh;
   background-color: var(--bg);
   color: var(--color-text);
 }
 
-input, textarea {
+input,
+textarea {
   border-radius: 5px;
   padding: 10px;
   border: none;
   color: var(--color-text);
   background-color: var(--bg-input);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: 0px solid transparent;
-  box-shadow: rgba(150, 160, 138, 1) 0px 5px 7px -1px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow: rgba(150, 160, 138, 1) 0px 5px 7px -1px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-
-#userId, #roomCurrent {
+#userId,
+#roomCurrent {
   color: var(--color-h2);
 }
 
 .section__quit {
   padding: 2em;
   display: flex;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .quit__div {
   display: block;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .section__quit-hidden {
@@ -84,7 +86,7 @@ input:focus, textarea:focus {
 }
 
 .quit__button {
-  transition: all .1s;
+  transition: all 0.1s;
   cursor: pointer;
   font-size: 30px;
 }
@@ -100,7 +102,7 @@ input:focus, textarea:focus {
 
 .settings__infos h3 {
   line-height: 1em;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   font-weight: 100;
 }
 
@@ -151,7 +153,7 @@ input:focus, textarea:focus {
   margin-right: 10px;
 }
 
-.settings__inputs  button {
+.settings__inputs button {
   width: 12em;
 }
 
@@ -181,7 +183,7 @@ input:focus, textarea:focus {
   background-color: var(--bg-button);
   border-radius: 5px;
   border: none;
-  transition: all .2s;
+  transition: all 0.2s;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   color: var(--color-button);
 }
@@ -212,7 +214,7 @@ input:focus, textarea:focus {
   height: 50px;
   margin-bottom: 10px;
   border-radius: 5px;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .listRooms .room button {
@@ -223,5 +225,12 @@ input:focus, textarea:focus {
   color: var(--color-text);
   font-size: 20px;
   font-weight: 500;
-  transition: all .2s;
+  transition: all 0.2s;
+}
+
+.darkMode {
+  background-color: var(--bg);
+  color: var(--color-text);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

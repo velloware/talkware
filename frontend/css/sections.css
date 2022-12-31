@@ -1,3 +1,23 @@
+:root {
+  --bg: #ddd;
+  --color-text: #333;
+  --color-h2: #96a08a;
+  --color-button: #eee;
+  --bg-button: #8a8a8a;
+  --bg-button-hover: #96a08a;
+  --bg-input: #fff;
+}
+
+.dark-mode:root {
+  --bg: #232627;
+  --color-text: #cbc6bf;
+  --color-h2: #96a08a;
+  --color-button: #eee;
+  --bg-button: #8a8a8a;
+  --bg-button-hover: #96a08a;
+  --bg-input: #2b2a33;
+}
+
 .modal {
   display: block;
   position: fixed;
@@ -14,7 +34,7 @@
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--bg);
   border-radius: 5px;
   margin: 10% auto;
   padding: 20px;
@@ -41,7 +61,7 @@
   margin-top: 15px;
   margin-right: 10px;
   height: 30px;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .modal__inputs {
@@ -59,7 +79,8 @@
   margin-bottom: 5px;
 }
 
-.modal__inputs div input, .modal__inputs div button {
+.modal__inputs div input,
+.modal__inputs div button {
   width: 100%;
 }
 

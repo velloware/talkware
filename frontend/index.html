@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Talkware</title>
-  <link rel="stylesheet" href="./css/main.css">
-  <link rel="stylesheet" href="./css/sections.css">
-</head>
-<body>
-  <div id="addRoomModal" class="modal modal-hidden">
-    <div class="modal-content">
-      <span class="close">&times;</span>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talkware</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/sections.css">
+  </head>
+  <body>
+    <div id="addRoomModal" class="modal modal-hidden">
+      <div class="modal-content">
+        <span class="close">&times;</span>
         <div class="modal__inputs">
           <div>
             <label for="name">Name</label>
@@ -32,17 +32,17 @@
             <button id="createRoomButton" class="button">Create</button>
           </div>
         </div>
-    </div>
-  </div>
-  <div id="listRoomModal" class="modal modal-hidden">
-    <div class="modal-content">
-      <span id="close-listRooms" class="close">&times;</span>
-      <div id="listRooms" class="listRooms">
-      </div>
       </div>
     </div>
+    <div id="listRoomModal" class="modal modal-hidden">
+      <div class="modal-content">
+        <span id="close-listRooms" class="close">&times;</span>
+        <div id="listRooms" class="listRooms">
+        </div>
+      </div>
+    </div>
   </div>
-
+  
   <section class="section__quit">
     <div class="quit__div section__quit-hidden">
       <a href="pages/login.html" id="login__a">Login</a>
@@ -55,7 +55,7 @@
       ➔
     </div>
   </section>
-
+  
   <section class="section__settings">
     <div class="settings__infos">
       <h3 id="UserName">Your: </h3>
@@ -63,6 +63,10 @@
       <h3>Use ESC to hidden and Clear</h3>
       <h3>Session: <span id="userId"></span></h3>
       <h3>Room: <span id="roomCurrent"></span></h3>
+      <div>
+        <label for="darkMode" style="font-size: 10px;">Dark Mode</label>
+        <input type="checkbox" id="darkMode" class="darkMode">
+      </div>
     </div>
     <div class="settings__inputs">
       <h2>Select Rooms:</h2>
@@ -97,5 +101,5 @@
 <script type="module" src="./js/config.js"></script>
 <script type="module" src="./js/index.js"></script>
 <script type="module" src="./js/sections.js"></script>
-  <script type="module" src="./js/listRooms.js"></script>
+<script type="module" src="./js/listRooms.js"></script>
 </html>
