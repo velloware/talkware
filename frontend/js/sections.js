@@ -74,3 +74,5 @@ buttonQuit.addEventListener('click', () => {
   const sectionQuit = document.querySelector('.quit__div');
   sectionQuit.classList.toggle('section__quit-hidden');
 });
+
+const prefersColorScheme = window.matchMedia('(prefers-color-scheme: dark)');

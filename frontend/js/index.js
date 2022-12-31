@@ -163,11 +163,32 @@ const addRoomsInSelect = async () => {
   }
 };
 
+const setDarkMode = () => {
+  if (document.getElementById('darkMode').checked) {
+    document.getElementsByTagName('html')[0].classList.add('dark-mode');
+  } else {
+    document.getElementsByTagName('html')[0].classList.remove('dark-mode');
+  }
+};
+
+const prefersColorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+if (prefersColorScheme.matches) {
+  document.getElementsByTagName('html')[0].classList.add('dark-mode');
+  document.getElementById('darkMode').checked = true;
+}
+
+if (localStorage.getItem('dark-mode') === 'true') {
+  document.getElementsByTagName('html')[0].classList.add('dark-mode');
+  document.getElementById('darkMode').checked = true;
+}
+
 document.getElementById('sender').addEventListener('click', sendMessage);
 document.getElementById('setName').addEventListener('click', setUser);
 document.getElementById('setRoom').addEventListener('click', setRoom);
 document.getElementById('exit').addEventListener('click', clearSession);
 document.getElementById('roomsPublic').addEventListener('change', chooseRoom);
+document.getElementById('darkMode').addEventListener('change', setDarkMode);
 
 document.onkeyup = e => {
   if (e.key === 'Enter') {
@@ -183,6 +204,7 @@ document.onkeyup = e => {
 
 setRoomName('No Room Selected. GLOBAL CHAT');
 addRoomsInSelect();
+
 if (roomAutoJoin) {
   setRoom(roomAutoJoin);
 }
