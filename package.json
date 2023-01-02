@@ -1,7 +1,7 @@
 {
-  "name": "backend",
+  "name": "talkware",
   "version": "1.0.0",
-  "description": "Projec in Nodejs With typescript",
+  "description": "Private chat and segurity",
   "main": "src/server.ts",
   "scripts": {
     "build": "tsc",
