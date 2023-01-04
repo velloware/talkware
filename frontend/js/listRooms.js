@@ -23,26 +23,25 @@ window.onclick = function (event) {
 
 export function copy(wantCopy) {
   return () => {
-    // copy id to clipboard
     navigator.clipboard.writeText(`${wantCopy}`).then(
       () => {
         /* clipboard successfully set */
       },
       () => {
         alert(`${wantCopy}`);
-        /* clipboard write failed */
       },
     );
   };
 }
 
-// add rooms in the list
 const roomList = document.getElementById('listRooms');
 
 const addRooms = async () => {
   const rooms = await getUserRooms();
+
+  if (!rooms) return;
+
   rooms.forEach(room => {
-    // create a new div element
     const newDiv = document.createElement('div');
     newDiv.classList.add('room');
     newDiv.id = room.id;
@@ -52,10 +51,11 @@ const addRooms = async () => {
       <button class="button" name="${room.id}copyId" id="${room.id}">Copy Id</button>
       <button class="button" name="${room.id}copyLink" id="${room.id}">Copy Link</button>`;
     roomList.appendChild(newDiv);
-    console.log(`${room.id}copyId`);
+
     document
       .getElementsByName(`${room.id}copyId`)[0]
       .addEventListener('click', copy(`${room.id}`));
+
     document
       .getElementsByName(`${room.id}copyLink`)[0]
       .addEventListener('click', copy(`${config.URLFRONTEND}?room=${room.id}`));

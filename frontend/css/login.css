@@ -3,8 +3,8 @@ html {
 }
 
 body {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   font-family: sans-serif;
   background: linear-gradient(#fff, #c4c1c1);
 }
@@ -17,7 +17,8 @@ body {
   padding: 40px;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   border-radius: 5px;
   background-color: #ddd;
 }
@@ -46,38 +47,38 @@ body {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
-  color: #8a8a8a;
+  color: #5a6265;
   margin-bottom: 30px;
   border: none;
-  border-bottom: 1px solid #8a8a8a;
+  border-bottom: 1px solid #5a6265;
   outline: none;
   background: transparent;
 }
 
 .login-box .user-box label {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   padding: 10px 0;
   font-size: 16px;
-  color: #8a8a8a;
+  color: #5a6265;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .login-box .user-box input:focus ~ label,
 .login-box .user-box input:valid ~ label {
   top: -20px;
   left: 0;
-  color: #96a08a;
+  color: #72ff72;
   font-size: 12px;
 }
 
 .button {
-  background-color: #8a8a8a;
+  background-color: #5a6265;
   border-radius: 5px;
   border: none;
-  transition: all .2s;
+  transition: all 0.2s;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   color: #eee;
   padding: 7px 10px;
@@ -101,7 +102,7 @@ body {
 }
 
 .login-box a:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .login-box a span:nth-child(1) {

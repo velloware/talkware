@@ -1,20 +1,6 @@
 /* eslint-disable no-undef */
 import { config } from './config.js';
 
-/* Redirect to login page if user is not logged in
-const hasToken = window.localStorage.getItem('@token') === null ? false : true;
-
-if (!hasToken) {
-  if (window.location.href.includes('index.html')) {
-    window.location.href = window.location.href.replace(
-      'index.html',
-      '/pages/login.html',
-    );
-  } else {
-    window.location.href = window.location.href + '/pages/login.html';
-  }
-}*/
-
 // if url have ?room= then join room
 const urlParams = new URLSearchParams(window.location.search);
 const roomAutoJoin = urlParams.get('room');
@@ -29,20 +15,18 @@ let tokenUser = localStorage.getItem('@token')
 let socket;
 
 if (tokenUser === 'Anonymous') {
-  // get userName element
   const userName = document.querySelector('#UserName');
   userName.innerHTML = 'Your are Anonymous';
-  userName.style.color = 'red';
+  userName.style.color = '#ff1a1a';
 
   const loginPage = document.querySelector('#loginPage');
   loginPage.innerHTML = 'Login here';
   loginPage.href = '/pages/login.html';
 } else {
-  // get userName element
   const userName = document.querySelector('#UserName');
   userName.innerHTML = 'Your are logged';
   loginPage.style.display = 'none';
-  userName.style.color = 'green';
+  userName.style.color = '#72ff72';
 }
 
 const messageElement = document.querySelector('#message');
@@ -106,7 +90,6 @@ const setRoom = idRoom => {
   if (idRoom && typeof idRoom == 'string') {
     socket.emit('joinRoom', {
       idRoom: idRoom,
-      token: 'Anonymous',
     });
 
     setRoomName(`${idRoom}`);
@@ -115,7 +98,6 @@ const setRoom = idRoom => {
 
     socket.emit('joinRoom', {
       idRoom: roomId.value,
-      token: 'Anonymous',
     });
 
     setRoomName(`${roomId.value}`);

@@ -25,7 +25,10 @@ const createRoom = () => {
   const password = document.getElementById('password').value;
   const isPrivate = document.getElementById('isPrivate').value;
 
-  if (!localStorage.getItem('@token')) {
+  if (
+    !localStorage.getItem('@token') ||
+    localStorage.getItem('@token') == 'Anonymous'
+  ) {
     // redirect to login
     window.location.href = '/login.html';
     return;
