@@ -57,7 +57,7 @@ export class ConnectionManager {
     callback?: (room: Room) => void,
   ) {
     const room = await this.joinRoomService.join({
-      idRoom: joinRoomProps.idRoom,
+      idRoom: String(joinRoomProps.idRoom),
       password: joinRoomProps.password,
       RoomsHasAcess: this.RoomsHasAcess,
     });
