@@ -2,11 +2,11 @@
 import { config } from './config.js';
 
 export async function getUserRooms() {
-  if (
-    !localStorage.getItem('@token') ||
-    localStorage.getItem('@token') == 'Anonymous'
-  )
-    return false;
+  // if (
+  //   !localStorage.getItem('@token') ||
+  //   localStorage.getItem('@token') == 'Anonymous'
+  // )
+  //   return false;
 
   const response = await fetch(`${config.URLBACKEND}/rooms`, {
     method: 'GET',
