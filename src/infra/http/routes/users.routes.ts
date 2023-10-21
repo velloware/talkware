@@ -1,5 +1,4 @@
 import { Router, Response, Request } from 'express';
-import 'express-async-errors';
 
 import CreateUserController from '../../../modules/User/useCases/CreateUser/infra/http/Controllers/CreateUserController';
 import AuthUserController from '../../../modules/User/useCases/AuthenticateUser/infra/http/Controllers/LogInUserController';

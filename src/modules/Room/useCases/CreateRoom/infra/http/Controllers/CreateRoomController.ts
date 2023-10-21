@@ -12,7 +12,7 @@ export default class CreateRoomController {
       throw new AppError('Your request Body is invalid', 400);
     }
     if (!bodyParams.name) {
-      throw new AppError(`Email is proprety required ${bodyParams.name}`, 400);
+      throw new AppError(`Name is proprety required ${bodyParams.name}`, 400);
     }
     if (bodyParams.isPrivate) {
       if (!bodyParams.password) {

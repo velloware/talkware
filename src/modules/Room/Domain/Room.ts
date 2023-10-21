@@ -7,10 +7,7 @@ import { Either, left, right } from '../../../core/logic/Either';
 import { InvalidPropsError } from './Errors/InvalidPropsError';
 
 import { uidCreate } from '../../../shared/Utils/uid';
-import {
-  comparePassword,
-  hashedPassword,
-} from '../../../shared/Utils/PassCrypt';
+import { comparePassword } from '../../../shared/Utils/PassCrypt';
 import { Client } from '../../../modules/Client/Domain/Client';
 
 export type createRoomReturns = Either<InvalidPropsError, Room>;

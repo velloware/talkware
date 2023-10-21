@@ -40,7 +40,8 @@ const sign_a = document.querySelector('#sign__a');
 login_a.style.display = 'none';
 sign_a.style.display = 'none';
 
-socket = io(config.URLBACKEND, {
+socket = io('ws://localhost:5337/', {
+  path: '/ws',
   query: {
     token: tokenUser,
   },
@@ -166,7 +167,6 @@ if (localStorage.getItem('dark-mode') === 'true') {
 }
 
 document.getElementById('sender').addEventListener('click', sendMessage);
-document.getElementById('setName').addEventListener('click', setUser);
 document.getElementById('setRoom').addEventListener('click', setRoom);
 document.getElementById('exit').addEventListener('click', clearSession);
 document.getElementById('roomsPublic').addEventListener('change', chooseRoom);

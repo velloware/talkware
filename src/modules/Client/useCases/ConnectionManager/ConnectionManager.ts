@@ -9,7 +9,6 @@ export { IJoinRoom } from '../../../Room/useCases/JoinRoom/JoinRoom';
 
 import Debug from 'debug';
 import { Message } from '../../../Message/Domain/Message';
-import { IRoomReturns } from 'modules/Room/interfaces/RoomReturns';
 
 const debug = Debug('app:module:client');
 
@@ -18,13 +17,11 @@ export class ConnectionManager {
   public Client: Client = {} as Client;
   public RoomsCurrent: Room = {} as Room;
   private RoomsHasAcess: Room[] = {} as Room[];
-  private RoomsCreated: IRoomReturns[] = {} as IRoomReturns[];
-  private alerts: string[] = [];
   private joinRoomService: JoinRoom = {} as JoinRoom;
 
-  constructor(createINewConnection: CreateINewConnection, joinRoom?: JoinRoom) {
+  constructor(createINewConnection: CreateINewConnection) {
     this.newConnection = new NewConnection(createINewConnection);
-    this.joinRoomService = joinRoom || new JoinRoom();
+    this.joinRoomService = new JoinRoom();
   }
 
   public async connect() {
@@ -37,13 +34,6 @@ export class ConnectionManager {
 
     this.Client = client.client;
     this.RoomsHasAcess = client.RoomsHasAcess || [];
-    this.RoomsCreated = client.RoomsCreated || [];
-    this.alerts = client.alerts || [];
-
-    // Sendo Alerts to client
-    this.alerts.forEach(alert => {
-      debug(alert);
-    });
 
     return true;
   }
@@ -67,11 +57,10 @@ export class ConnectionManager {
       return false;
     }
 
-    // this.RoomsCurrent remove client and add new client in new room
     this.RoomsCurrent = room.value;
     this.RoomsCurrent.addClient(this.Client);
 
-    callback && callback(this.RoomsCurrent);
+    if (callback) callback(this.RoomsCurrent);
 
     return true;
   }
@@ -101,10 +90,6 @@ export class ConnectionManager {
     if (callback) {
       callback(String(message.value.data));
     }
-  }
-
-  public async sendVoice(voiceStream: string | Buffer) {
-    debug(voiceStream);
   }
 
   public async changeName(name: string) {

@@ -1,19 +1,21 @@
-import 'newrelic';
+import dotenv from 'dotenv';
+dotenv.config();
+
+if (process.env.NODE_ENV === 'production') {
+  require('newrelic');
+}
+
 import Server from './infra/http/server';
 import { WebSocketServer } from './infra/ws/server';
-import dotenv from 'dotenv';
 import Debug from 'debug';
 
 const debug = Debug('app:server');
-
-dotenv.config();
 
 const server = new Server(process.env.PORT || 5337, false);
 
 const webSocketServerManager = new WebSocketServer();
 const wsServer = webSocketServerManager.createWsServer(server.getServer());
 
-// server.adpter(wsServer);
 server.init();
 
 process.on('SIGTERM', () => {
