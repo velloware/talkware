@@ -12,14 +12,17 @@ export default class CreateUserController {
     if (!bodyParams) {
       throw new AppError('Your request Body is invalid');
     }
+
     if (!bodyParams.email) {
       throw new AppError(`Email is proprety required ${bodyParams.email}`);
     }
+
     if (!bodyParams.password) {
       throw new AppError(
         `Password is proprety required ${bodyParams.password}`,
       );
     }
+
     if (!bodyParams.username) {
       throw new AppError(
         `Username is proprety required ${bodyParams.username}`,

@@ -12,19 +12,16 @@ export class WebSocketServer {
 
   createWsServer(httpServer: http.Server): Server {
     const socket = new Server<SocketDataClient>(httpServer, {
+      path: '/ws',
       cors: {
         origin: '*',
         methods: ['GET', 'POST'],
       },
     });
 
-    this.attachRoutes(socket);
+    new EventsSocketIo(socket).RegisterEvents();
 
     return socket;
-  }
-
-  attachRoutes(socket: Server) {
-    new EventsSocketIo(socket).RegisterEvents();
   }
 
   close(server: Server) {

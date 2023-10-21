@@ -1,12 +1,8 @@
 import { Server, Socket } from 'socket.io';
-import {
-  ConnectionManager,
-  IJoinRoom,
-} from '../../../modules/Client/useCases/ConnectionManager/ConnectionManager';
-import { ConnectionManagerController } from '../../../modules/Client/useCases/ConnectionManager/infra/ws/Controllers/ConnectionManagerController';
+import { ConnectionManager } from '../../../modules/Client/useCases/ConnectionManager/ConnectionManager';
 import ensureAuthenticated from '../middleware/EnsureAuthenticated';
-
 import Debug from 'debug';
+import { Handler } from '../Handlers/handler';
 
 const debug = Debug('app:socket');
 
@@ -22,13 +18,13 @@ export class EventsSocketIo {
     debug(`Connected: ${socket.id}`);
   }
 
-  public onDisconnect(socket: Socket) {
+  public onDisconnect() {
     debug('Disconnected');
   }
 
   public RegisterEvents() {
     this.io.on('connection', async socket => {
-      const connectionManagerController = new ConnectionManagerController(
+      const handler = new Handler(
         socket,
         new ConnectionManager({
           data: socket.data,
@@ -37,12 +33,12 @@ export class EventsSocketIo {
       );
 
       this.onConnection(socket);
-      if (!(await connectionManagerController.connectionManager.connect())) {
+      if (!(await handler.connectionManager.connect())) {
         socket.disconnect();
         return;
       }
 
-      socket.on('disconnect', () => this.onDisconnect(socket));
+      socket.on('disconnect', () => this.onDisconnect());
     });
   }
 }

@@ -51,6 +51,10 @@ export class RoomRepository implements IRoomRepository {
   }
 
   async findRoomById(RoomId: string): Promise<Room | null> {
+    if (!RoomId) {
+      return null;
+    }
+
     const rooms = await prisma.room.findUnique({
       where: {
         id: RoomId,
