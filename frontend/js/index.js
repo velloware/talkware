@@ -40,7 +40,7 @@ const sign_a = document.querySelector('#sign__a');
 login_a.style.display = 'none';
 sign_a.style.display = 'none';
 
-socket = io('ws://localhost:5337/', {
+socket = io(config.URLBACKEND, {
   path: '/ws',
   query: {
     token: tokenUser,
