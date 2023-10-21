@@ -41,10 +41,7 @@ describe('ConnectionManager', () => {
       throw new Error('Room not created');
     }
 
-    const connectionManager = new ConnectionManager(
-      createINewConnection,
-      joinRoom,
-    );
+    const connectionManager = new ConnectionManager(createINewConnection);
     const connect = await connectionManager.connect();
 
     if (!connect) {
