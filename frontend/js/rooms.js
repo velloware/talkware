@@ -12,7 +12,7 @@ export async function getUserRooms() {
 
   const rooms = await response.json();
 
-  if (!rooms) return false;
+  if (!rooms) return [];
 
-  return rooms;
+  return rooms || [];
 }
