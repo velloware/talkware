@@ -39,7 +39,7 @@ const roomList = document.getElementById('listRooms');
 const addRooms = async () => {
   const rooms = await getUserRooms();
 
-  if (!rooms) return;
+  if (!rooms || !rooms.length) return;
 
   rooms.forEach(room => {
     const newDiv = document.createElement('div');
