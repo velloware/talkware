@@ -3,6 +3,8 @@
 let URLBACKEND = 'https://talkware-backend.velloware.com';
 let URLFRONTEND = 'https://talkware.velloware.com';
 
+console.log("Testse1");
+
 if (
   window.location.hostname === 'localhost' ||
   window.location.hostname === '127.0.0.1'
